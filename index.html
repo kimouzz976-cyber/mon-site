@@ -2,7 +2,8 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>EarnFlow - Gagner en ligne</title>
+  <title>EarnFlow - Guide revenus en ligne</title>
+
   <style>
     body {
       margin: 0;
@@ -19,19 +20,19 @@
 
     h1 {
       margin: 0;
-      color: #38bdf8;
       font-size: 40px;
+      color: #38bdf8;
     }
 
-    p {
-      color: #cbd5e1;
+    .subtitle {
       max-width: 650px;
       margin: 10px auto;
+      color: #cbd5e1;
     }
 
     .btn {
       display: inline-block;
-      margin-top: 15px;
+      margin-top: 20px;
       padding: 12px 20px;
       background: #38bdf8;
       color: black;
@@ -40,10 +41,10 @@
       text-decoration: none;
     }
 
-    .section {
+    .container {
       max-width: 1000px;
       margin: auto;
-      padding: 40px 20px;
+      padding: 20px;
     }
 
     .grid {
@@ -56,29 +57,20 @@
       background: #111827;
       padding: 20px;
       border-radius: 12px;
-      transition: 0.3s;
     }
 
-    .card:hover {
-      transform: scale(1.03);
+    .card h3 {
+      margin-top: 0;
+      color: #38bdf8;
     }
 
-    .tag {
-      display: inline-block;
-      padding: 5px 10px;
-      background: #0ea5e9;
-      color: black;
-      border-radius: 8px;
-      font-size: 12px;
-      margin-top: 10px;
+    .card p {
+      color: #cbd5e1;
     }
 
-    input {
-      padding: 12px;
-      width: 70%;
-      border-radius: 8px;
-      border: none;
-      margin-top: 10px;
+    .small {
+      font-size: 13px;
+      color: #94a3b8;
     }
 
     footer {
@@ -87,69 +79,69 @@
       font-size: 12px;
       color: #94a3b8;
     }
+
+    .warning {
+      background: #1f2937;
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 20px;
+      border-left: 4px solid #38bdf8;
+    }
   </style>
 </head>
 
 <body>
 
 <header>
-  <h1>💰 EarnFlow Business</h1>
-  <p>Découvre des méthodes réelles pour générer des revenus en ligne et développer tes compétences digitales.</p>
+  <h1>💰 EarnFlow</h1>
+  <p class="subtitle">
+    Un guide simple pour découvrir des méthodes légales pour générer des revenus en ligne grâce aux plateformes digitales et au freelance.
+  </p>
 
-  <a class="btn" href="#start">🚀 Commencer maintenant</a>
+  <a class="btn" href="#methods">Explorer les méthodes</a>
 </header>
 
-<div class="section" id="start">
+<div class="container">
 
-  <h2>📧 Reçois des méthodes gratuites</h2>
-  <p>Entre ton email pour recevoir des idées pour gagner de l'argent en ligne.</p>
-
-  <input type="email" placeholder="Ton email">
-  <br>
-  <a class="btn" href="#">S'inscrire</a>
+  <div class="warning">
+    ⚠️ Important : ce site est éducatif. Les revenus en ligne demandent du temps et des efforts.
+  </div>
 
 </div>
 
-<div class="section">
+<div class="container" id="methods">
 
-  <h2>💼 Méthodes recommandées</h2>
+  <h2>🚀 Méthodes principales</h2>
 
   <div class="grid">
 
     <div class="card">
       <h3>📊 Sondages</h3>
-      <p>Petits revenus simples en ligne.</p>
-      <a class="btn" href="https://www.attapoll.com" target="_blank">Commencer</a>
+      <p>Répondre à des enquêtes en ligne pour gagner des récompenses.</p>
+      <a class="btn" href="https://www.attapoll.com" target="_blank">Accéder</a>
+      <p class="small">Idéal débutant</p>
     </div>
 
     <div class="card">
       <h3>💼 Freelance</h3>
-      <p>Vends tes compétences sur internet.</p>
-      <a class="btn" href="https://www.fiverr.com" target="_blank">Commencer</a>
+      <p>Vendre ses compétences : design, texte, vidéo, etc.</p>
+      <a class="btn" href="https://www.fiverr.com" target="_blank">Accéder</a>
+      <p class="small">Compétences utiles</p>
     </div>
 
     <div class="card">
       <h3>🎮 Micro-tâches</h3>
-      <p>Petites missions rapides payées.</p>
-      <a class="btn" href="https://www.swagbucks.com" target="_blank">Commencer</a>
+      <p>Petites missions rapides sur internet.</p>
+      <a class="btn" href="https://www.swagbucks.com" target="_blank">Accéder</a>
+      <p class="small">Simple mais lent</p>
     </div>
 
   </div>
-</div>
 
-<div class="section">
-
-  <h2>📈 Objectif du site</h2>
-  <p>
-    Ce site est conçu pour générer du trafic et rediriger vers des plateformes partenaires.
-    C’est la base de l’affiliation et des revenus en ligne.
-  </p>
-
-  <span class="tag">Business</span>
 </div>
 
 <footer>
-  © 2026 EarnFlow Business - Site d'information & affiliation
+  © 2026 EarnFlow - Guide éducatif sur les revenus en ligne
 </footer>
 
 </body>
