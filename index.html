@@ -1,37 +1,458 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Maison Kimouzzz | Produits locaux de Mayotte</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:'Poppins', sans-serif;
+    background:#f8fff7;
+    color:#1b1b1b;
+}
+
+/* NAVBAR */
+
+nav{
+    position:fixed;
+    top:0;
+    width:100%;
+    z-index:1000;
+    background:rgba(0,0,0,0.55);
+    backdrop-filter:blur(10px);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 8%;
+}
+
+.logo{
+    font-size:28px;
+    font-weight:700;
+    color:white;
+}
+
+.logo span{
+    color:#ffb703;
+}
+
+nav ul{
+    display:flex;
+    gap:25px;
+    list-style:none;
+}
+
+nav ul li a{
+    text-decoration:none;
+    color:white;
+    font-weight:500;
+    transition:0.3s;
+}
+
+nav ul li a:hover{
+    color:#ffb703;
+}
+
+/* HERO */
+
+.hero{
+    height:100vh;
+    background:
+    linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+    url('https://images.unsplash.com/photo-1518843875459-f738682238a6?q=80&w=1600&auto=format&fit=crop');
+    background-size:cover;
+    background-position:center;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:20px;
+}
+
+.hero-content{
+    max-width:800px;
+    animation:fadeUp 1s ease;
+}
+
+.hero h1{
+    color:white;
+    font-size:65px;
+    margin-bottom:20px;
+}
+
+.hero h1 span{
+    color:#ffb703;
+}
+
+.hero p{
+    color:white;
+    font-size:22px;
+    margin-bottom:35px;
+}
+
+.buttons{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    padding:15px 32px;
+    border:none;
+    border-radius:50px;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.3s;
+    text-decoration:none;
+}
+
+.btn-main{
+    background:#22c55e;
+    color:white;
+}
+
+.btn-main:hover{
+    background:#16a34a;
+    transform:translateY(-3px);
+}
+
+.btn-second{
+    background:#ffb703;
+    color:black;
+}
+
+.btn-second:hover{
+    background:#fb8500;
+    transform:translateY(-3px);
+}
+
+/* SECTIONS */
+
+section{
+    padding:90px 8%;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:60px;
+}
+
+.section-title h2{
+    font-size:42px;
+    color:#15803d;
+}
+
+.section-title p{
+    color:#555;
+    margin-top:10px;
+}
+
+/* CARDS */
+
+.products{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:30px;
+}
+
+.card{
+    background:white;
+    border-radius:25px;
+    overflow:hidden;
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+    transition:0.4s;
+}
+
+.card:hover{
+    transform:translateY(-10px);
+}
+
+.card img{
+    width:100%;
+    height:230px;
+    object-fit:cover;
+}
+
+.card-content{
+    padding:25px;
+}
+
+.card-content h3{
+    margin-bottom:10px;
+    color:#15803d;
+}
+
+.card-content p{
+    color:#666;
+    font-size:15px;
+}
+
+/* DELIVERY */
+
+.delivery{
+    background:linear-gradient(135deg,#22c55e,#15803d);
+    color:white;
+    border-radius:30px;
+    text-align:center;
+}
+
+.delivery h2{
+    font-size:42px;
+    margin-bottom:20px;
+}
+
+.delivery p{
+    font-size:18px;
+    margin-bottom:30px;
+}
+
+/* CONTACT */
+
+.contact-box{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:30px;
+}
+
+.contact-card{
+    background:white;
+    border-radius:25px;
+    padding:35px;
+    text-align:center;
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+.contact-card h3{
+    margin-bottom:15px;
+    color:#15803d;
+}
+
+/* FOOTER */
+
+footer{
+    background:#0f172a;
+    color:white;
+    text-align:center;
+    padding:35px;
+    margin-top:50px;
+}
+
+/* ANIMATIONS */
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(40px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* RESPONSIVE */
+
+@media(max-width:768px){
+
+    nav{
+        flex-direction:column;
+        gap:15px;
+    }
+
+    .hero h1{
+        font-size:42px;
+    }
+
+    .hero p{
+        font-size:18px;
+    }
+
+    .section-title h2{
+        font-size:32px;
+    }
+
+    .delivery h2{
+        font-size:32px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav>
+    <div class="logo">Maison <span>Kimouzzz</span></div>
+
+    <ul>
+        <li><a href="#accueil">Accueil</a></li>
+        <li><a href="#produits">Produits</a></li>
+        <li><a href="#livraison">Livraison</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
+
+<!-- HERO -->
+
+<section class="hero" id="accueil">
+
+    <div class="hero-content">
+        <h1>Le goût authentique de <span>Mayotte</span></h1>
+
+        <p>
+            Fruits, légumes, viandes et produits locaux frais livrés directement chez vous.
+        </p>
+
+        <div class="buttons">
+
+            <a href="#produits" class="btn btn-main">
+                Voir les produits
+            </a>
+
+            <a href="https://wa.me/269000000000" class="btn btn-second">
+                WhatsApp
+            </a>
+
+        </div>
+    </div>
+
+</section>
+
+<!-- PRODUITS -->
+
 <section id="produits">
-  <h2>🥥 Produits locaux de Mayotte</h2>
 
-  <div class="card">
-    <h3>Manioc</h3>
-    <p>Produit frais local</p>
-    <p>Prix : 3€ / kg</p>
-    <a class="button" href="https://wa.me/TONNUMERO">Commander</a>
-  </div>
+    <div class="section-title">
+        <h2>Nos Produits</h2>
+        <p>Des produits frais et locaux sélectionnés avec qualité</p>
+    </div>
 
-  <div class="card">
-    <h3>Bananes</h3>
-    <p>Bananes fraîches de Mayotte</p>
-    <p>Prix : 2€ / kg</p>
-    <a class="button" href="https://wa.me/TONNUMERO">Commander</a>
-  </div>
+    <div class="products">
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1603048297172-c92544798d5a?q=80&w=1200&auto=format&fit=crop">
+
+            <div class="card-content">
+                <h3>Fruits Tropicaux</h3>
+                <p>
+                    Bananes, mangues, noix de coco et fruits frais de Mayotte.
+                </p>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1200&auto=format&fit=crop">
+
+            <div class="card-content">
+                <h3>Légumes Frais</h3>
+                <p>
+                    Manioc, tomates, salades et légumes cultivés localement.
+                </p>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?q=80&w=1200&auto=format&fit=crop">
+
+            <div class="card-content">
+                <h3>Viandes & Élevage</h3>
+                <p>
+                    Poulets, canards et produits fermiers frais.
+                </p>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=1200&auto=format&fit=crop">
+
+            <div class="card-content">
+                <h3>Épices Locales</h3>
+                <p>
+                    Épices, vanille et spécialités traditionnelles.
+                </p>
+            </div>
+        </div>
+
+    </div>
+
 </section>
 
-<section id="elevage">
-  <h2>🐔 Élevage local</h2>
+<!-- LIVRAISON -->
 
-  <div class="card">
-    <h3>Poulet fermier</h3>
-    <p>Élevé localement</p>
-    <p>Prix : 10€ / unité</p>
-    <a class="button" href="https://wa.me/TONNUMERO">Commander</a>
-  </div>
+<section id="livraison">
 
-  <div class="card">
-    <h3>Canard</h3>
-    <p>Produit local</p>
-    <p>Prix : 15€</p>
-    <a class="button" href="https://wa.me/TONNUMERO">Commander</a>
-  </div>
+    <div class="delivery">
+
+        <h2>Livraison à Mayotte</h2>
+
+        <p>
+            Livraison rapide de produits locaux frais directement chez vous.
+        </p>
+
+        <a href="https://wa.me/269000000000" class="btn btn-second">
+            Commander maintenant
+        </a>
+
+    </div>
+
 </section>
 
-https://wa.me/262XXXXXXXX
+<!-- CONTACT -->
+
+<section id="contact">
+
+    <div class="section-title">
+        <h2>Contact</h2>
+        <p>Contactez Maison Kimouzzz facilement</p>
+    </div>
+
+    <div class="contact-box">
+
+        <div class="contact-card">
+            <h3>WhatsApp</h3>
+            <p>+269 XX XX XX XX</p>
+        </div>
+
+        <div class="contact-card">
+            <h3>Facebook</h3>
+            <p>Maison Kimouzzz</p>
+        </div>
+
+        <div class="contact-card">
+            <h3>Instagram</h3>
+            <p>@maisonkimouzzz</p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+
+    <p>
+        © 2026 Maison Kimouzzz - Produits locaux de Mayotte
+    </p>
+
+</footer>
+
+</body>
+</html>
