@@ -1,11 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Boutique Food & Drinks</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- POPUP AGE -->
+<div id="ageGate">
+  <div class="box">
+    <h2>Accès réservé</h2>
+    <p>Ce site contient des produits alimentaires et des boissons alcoolisées.</p>
+    <button onclick="enterSite(true)">J'ai plus de 18 ans</button>
+    <button onclick="enterSite(false)">J'ai moins de 18 ans</button>
+  </div>
+</div>
+
 <header>
+  <h1>Food & Drinks Shop</h1>
   <nav>
-    <a href="#home">Accueil</a>
-    <a href="#apps">Apps</a>
-    <a href="#airdrops">Airdrops</a>
+    <a href="#food">Food</a>
+    <a href="#drinks">Drinks</a>
   </nav>
 </header>
 
-<section id="home"></section>
-<section id="apps"></section>
-<section id="airdrops"></section>
+<section id="food">
+  <h2>Produits alimentaires</h2>
+
+  <div class="card">
+    <h3>Snack Box</h3>
+    <p>Assortiment de snacks</p>
+    <button>Acheter</button>
+  </div>
+
+  <div class="card">
+    <h3>Pâtes & sauces</h3>
+    <p>Produits du quotidien</p>
+    <button>Acheter</button>
+  </div>
+</section>
+
+<section id="drinks">
+  <h2>Boissons</h2>
+
+  <div class="card">
+    <h3>Boisson gazeuse</h3>
+    <p>Sans alcool</p>
+    <button>Acheter</button>
+  </div>
+
+  <div class="card">
+    <h3>Vin (18+)</h3>
+    <p>Boisson alcoolisée</p>
+    <button>Acheter</button>
+  </div>
+</section>
+
+<script>
+function enterSite(isAdult){
+  if(isAdult){
+    document.getElementById("ageGate").style.display = "none";
+  } else {
+    document.body.innerHTML = "<h1>Accès interdit</h1>";
+  }
+}
+</script>
+
+</body>
+</html>
