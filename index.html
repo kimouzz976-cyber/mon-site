@@ -1,174 +1,254 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>CryptoGuide - Gagner des cryptos gratuitement</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CryptoGuide Pro</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0b1220;
-      color: #e5e7eb;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: radial-gradient(circle at top, #0b1220, #050816);
+  color: #e5e7eb;
+}
 
-    header {
-      background: linear-gradient(90deg, #1e3a8a, #0ea5e9);
-      padding: 30px;
-      text-align: center;
-    }
+/* HEADER */
+header {
+  text-align: center;
+  padding: 40px 20px;
+  background: linear-gradient(90deg, #2563eb, #06b6d4);
+  animation: fadeDown 1s ease;
+}
 
-    header h1 {
-      margin: 0;
-      font-size: 28px;
-    }
+header h1 {
+  margin: 0;
+  font-size: 32px;
+}
 
-    header p {
-      margin-top: 10px;
-      color: #dbeafe;
-    }
+header p {
+  margin-top: 10px;
+  opacity: 0.9;
+}
 
-    nav {
-      background: #111827;
-      padding: 10px;
-      text-align: center;
-    }
+/* NAV */
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 10px;
+  background: #0f172a;
+  position: sticky;
+  top: 0;
+}
 
-    nav a {
-      color: white;
-      margin: 0 15px;
-      text-decoration: none;
-      font-weight: bold;
-    }
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
 
-    .container {
-      max-width: 1000px;
-      margin: auto;
-      padding: 20px;
-    }
+nav a:hover {
+  color: #38bdf8;
+}
 
-    .card {
-      background: #111827;
-      padding: 20px;
-      margin: 20px 0;
-      border-radius: 12px;
-      border: 1px solid #1f2937;
-    }
+/* CONTAINER */
+.container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 20px;
+}
 
-    .card h2 {
-      color: #38bdf8;
-    }
+/* CARD */
+.card {
+  background: rgba(17, 24, 39, 0.9);
+  border: 1px solid #1f2937;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 14px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.4);
+  animation: fadeUp 0.8s ease;
+}
 
-    .tag {
-      display: inline-block;
-      background: #0ea5e9;
-      padding: 5px 10px;
-      border-radius: 8px;
-      font-size: 12px;
-      margin-bottom: 10px;
-    }
+h2 {
+  color: #38bdf8;
+}
 
-    footer {
-      text-align: center;
-      padding: 20px;
-      background: #0f172a;
-      font-size: 12px;
-      color: #94a3b8;
-    }
+/* BUTTON */
+.btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 15px;
+  background: #2563eb;
+  border-radius: 10px;
+  color: white;
+  text-decoration: none;
+  transition: 0.3s;
+}
 
-    .btn {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 10px 15px;
-      background: #0ea5e9;
-      color: white;
-      border-radius: 8px;
-      text-decoration: none;
-    }
+.btn:hover {
+  background: #1d4ed8;
+  transform: scale(1.05);
+}
 
-    .btn:hover {
-      background: #0284c7;
-    }
-  </style>
+/* AIRDROP LIST */
+.airdrop {
+  padding: 10px;
+  margin: 10px 0;
+  background: #0f172a;
+  border-left: 4px solid #38bdf8;
+  border-radius: 8px;
+}
+
+/* INPUT */
+input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  margin-bottom: 10px;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #0f172a;
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+/* ANIMATIONS */
+@keyframes fadeUp {
+  from {opacity: 0; transform: translateY(20px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+@keyframes fadeDown {
+  from {opacity: 0; transform: translateY(-20px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+/* COUNTER */
+.counter {
+  font-size: 24px;
+  color: #22c55e;
+}
+</style>
 </head>
 
 <body>
 
 <header>
-  <h1>💰 CryptoGuide</h1>
-  <p>Comment gagner des cryptomonnaies gratuitement en 2026</p>
+  <h1>💎 CryptoGuide Pro</h1>
+  <p>Gagne des cryptomonnaies gratuitement (airdrop, apps, jeux, learn & earn)</p>
 </header>
 
 <nav>
   <a href="#airdrop">Airdrops</a>
-  <a href="#learn">Learn & Earn</a>
-  <a href="#apps">Applications</a>
-  <a href="#jeux">Jeux</a>
+  <a href="#apps">Apps</a>
+  <a href="#games">Jeux</a>
+  <a href="#earn">Gains</a>
 </nav>
 
 <div class="container">
 
-  <div class="card">
-    <h2>📌 Introduction</h2>
-    <p>
-      Il est possible de gagner des cryptomonnaies gratuitement sans investir d’argent.
-      Cependant, les gains sont souvent faibles mais réguliers si tu t’y prends bien.
-    </p>
-  </div>
+<!-- INTRO -->
+<div class="card">
+  <h2>🚀 Bienvenue</h2>
+  <p>
+    Ce site te montre toutes les méthodes réelles pour gagner de la crypto gratuitement.
+    Tu peux tester des airdrops, applications et jeux Web3.
+  </p>
+</div>
 
-  <div class="card" id="airdrop">
-    <div class="tag">🔥 LE PLUS RENTABLE</div>
-    <h2>🎁 Les Airdrops</h2>
-    <p>
-      Un airdrop est une distribution gratuite de tokens par des projets crypto.
-      Tu dois souvent tester une application ou utiliser une blockchain pour être éligible.
-    </p>
-    <a class="btn" href="#">Trouver des airdrops</a>
-  </div>
+<!-- COUNTER -->
+<div class="card" id="earn">
+  <h2>💰 Simulation de gains</h2>
+  <p>Gains estimés aujourd’hui :</p>
+  <div class="counter" id="counter">0 €</div>
+  <button class="btn" onclick="addGain()">Ajouter un gain</button>
+</div>
 
-  <div class="card" id="learn">
-    <div class="tag">📚 FACILE</div>
-    <h2>🎓 Learn & Earn</h2>
-    <p>
-      Certaines plateformes comme Binance ou Coinbase te paient pour apprendre la crypto.
-      Tu regardes des vidéos puis tu réponds à des questions.
-    </p>
-    <a class="btn" href="#">Commencer à apprendre</a>
-  </div>
+<!-- AIRDROP -->
+<div class="card" id="airdrop">
+  <h2>🎁 Airdrops actifs</h2>
 
-  <div class="card" id="apps">
-    <div class="tag">📱 PASSIF</div>
-    <h2>📲 Applications rémunérées</h2>
-    <p>
-      Certaines applications te donnent des cryptos en échange de tâches simples :
-      navigation, sondages ou connexion internet.
-    </p>
-    <a class="btn" href="#">Voir les apps</a>
-  </div>
+  <input type="text" id="search" onkeyup="filterAirdrops()" placeholder="Rechercher un airdrop...">
 
-  <div class="card" id="jeux">
-    <div class="tag">🎮 FUN</div>
-    <h2>🕹️ Jeux Play-to-Earn</h2>
-    <p>
-      Les jeux blockchain permettent de gagner des tokens en jouant.
-      Plus tu joues, plus tu accumules des récompenses.
-    </p>
-    <a class="btn" href="#">Découvrir les jeux</a>
-  </div>
+  <div id="list">
 
-  <div class="card">
-    <h2>⚠️ Important</h2>
-    <p>
-      Les cryptomonnaies sont risquées et les gains gratuits restent faibles.
-      Ne jamais investir sans comprendre les risques.
-    </p>
+    <div class="airdrop">🔥 Arbitrum Odyssey – test réseau + tâches</div>
+    <div class="airdrop">💎 zkSync Era – interactions DeFi</div>
+    <div class="airdrop">🚀 LayerZero – pont multi-chain</div>
+    <div class="airdrop">🌐 Starknet – usage wallet + swaps</div>
+
   </div>
+</div>
+
+<!-- APPS -->
+<div class="card" id="apps">
+  <h2>📱 Apps pour gagner de la crypto</h2>
+  <p>
+    • Freecash (tâches + sondages)<br>
+    • RollerCoin (minage simulé)<br>
+    • Sweatcoin (marcher = crypto)<br>
+  </p>
+</div>
+
+<!-- GAMES -->
+<div class="card" id="games">
+  <h2>🎮 Jeux Play-to-Earn</h2>
+  <p>
+    • Axie Infinity<br>
+    • Gods Unchained<br>
+    • The Sandbox<br>
+  </p>
+</div>
+
+<!-- CONSEILS -->
+<div class="card">
+  <h2>⚠️ Conseils importants</h2>
+  <p>
+    - Ne jamais payer pour un airdrop suspect<br>
+    - Utiliser un wallet secondaire<br>
+    - Vérifier les projets avant d’investir<br>
+  </p>
+</div>
 
 </div>
 
 <footer>
-  CryptoGuide © 2026 - Site éducatif sur les cryptomonnaies
+  CryptoGuide Pro © 2026 - Site éducatif crypto
 </footer>
+
+<script>
+
+// COMPTEUR DE GAIN
+let total = 0;
+
+function addGain() {
+  let gain = Math.floor(Math.random() * 5) + 1;
+  total += gain;
+  document.getElementById("counter").innerText = total + " €";
+}
+
+// FILTRE AIRDROP
+function filterAirdrops() {
+  let input = document.getElementById("search").value.toLowerCase();
+  let items = document.querySelectorAll(".airdrop");
+
+  items.forEach(item => {
+    if (item.innerText.toLowerCase().includes(input)) {
+      item.style.display = "block";
+    } else {
+      item.style.display = "none";
+    }
+  });
+}
+
+</script>
 
 </body>
 </html>
