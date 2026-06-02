@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Maison Kimouzz - Stable Shop</title>
+<title>Maison Kimouzz - Shopify Pro</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
@@ -11,6 +11,7 @@
 *{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif;}
 body{background:#081420;color:white;}
 
+/* HEADER */
 header{
 position:fixed;
 top:0;
@@ -19,15 +20,24 @@ display:flex;
 justify-content:space-between;
 align-items:center;
 padding:15px;
-background:rgba(0,0,0,0.4);
+background:rgba(0,0,0,0.5);
 backdrop-filter:blur(10px);
 z-index:1000;
 }
 
 .logo{width:45px;height:45px;border-radius:10px}
 
+/* SEARCH */
+.search{
+padding:8px;
+width:200px;
+border-radius:8px;
+border:none;
+}
+
+/* HERO */
 .hero{
-height:80vh;
+height:70vh;
 display:flex;
 justify-content:center;
 align-items:center;
@@ -36,6 +46,7 @@ background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.7)),
 url('https://images.unsplash.com/photo-1542838132-92c53300491e') center/cover;
 }
 
+/* PRODUCTS */
 .section{padding:100px 20px;max-width:1100px;margin:auto;}
 
 .products{
@@ -65,12 +76,12 @@ background:linear-gradient(90deg,#ffdd00,#ff7b00);
 font-weight:bold;
 }
 
-/* PANIER FIXE EN HAUT */
+/* CART */
 .cart{
 position:fixed;
 top:80px;
 right:10px;
-width:300px;
+width:320px;
 background:rgba(0,0,0,0.9);
 padding:15px;
 border-radius:12px;
@@ -80,18 +91,28 @@ z-index:2000;
 .cart-item{
 display:flex;
 justify-content:space-between;
-font-size:14px;
+font-size:13px;
 margin:5px 0;
 }
 
-.total{color:#ffdd00;font-weight:bold}
+.qty{
+display:flex;
+gap:5px;
+align-items:center;
+}
+
+.qty button{
+width:25px;
+height:25px;
+padding:0;
+}
 
 /* ADMIN */
-#adminPanel{
+#admin{
 display:none;
 position:fixed;
 top:80px;
-right:320px;
+right:350px;
 background:#000;
 padding:15px;
 border-radius:10px;
@@ -99,7 +120,8 @@ width:260px;
 z-index:3000;
 }
 
-#toast{
+/* TOAST */
+.toast{
 position:fixed;
 bottom:20px;
 left:50%;
@@ -109,14 +131,6 @@ padding:10px 15px;
 border-radius:10px;
 display:none;
 z-index:9999;
-}
-
-/* CONTACT */
-.contact{
-padding:60px 20px;
-background:#050b16;
-margin-top:50px;
-text-align:center;
 }
 </style>
 </head>
@@ -129,61 +143,54 @@ text-align:center;
 <h3>Maison Kimouzz</h3>
 </div>
 
-<button onclick="loginAdmin()">Admin</button>
+<input class="search" placeholder="Rechercher..." oninput="search(this.value)">
+
+<button onclick="login()">Admin</button>
 </header>
 
-<!-- PANIER (HAUT) -->
-<div class="cart">
-<h3>🛒 Panier</h3>
-<div id="cartList"></div>
-<div class="total">Total: <span id="total">0</span>€</div>
-<button onclick="checkout()">Commander</button>
-</div>
-
+<!-- HERO -->
 <section class="hero">
 <div>
-<h1>Produits de Mayotte</h1>
-<p>Frais • Local • Authentique</p>
+<h1>Shop Maison Kimouzz</h1>
+<p>Version Shopify Pro</p>
 </div>
 </section>
 
+<!-- PRODUCTS -->
 <section class="section">
 <h2>Produits</h2>
 <div class="products" id="productList"></div>
 </section>
 
+<!-- CART -->
+<div class="cart">
+<h3>🛒 Panier</h3>
+<div id="cartList"></div>
+<div>Total: <span id="total">0</span>€</div>
+<button onclick="checkout()">Commander</button>
+</div>
+
 <!-- ADMIN -->
-<div id="adminPanel">
+<div id="admin">
 <h3>Admin</h3>
 <input id="name" placeholder="Nom">
 <input id="price" placeholder="Prix">
-<input id="img" placeholder="Image URL">
+<input id="img" placeholder="Image">
 <input id="stock" placeholder="Stock">
-<button onclick="addProduct()">Ajouter</button>
+<button onclick="add()">Ajouter</button>
 </div>
 
-<div id="toast"></div>
-
-<!-- CONTACT -->
-<div class="contact">
-<h2>Contact</h2>
-<p>📍 Adresse : Mayotte / France</p>
-<p>📧 Email : maisonkimouzz@gmail.com</p>
-<p style="color:#aaa;font-size:13px;margin-top:10px;">Réponse sous 24h</p>
-</div>
+<div class="toast" id="toast"></div>
 
 <script>
 
-console.log("SITE STABLE OK");
-
-/* DATA SAFE */
-let products = JSON.parse(localStorage.getItem("products")) || [
-{name:"Banane verte",price:20,stock:10,img:"https://images.unsplash.com/photo-1603833665858-e61d17a86224"},
-{name:"Œufs",price:8,stock:20,img:"https://images.unsplash.com/photo-1587486913049-53fc88980cfc"}
+/* DATA */
+let products=JSON.parse(localStorage.getItem("products"))||[
+{name:"Banane verte",price:20,stock:10,img:"https://images.unsplash.com/photo-1603833665858-e61d17a86224",cat:"fruit"},
+{name:"Œufs",price:8,stock:20,img:"https://images.unsplash.com/photo-1587486913049-53fc88980cfc",cat:"animal"}
 ];
 
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
-let isAdmin = false;
+let cart=JSON.parse(localStorage.getItem("cart"))||[];
 
 /* SAVE */
 function save(){
@@ -199,20 +206,8 @@ t.style.display="block";
 setTimeout(()=>t.style.display="none",2000);
 }
 
-/* ADMIN */
-function loginAdmin(){
-let pass=prompt("Mot de passe ?");
-if(pass==="1234"){
-isAdmin=true;
-document.getElementById("adminPanel").style.display="block";
-toast("Admin activé");
-}else{
-toast("Erreur mot de passe");
-}
-}
-
-/* PRODUCTS */
-function renderProducts(){
+/* RENDER PRODUCTS */
+function render(){
 let box=document.getElementById("productList");
 box.innerHTML="";
 
@@ -223,86 +218,114 @@ box.innerHTML+=`
 <h3>${p.name}</h3>
 <div class="price">${p.price}€</div>
 <p>Stock: ${p.stock}</p>
-
 <button onclick="add(${i})">Ajouter</button>
-
-${isAdmin?`<button onclick="del(${i})" style="background:red;color:white;">❌ Supprimer</button>`:""}
-
 </div>`;
 });
 }
 
-/* ADD PRODUCT */
-function addProduct(){
-
-let name=document.getElementById("name").value.trim();
-let price=parseFloat(document.getElementById("price").value);
-let img=document.getElementById("img").value.trim();
-let stock=parseInt(document.getElementById("stock").value);
-
-if(!name||!price||!img||!stock){
-toast("Remplis tout !");
-return;
-}
-
-products.push({name,price,img,stock});
-save();
-renderProducts();
-toast("Produit ajouté");
-}
-
-/* DELETE */
-function del(i){
-products.splice(i,1);
-save();
-renderProducts();
-toast("Produit supprimé");
-}
-
 /* CART */
 function add(i){
+if(products[i].stock<=0){toast("Rupture");return;}
 
-if(products[i].stock<=0){
-toast("Rupture stock");
-return;
+let item=cart.find(c=>c.name===products[i].name);
+
+if(item){
+item.qty++;
+}else{
+cart.push({...products[i],qty:1});
 }
 
 products[i].stock--;
-
-cart.push({...products[i],qty:1});
-
 save();
+render();
 renderCart();
-renderProducts();
 }
 
-/* CART UI */
+/* CART RENDER */
 function renderCart(){
 let box=document.getElementById("cartList");
 box.innerHTML="";
 let total=0;
 
-cart.forEach(c=>{
-total+=c.price;
+cart.forEach((c,i)=>{
+total+=c.price*c.qty;
 box.innerHTML+=`
 <div class="cart-item">
 <span>${c.name}</span>
-<span>${c.price}€</span>
+<div class="qty">
+<button onclick="minus(${i})">-</button>
+${c.qty}
+<button onclick="plus(${i})">+</button>
+</div>
 </div>`;
 });
 
 document.getElementById("total").innerText=total;
 }
 
+/* QTY */
+function plus(i){
+cart[i].qty++;
+save();
+renderCart();
+}
+
+function minus(i){
+cart[i].qty--;
+if(cart[i].qty<=0) cart.splice(i,1);
+save();
+renderCart();
+}
+
+/* SEARCH */
+function search(v){
+let box=document.getElementById("productList");
+box.innerHTML="";
+
+products.filter(p=>p.name.toLowerCase().includes(v.toLowerCase()))
+.forEach((p,i)=>{
+box.innerHTML+=`
+<div class="card">
+<img src="${p.img}">
+<h3>${p.name}</h3>
+<div class="price">${p.price}€</div>
+<button onclick="add(${i})">Ajouter</button>
+</div>`;
+});
+}
+
 /* CHECKOUT */
 function checkout(){
 toast("Commande envoyée !");
 cart=[];
+save();
 renderCart();
 }
 
+/* ADMIN */
+function login(){
+let p=prompt("Mot de passe");
+if(p==="1234"){
+document.getElementById("admin").style.display="block";
+toast("Admin OK");
+}
+}
+
+function add(){
+products.push({
+name:name.value,
+price:+price.value,
+img:img.value,
+stock:+stock.value
+});
+
+save();
+render();
+toast("Produit ajouté");
+}
+
 /* INIT */
-renderProducts();
+render();
 renderCart();
 
 </script>
