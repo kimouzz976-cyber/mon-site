@@ -3,24 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Maison Kimouzz - E-commerce Pro</title>
+<title>Maison Kimouzz - Pro Shop</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif;}
-
 body{background:#081420;color:white;}
 
 /* HEADER */
 header{
-position:fixed;
-top:0;
-width:100%;
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:15px;
+position:fixed;top:0;width:100%;
+display:flex;justify-content:space-between;
+align-items:center;padding:15px;
 background:rgba(0,0,0,0.4);
 backdrop-filter:blur(10px);
 z-index:1000;
@@ -31,10 +26,8 @@ z-index:1000;
 
 /* HERO */
 .hero{
-height:90vh;
-display:flex;
-justify-content:center;
-align-items:center;
+height:90vh;display:flex;
+justify-content:center;align-items:center;
 text-align:center;
 background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.7)),
 url('https://images.unsplash.com/photo-1542838132-92c53300491e') center/cover;
@@ -42,12 +35,7 @@ url('https://images.unsplash.com/photo-1542838132-92c53300491e') center/cover;
 
 /* PRODUCTS */
 .section{padding:100px 20px;max-width:1100px;margin:auto;}
-
-.products{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:20px;
-}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;}
 
 .card{
 background:rgba(255,255,255,0.08);
@@ -59,11 +47,8 @@ padding:10px;
 
 .price{color:#ffdd00;font-weight:bold}
 
-/* BUTTON */
 button{
-padding:8px;
-border:none;
-width:100%;
+padding:8px;border:none;width:100%;
 margin-top:5px;
 cursor:pointer;
 border-radius:8px;
@@ -73,31 +58,24 @@ font-weight:bold;
 
 /* CART */
 .cart{
-position:fixed;
-right:10px;
-bottom:10px;
-width:320px;
-background:rgba(0,0,0,0.9);
-padding:15px;
-border-radius:15px;
+position:fixed;right:10px;bottom:10px;
+width:320px;background:rgba(0,0,0,0.9);
+padding:15px;border-radius:15px;
 z-index:2000;
 }
 
 .cart-item{
-display:flex;
-justify-content:space-between;
-font-size:14px;
-margin:5px 0;
+display:flex;justify-content:space-between;
+font-size:14px;margin:5px 0;
 }
 
 .total{color:#ffdd00;font-weight:bold}
 
-/* ADMIN */
+/* ADMIN PANEL */
 #adminPanel{
 display:none;
 position:fixed;
-top:80px;
-right:10px;
+top:80px;right:10px;
 background:#000;
 padding:15px;
 border-radius:10px;
@@ -108,12 +86,40 @@ z-index:3000;
 #adminPanel input{
 width:100%;
 margin:5px 0;
-padding:5px;
+padding:6px;
 }
 
-/* EDIT MODE */
-.editable{
-outline:1px dashed #ffdd00;
+/* POPUP EDIT */
+#popup{
+display:none;
+position:fixed;
+top:50%;left:50%;
+transform:translate(-50%,-50%);
+background:#111;
+padding:20px;
+border-radius:12px;
+z-index:5000;
+width:300px;
+}
+
+#popup input{
+width:100%;
+margin:5px 0;
+padding:6px;
+}
+
+/* TOAST */
+.toast{
+position:fixed;
+bottom:20px;
+left:50%;
+transform:translateX(-50%);
+background:#00c853;
+color:white;
+padding:10px 20px;
+border-radius:10px;
+display:none;
+z-index:9999;
 }
 </style>
 </head>
@@ -149,7 +155,6 @@ outline:1px dashed #ffdd00;
 <div id="cartList"></div>
 <div class="total">Total: <span id="total">0</span>€</div>
 <button onclick="checkout()">Commander</button>
-<button onclick="clearCart()" style="background:#333;color:white;">Vider</button>
 </div>
 
 <!-- ADMIN -->
@@ -158,27 +163,29 @@ outline:1px dashed #ffdd00;
 
 <input id="name" placeholder="Nom">
 <input id="price" placeholder="Prix">
-<input id="img" placeholder="Image URL">
+<input id="img" placeholder="Image">
 <input id="stock" placeholder="Stock">
 
 <button onclick="addProduct()">Ajouter</button>
 </div>
 
+<!-- POPUP EDIT -->
+<div id="popup">
+<h3>Modifier produit</h3>
+<input id="editName">
+<input id="editPrice">
+<input id="editImg">
+<input id="editStock">
+<button onclick="saveEdit()">Sauvegarder</button>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
 <script>
 
-/* ADMIN LOGIN */
 let isAdmin=false;
-
-function loginAdmin(){
-let pass=prompt("Mot de passe admin ?");
-if(pass==="1234"){
-isAdmin=true;
-document.getElementById("adminPanel").style.display="block";
-alert("Accès admin OK");
-}else{
-alert("Mauvais mot de passe");
-}
-}
+let editIndex=null;
 
 /* DATA */
 let products=JSON.parse(localStorage.getItem("products"))||[
@@ -186,12 +193,31 @@ let products=JSON.parse(localStorage.getItem("products"))||[
 {name:"Œufs",price:8,stock:20,img:"https://images.unsplash.com/photo-1587486913049-53fc88980cfc"}
 ];
 
-let cart=JSON.parse(localStorage.getItem("cart"))||[];
+let cart=[];
 
 /* SAVE */
 function save(){
 localStorage.setItem("products",JSON.stringify(products));
-localStorage.setItem("cart",JSON.stringify(cart));
+}
+
+/* LOGIN ADMIN */
+function loginAdmin(){
+let pass=prompt("Mot de passe ?");
+if(pass==="1234"){
+isAdmin=true;
+document.getElementById("adminPanel").style.display="block";
+toast("Accès admin OK");
+}else{
+toast("Erreur mot de passe");
+}
+}
+
+/* TOAST */
+function toast(msg){
+let t=document.getElementById("toast");
+t.innerText=msg;
+t.style.display="block";
+setTimeout(()=>t.style.display="none",2000);
 }
 
 /* PRODUCTS */
@@ -203,20 +229,14 @@ products.forEach((p,i)=>{
 box.innerHTML+=`
 <div class="card">
 <img src="${p.img}">
-
-<h3 contenteditable="${isAdmin}" onblur="edit(${i},'name',this.innerText)">${p.name}</h3>
-
-<div class="price">
-<span contenteditable="${isAdmin}" onblur="edit(${i},'price',this.innerText)">
-${p.price}
-</span>€
-</div>
-
+<h3>${p.name}</h3>
+<div class="price">${p.price}€</div>
 <p>Stock: ${p.stock}</p>
 
 <button onclick="add(${i})">Ajouter</button>
 
 ${isAdmin?`
+<button onclick="openEdit(${i})" style="background:#2196f3;">✏ Modifier</button>
 <button onclick="del(${i})" style="background:red;color:white;">❌ Supprimer</button>
 `:``}
 
@@ -224,49 +244,79 @@ ${isAdmin?`
 });
 }
 
-/* EDIT */
-function edit(i,key,val){
-if(key==="price") val=parseFloat(val);
-products[i][key]=val;
-save();
-renderProducts();
-}
-
 /* ADD PRODUCT */
 function addProduct(){
-products.push({
-name:name.value,
-price:parseFloat(price.value),
-img:img.value,
-stock:parseInt(stock.value)
-});
+
+let name=nameInput().value;
+let price=parseFloat(priceInput().value);
+let img=imgInput().value;
+let stock=parseInt(stockInput().value);
+
+if(!name||!price||!img||!stock){
+toast("Remplis tout !");
+return;
+}
+
+products.push({name,price,img,stock});
 save();
 renderProducts();
+toast("Produit ajouté !");
 }
+
+/* INPUT SHORTCUT */
+const nameInput=()=>document.getElementById("name");
+const priceInput=()=>document.getElementById("price");
+const imgInput=()=>document.getElementById("img");
+const stockInput=()=>document.getElementById("stock");
 
 /* DELETE */
 function del(i){
-if(confirm("Supprimer ?")){
 products.splice(i,1);
 save();
 renderProducts();
+toast("Produit supprimé");
 }
+
+/* EDIT */
+function openEdit(i){
+editIndex=i;
+
+document.getElementById("popup").style.display="block";
+
+document.getElementById("editName").value=products[i].name;
+document.getElementById("editPrice").value=products[i].price;
+document.getElementById("editImg").value=products[i].img;
+document.getElementById("editStock").value=products[i].stock;
+}
+
+function saveEdit(){
+products[editIndex]={
+name:editName.value,
+price:parseFloat(editPrice.value),
+img:editImg.value,
+stock:parseInt(editStock.value)
+};
+
+save();
+renderProducts();
+document.getElementById("popup").style.display="none";
+toast("Produit modifié");
 }
 
 /* CART */
 function add(i){
-if(products[i].stock<=0){alert("Rupture");return;}
+if(products[i].stock<=0){
+toast("Rupture stock");
+return;
+}
 
 products[i].stock--;
 
-let found=cart.find(c=>c.name===products[i].name);
-
-if(found) found.qty++;
-else cart.push({...products[i],qty:1});
+cart.push({...products[i],qty:1});
 
 save();
-renderCart();
 renderProducts();
+renderCart();
 }
 
 function renderCart(){
@@ -275,44 +325,24 @@ box.innerHTML="";
 let total=0;
 
 cart.forEach(c=>{
-total+=c.price*c.qty;
+total+=c.price;
 box.innerHTML+=`
 <div class="cart-item">
-<span>${c.name} x${c.qty}</span>
-<span>${c.price*c.qty}€</span>
+<span>${c.name}</span>
+<span>${c.price}€</span>
 </div>`;
 });
 
 document.getElementById("total").innerText=total;
 }
 
-/* CLEAR */
-function clearCart(){
-cart=[];
-save();
-renderCart();
-}
-
 /* CHECKOUT */
 function checkout(){
-let msg="Commande Maison Kimouzz%0A%0A";
-let total=0;
-
-cart.forEach(i=>{
-total+=i.price*i.qty;
-msg+=`${i.name} x${i.qty} = ${i.price*i.qty}€%0A`;
-});
-
-msg+=`%0ATotal: ${total}€`;
-
-window.open("https://wa.me/33789583650?text="+msg);
-
+toast("Commande envoyée");
 cart=[];
-save();
 renderCart();
 }
 
-/* INIT */
 renderProducts();
 renderCart();
 
