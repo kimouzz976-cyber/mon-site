@@ -6,7 +6,6 @@
 
 <title>Maison Kimouzz - Produits de Mayotte</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -22,7 +21,6 @@ body{
 font-family:'Poppins',sans-serif;
 background:#081420;
 color:white;
-overflow-x:hidden;
 }
 
 /* BACKGROUND */
@@ -42,65 +40,42 @@ header{
 position:fixed;
 top:0;
 width:100%;
-padding:15px 30px;
+padding:15px;
 display:flex;
 justify-content:space-between;
 align-items:center;
 background:rgba(0,0,0,0.35);
-backdrop-filter:blur(14px);
+backdrop-filter:blur(10px);
 z-index:1000;
-border-bottom:1px solid rgba(255,255,255,0.1);
 }
 
 .logo-area{
 display:flex;
+gap:10px;
 align-items:center;
-gap:15px;
 }
 
 .logo{
-width:70px;
-height:70px;
-border-radius:20px;
+width:60px;
+height:60px;
+border-radius:15px;
 object-fit:cover;
-box-shadow:0 5px 20px rgba(0,0,0,0.4);
-}
-
-.brand h1{
-font-size:24px;
-color:#ffe066;
-}
-
-.brand p{
-font-size:13px;
-color:#ddd;
-}
-
-/* NAV */
-nav{
-display:flex;
-gap:20px;
 }
 
 nav a{
 color:white;
+margin:0 10px;
 text-decoration:none;
-font-weight:500;
-transition:0.3s;
-}
-
-nav a:hover{
-color:#ffdd00;
 }
 
 /* HERO */
 .hero{
 min-height:100vh;
 display:flex;
-align-items:center;
 justify-content:center;
+align-items:center;
 text-align:center;
-padding:120px 20px 60px;
+padding:100px 20px;
 background:
 linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.7)),
 url('https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1200');
@@ -108,132 +83,110 @@ background-size:cover;
 background-position:center;
 }
 
-.hero-content{
-max-width:700px;
-animation:fadeIn 1.2s ease;
-}
-
 .hero h2{
-font-size:58px;
-margin-bottom:20px;
-line-height:1.1;
-}
-
-.hero p{
-font-size:20px;
-color:#ffe8a3;
-margin-bottom:30px;
+font-size:45px;
 }
 
 /* SECTION */
 .section{
 padding:80px 20px;
-max-width:1200px;
+max-width:1100px;
 margin:auto;
 }
 
 .section-title{
 text-align:center;
-font-size:40px;
-margin-bottom:15px;
-}
-
-.section-sub{
-text-align:center;
-color:#ccc;
-margin-bottom:50px;
+font-size:38px;
+margin-bottom:20px;
 }
 
 /* PRODUCTS */
 .products{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:25px;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:20px;
 }
 
 .card{
 background:rgba(255,255,255,0.08);
-backdrop-filter:blur(10px);
-border:1px solid rgba(255,255,255,0.08);
-border-radius:25px;
+border-radius:20px;
 overflow:hidden;
-transition:0.4s;
+backdrop-filter:blur(10px);
 }
 
 .card img{
 width:100%;
-height:220px;
+height:200px;
 object-fit:cover;
 }
 
 .card-content{
-padding:20px;
+padding:15px;
 }
 
 .price{
-font-size:22px;
-font-weight:bold;
 color:#ffdd00;
-margin-bottom:15px;
+font-size:20px;
+font-weight:bold;
+margin:10px 0;
 }
 
-.card button{
+button{
+padding:10px;
 width:100%;
-padding:14px;
 border:none;
-border-radius:14px;
 background:linear-gradient(90deg,#ffdd00,#ff7b00);
 font-weight:bold;
 cursor:pointer;
-}
-
-/* AVIS */
-.review-box{
-background:rgba(255,255,255,0.08);
-padding:30px;
-border-radius:25px;
-max-width:700px;
-margin:auto;
-backdrop-filter:blur(10px);
-}
-
-.review-box input,
-.review-box textarea{
-width:100%;
-padding:14px;
-border:none;
-border-radius:12px;
-margin-bottom:15px;
-}
-
-.review-box textarea{
-height:120px;
+border-radius:10px;
 }
 
 /* CART */
 .cart{
 position:fixed;
-right:20px;
-bottom:20px;
-width:320px;
-background:rgba(0,0,0,0.75);
-padding:20px;
-border-radius:20px;
+right:15px;
+bottom:15px;
+width:300px;
+background:rgba(0,0,0,0.85);
+padding:15px;
+border-radius:15px;
+max-height:80vh;
+overflow:auto;
 }
 
 .total{
-margin-top:15px;
-font-size:20px;
-font-weight:bold;
 color:#ffdd00;
+margin-top:10px;
+font-weight:bold;
 }
 
-/* FOOTER */
-footer{
-padding:50px 20px;
-text-align:center;
-background:#020912;
-margin-top:60px;
+/* ADMIN + ORDERS */
+.panel{
+position:fixed;
+left:15px;
+bottom:15px;
+width:300px;
+background:rgba(0,0,0,0.85);
+padding:15px;
+border-radius:15px;
+max-height:80vh;
+overflow:auto;
+}
+
+input{
+width:100%;
+padding:10px;
+margin:5px 0;
+border:none;
+border-radius:8px;
+}
+
+.order{
+background:rgba(255,255,255,0.1);
+padding:10px;
+margin-top:10px;
+border-radius:10px;
+font-size:13px;
 }
 
 </style>
@@ -244,164 +197,174 @@ margin-top:60px;
 <header>
 <div class="logo-area">
 <img class="logo" src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?q=80&w=300">
-<div class="brand">
-<h1>Maison Kimouzz</h1>
-<p>Produits frais de Mayotte 🌴</p>
-</div>
+<h3>Maison Kimouzz</h3>
 </div>
 
 <nav>
 <a href="#products">Produits</a>
-<a href="#avis">Avis</a>
-<a href="#contact">Contact</a>
 </nav>
 </header>
 
 <!-- HERO -->
 <section class="hero">
-<div class="hero-content">
-<h2>Saveurs Authentiques de Mayotte</h2>
-<p>Produits locaux • qualité premium • livraison rapide</p>
+<div>
+<h2>Saveurs de Mayotte</h2>
+<p>Produits frais et locaux</p>
 </div>
 </section>
 
 <!-- PRODUITS -->
 <section class="section" id="products">
-
-<h2 class="section-title">Nos Produits</h2>
-
-<div class="products">
-
-<!-- BANANE -->
-<div class="card">
-<img src="https://images.unsplash.com/photo-1528825871115-3581a5387919?q=80&w=800">
-<div class="card-content">
-<h3>Banane verte</h3>
-<div class="price">20€ / régime</div>
-<button onclick="add('Banane verte',20)">Ajouter</button>
-</div>
-</div>
-
-<!-- OEUFS -->
-<div class="card">
-<img src="https://images.unsplash.com/photo-1587486913049-53fc88980cfc?q=80&w=800">
-<div class="card-content">
-<h3>Œufs frais</h3>
-<div class="price">8€</div>
-<button onclick="add('Œufs',8)">Ajouter</button>
-</div>
-</div>
-
-<!-- POULE -->
-<div class="card">
-<img src="https://images.unsplash.com/photo-1500595046743-cd271d694d30?q=80&w=800">
-<div class="card-content">
-<h3>Poule à la plage</h3>
-<div class="price">10€</div>
-<button onclick="add('Poule',10)">Ajouter</button>
-</div>
-</div>
-
-<!-- CANARD -->
-<div class="card">
-<img src="https://images.unsplash.com/photo-1474511320723-9a56873867b5?q=80&w=800">
-<div class="card-content">
-<h3>Canard</h3>
-<div class="price">35€</div>
-<button onclick="add('Canard',35)">Ajouter</button>
-</div>
-</div>
-
-</div>
-</section>
-
-<!-- AVIS -->
-<section class="section" id="avis">
-
-<h2 class="section-title">Avis des clients</h2>
-
-<div id="listeAvis">
-
-<div class="review-box">
-⭐ ⭐ ⭐ ⭐ ⭐ <br>
-Fatima : Produits frais et livraison rapide
-</div>
-
-<div class="review-box">
-⭐ ⭐ ⭐ ⭐ ⭐ <br>
-Ali : Très bon service
-</div>
-
-</div>
-
-<br>
-
-<div class="review-box">
-<h3>Donnez votre avis</h3>
-<input id="nom" placeholder="Votre prénom">
-<textarea id="avis" placeholder="Votre avis"></textarea>
-<button onclick="ajouterAvis()">Envoyer</button>
-</div>
-
+<h2 class="section-title">Produits</h2>
+<div class="products"></div>
 </section>
 
 <!-- PANIER -->
 <div class="cart">
 <h3>🛒 Panier</h3>
 <div id="cart"></div>
-<div class="total">Total : <span id="total">0</span>€</div>
-<button onclick="payNow()">Payer maintenant</button>
+<div class="total">Total: <span id="total">0</span>€</div>
 
-<p style="color:#ccc;font-size:12px;text-align:center;margin-top:10px;">
-💳 Paiement par carte bancaire bientôt disponible
+<button onclick="checkout()">Commander</button>
+<button onclick="generatePDF()">Facture PDF</button>
+
+<p style="font-size:12px;color:#ccc;margin-top:10px;">
+💳 Paiement carte bancaire bientôt disponible
 </p>
 </div>
 
-<!-- FOOTER -->
-<footer id="contact">
-<h2>Maison Kimouzz</h2>
-<p>Contact : 07 89 58 36 50</p>
-</footer>
+<!-- ADMIN -->
+<div class="panel">
+<h3>⚙️ Admin Produits</h3>
+
+<input id="pname" placeholder="Nom">
+<input id="pprice" placeholder="Prix">
+<input id="pimg" placeholder="Image URL">
+
+<button onclick="addProduct()">Ajouter</button>
+
+<hr style="margin:10px 0">
+
+<h4>📦 Commandes</h4>
+<div id="orders"></div>
+</div>
 
 <script>
 
 let cart = [];
+let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+let products = [
+{name:"Banane verte",price:20,img:"https://images.unsplash.com/photo-1528825871115-3581a5387919"},
+{name:"Œufs",price:8,img:"https://images.unsplash.com/photo-1587486913049-53fc88980cfc"},
+{name:"Poule à la plage",price:10,img:"https://images.unsplash.com/photo-1500595046743-cd271d694d30"},
+{name:"Canard",price:35,img:"https://images.unsplash.com/photo-1474511320723-9a56873867b5"}
+];
+
+function renderProducts(){
+let c = document.querySelector(".products");
+c.innerHTML = "";
+
+products.forEach(p=>{
+c.innerHTML += `
+<div class="card">
+<img src="${p.img}">
+<div class="card-content">
+<h3>${p.name}</h3>
+<div class="price">${p.price}€</div>
+<button onclick="add('${p.name}',${p.price})">Ajouter</button>
+</div>
+</div>
+`;
+});
+}
 
 function add(name,price){
 cart.push({name,price});
-render();
+renderCart();
 }
 
-function render(){
+function renderCart(){
 let c = document.getElementById("cart");
 c.innerHTML = "";
 let total = 0;
 
-cart.forEach(item=>{
-total += item.price;
-c.innerHTML += `<div>${item.name} - ${item.price}€</div>`;
+cart.forEach(i=>{
+total += i.price;
+c.innerHTML += `<div>${i.name} - ${i.price}€</div>`;
 });
 
 document.getElementById("total").innerText = total;
 }
 
-function payNow(){
-alert("💳 Paiement par carte bancaire bientôt disponible");
+function checkout(){
+
+if(cart.length === 0) return;
+
+let total = cart.reduce((a,b)=>a+b.price,0);
+
+orders.push({cart,total,date:new Date().toLocaleString()});
+localStorage.setItem("orders",JSON.stringify(orders));
+
+renderOrders();
+
+let msg = "Commande:%0A";
+cart.forEach(i=>{
+msg += "- "+i.name+" "+i.price+"€%0A";
+});
+
+msg += "Total:"+total+"€";
+
+window.open("https://wa.me/33789583650?text="+msg,"_blank");
+
+window.location.href =
+"mailto:maisonkimouzz@gmail.com?subject=Commande&body="+msg;
+
+cart = [];
+renderCart();
 }
 
-function ajouterAvis(){
-let nom = document.getElementById("nom").value;
-let texte = document.getElementById("avis").value;
+function renderOrders(){
+let o = document.getElementById("orders");
+o.innerHTML = "";
 
-let div = document.createElement("div");
-div.classList.add("review-box");
-div.innerHTML = "⭐ ⭐ ⭐ ⭐ ⭐ <br>" + nom + " : " + texte;
-
-document.getElementById("listeAvis").appendChild(div);
-
-document.getElementById("nom").value = "";
-document.getElementById("avis").value = "";
+orders.forEach((ord,i)=>{
+o.innerHTML += `
+<div class="order">
+<b>Commande ${i+1}</b><br>
+${ord.date}<br>
+Total: ${ord.total}€
+</div>
+`;
+});
 }
+
+function addProduct(){
+let n = document.getElementById("pname").value;
+let p = document.getElementById("pprice").value;
+let i = document.getElementById("pimg").value;
+
+products.push({name:n,price:Number(p),img:i});
+renderProducts();
+}
+
+function generatePDF(){
+
+let total = cart.reduce((a,b)=>a+b.price,0);
+
+let w = window.open("");
+w.document.write(`
+<h1>Facture Maison Kimouzz</h1>
+<p>Date: ${new Date()}</p>
+<hr>
+${cart.map(i=>`<p>${i.name} - ${i.price}€</p>`).join("")}
+<h2>Total: ${total}€</h2>
+`);
+w.print();
+}
+
+renderProducts();
+renderOrders();
 
 </script>
 
