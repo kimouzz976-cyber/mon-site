@@ -184,7 +184,8 @@ header p{
 }
 
 .order-btn,
-.clear-btn{
+.clear-btn,
+.mail-btn{
   width:100%;
   margin-top:10px;
   padding:12px;
@@ -196,6 +197,11 @@ header p{
 
 .order-btn{
   background:#25D366;
+}
+
+.mail-btn{
+  background:#0077ff;
+  color:white;
 }
 
 .clear-btn{
@@ -264,7 +270,7 @@ footer{
 
 <header>
 
-  <!-- LOGO AVEC IMAGE DE SECOURS -->
+  <!-- LOGO -->
   <img 
   src="images/logo.jpg"
   alt="Maison Kimouzz Logo"
@@ -289,33 +295,7 @@ footer{
   </div>
 </div>
 
-<div class="section-title">🔥 Meilleures ventes</div>
-
-<div class="products">
-
-  <div class="card">
-    <div class="icon">🍌</div>
-    <h3>Banane</h3>
-    <div class="price">20€ / kg</div>
-    <button onclick="add('Banane',20)">Ajouter</button>
-  </div>
-
-  <div class="card">
-    <div class="icon">🍗</div>
-    <h3>Poulet fermier</h3>
-    <div class="price">10€</div>
-    <button onclick="add('Poulet',10)">Ajouter</button>
-  </div>
-
-  <div class="card">
-    <div class="icon">🥚</div>
-    <h3>Œufs frais</h3>
-    <div class="price">8€</div>
-    <button onclick="add('Œufs',8)">Ajouter</button>
-  </div>
-
-</div>
-
+<!-- TOUS LES PRODUITS -->
 <div class="section-title">🛒 Tous les produits</div>
 
 <div class="products" id="products">
@@ -367,8 +347,14 @@ footer{
     Total : <span id="total">0</span>€
   </div>
 
-  <button id="orderBtn" class="order-btn" onclick="order()">
+  <!-- COMMANDE WHATSAPP -->
+  <button id="orderBtn" class="order-btn" onclick="orderWhatsapp()">
     Commander WhatsApp
+  </button>
+
+  <!-- COMMANDE EMAIL -->
+  <button class="mail-btn" onclick="orderMail()">
+    Commander par Email
   </button>
 
   <button class="clear-btn" onclick="clearCart()">
@@ -387,7 +373,16 @@ footer{
 <footer>
   <h2>Maison Kimouzz</h2>
   <p>📍 281 route Ampadza, 97670 Chiconi</p>
-  <p>📩 maisonkimouzz@gmail.com</p>
+
+  <!-- EMAIL CLIQUABLE -->
+  <p>
+    📩 
+    <a href="mailto:maisonkimouzz@gmail.com"
+    style="color:#ffe066;text-decoration:none;">
+    maisonkimouzz@gmail.com
+    </a>
+  </p>
+
   <p>📞 07 89 58 36 50</p>
 </footer>
 
@@ -447,23 +442,50 @@ function removeItem(i){
   render();
 }
 
-function order(){
+/* COMMANDE WHATSAPP */
+function orderWhatsapp(){
 
-  let msg = "🛒 Commande Maison Kimouzz\n\n";
+  let msg = "🛒 Bonjour Maison Kimouzz,%0A%0A";
+  msg += "Je souhaite commander :%0A%0A";
+
   let total = 0;
 
   cart.forEach(item=>{
-    msg += "- " + item.name + " : " + item.price + "€\n";
+    msg += "- " + item.name + " : " + item.price + "€%0A";
     total += item.price;
   });
 
-  msg += "\n💰 Total : " + total + "€";
+  msg += "%0A💰 Total : " + total + "€%0A%0A";
+  msg += "🙏 Merci pour votre commande chez Maison Kimouzz.";
 
   window.open(
-    "https://wa.me/33789583650?text="
-    + encodeURIComponent(msg),
+    "https://wa.me/33789583650?text=" + msg,
     "_blank"
   );
+}
+
+/* COMMANDE EMAIL */
+function orderMail(){
+
+  let subject = "Commande Maison Kimouzz";
+
+  let body = "Bonjour Maison Kimouzz,%0D%0A%0D%0A";
+  body += "Je souhaite commander :%0D%0A%0D%0A";
+
+  let total = 0;
+
+  cart.forEach(item=>{
+    body += "- " + item.name + " : " + item.price + "€%0D%0A";
+    total += item.price;
+  });
+
+  body += "%0D%0A💰 Total : " + total + "€%0D%0A%0D%0A";
+  body += "🙏 Merci pour votre accueil et vos produits.";
+
+  window.location.href =
+    "mailto:maisonkimouzz@gmail.com?subject="
+    + subject +
+    "&body=" + body;
 }
 </script>
 
