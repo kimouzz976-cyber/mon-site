@@ -104,7 +104,6 @@ height:25px;
 padding:0;
 }
 
-/* ACTIONS */
 .actions{
 display:flex;
 gap:5px;
@@ -277,7 +276,7 @@ save();
 renderCart();
 }
 
-/* CLEAR CART */
+/* CLEAR */
 function clearCart(){
 cart=[];
 save();
@@ -285,7 +284,7 @@ renderCart();
 toast("Panier vidé");
 }
 
-/* SEARCH FIX */
+/* SEARCH */
 function search(v){
 let box=document.getElementById("productList");
 box.innerHTML="";
@@ -303,14 +302,37 @@ box.innerHTML+=`
 });
 }
 
-/* CHECKOUT */
+/* CHECKOUT FINAL (WHATSAPP + EMAIL) */
 function checkout(){
 if(cart.length===0){
 toast("Panier vide");
 return;
 }
 
-toast("Commande envoyée !");
+let msg="🛒 Commande Maison Kimouzz%0A%0A";
+let total=0;
+
+cart.forEach(i=>{
+msg+=`${i.name} x${i.qty} - ${i.price*i.qty}€%0A`;
+total+=i.price*i.qty;
+});
+
+msg+=`%0A💰 TOTAL: ${total}€`;
+
+/* WHATSAPP */
+window.open(
+"https://wa.me/262639123456?text="+encodeURIComponent(msg),
+"_blank"
+);
+
+/* EMAIL BACKUP */
+setTimeout(()=>{
+window.location.href =
+"mailto:maisonkimouzz@gmail.com?subject=Commande Maison Kimouzz&body="+encodeURIComponent(msg);
+},1000);
+
+toast("Commande envoyée 📦");
+
 cart=[];
 save();
 renderCart();
