@@ -3,31 +3,37 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Maison Kimouzz - Pro Shop</title>
+<title>Maison Kimouzz - Shop Clean</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif;}
+
 body{background:#081420;color:white;}
 
 /* HEADER */
 header{
-position:fixed;top:0;width:100%;
-display:flex;justify-content:space-between;
-align-items:center;padding:15px;
+position:fixed;
+top:0;
+width:100%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px;
 background:rgba(0,0,0,0.4);
 backdrop-filter:blur(10px);
 z-index:1000;
 }
 
-.logo-area{display:flex;gap:10px;align-items:center}
 .logo{width:50px;height:50px;border-radius:12px}
 
 /* HERO */
 .hero{
-height:90vh;display:flex;
-justify-content:center;align-items:center;
+height:90vh;
+display:flex;
+justify-content:center;
+align-items:center;
 text-align:center;
 background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.7)),
 url('https://images.unsplash.com/photo-1542838132-92c53300491e') center/cover;
@@ -35,12 +41,17 @@ url('https://images.unsplash.com/photo-1542838132-92c53300491e') center/cover;
 
 /* PRODUCTS */
 .section{padding:100px 20px;max-width:1100px;margin:auto;}
-.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;}
+
+.products{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+}
 
 .card{
 background:rgba(255,255,255,0.08);
-border-radius:15px;
 padding:10px;
+border-radius:12px;
 }
 
 .card img{width:100%;height:150px;object-fit:cover;border-radius:10px}
@@ -48,64 +59,67 @@ padding:10px;
 .price{color:#ffdd00;font-weight:bold}
 
 button{
-padding:8px;border:none;width:100%;
+padding:8px;
+width:100%;
 margin-top:5px;
-cursor:pointer;
+border:none;
 border-radius:8px;
 background:linear-gradient(90deg,#ffdd00,#ff7b00);
 font-weight:bold;
+cursor:pointer;
 }
 
 /* CART */
 .cart{
-position:fixed;right:10px;bottom:10px;
-width:320px;background:rgba(0,0,0,0.9);
-padding:15px;border-radius:15px;
-z-index:2000;
+position:fixed;
+right:10px;
+bottom:10px;
+width:300px;
+background:rgba(0,0,0,0.9);
+padding:15px;
+border-radius:12px;
 }
 
 .cart-item{
-display:flex;justify-content:space-between;
-font-size:14px;margin:5px 0;
+display:flex;
+justify-content:space-between;
+font-size:14px;
+margin:5px 0;
 }
 
 .total{color:#ffdd00;font-weight:bold}
 
-/* ADMIN PANEL */
+/* ADMIN */
 #adminPanel{
 display:none;
 position:fixed;
-top:80px;right:10px;
+top:80px;
+right:10px;
 background:#000;
 padding:15px;
 border-radius:10px;
-width:260px;
+width:250px;
 z-index:3000;
 }
 
 #adminPanel input{
 width:100%;
 margin:5px 0;
-padding:6px;
+padding:5px;
 }
 
-/* POPUP EDIT */
+/* POPUP */
 #popup{
 display:none;
 position:fixed;
-top:50%;left:50%;
+top:50%;
+left:50%;
 transform:translate(-50%,-50%);
 background:#111;
-padding:20px;
-border-radius:12px;
+padding:15px;
+border-radius:10px;
+width:280px;
 z-index:5000;
-width:300px;
-}
-
-#popup input{
-width:100%;
-margin:5px 0;
-padding:6px;
 }
 
 /* TOAST */
@@ -115,8 +129,7 @@ bottom:20px;
 left:50%;
 transform:translateX(-50%);
 background:#00c853;
-color:white;
-padding:10px 20px;
+padding:10px 15px;
 border-radius:10px;
 display:none;
 z-index:9999;
@@ -127,7 +140,7 @@ z-index:9999;
 <body>
 
 <header>
-<div class="logo-area">
+<div style="display:flex;gap:10px;align-items:center;">
 <img class="logo" src="https://images.unsplash.com/photo-1606787366850-de6330128bfc">
 <h3>Maison Kimouzz</h3>
 </div>
@@ -160,22 +173,20 @@ z-index:9999;
 <!-- ADMIN -->
 <div id="adminPanel">
 <h3>Admin</h3>
-
 <input id="name" placeholder="Nom">
 <input id="price" placeholder="Prix">
-<input id="img" placeholder="Image">
+<input id="img" placeholder="Image URL">
 <input id="stock" placeholder="Stock">
-
 <button onclick="addProduct()">Ajouter</button>
 </div>
 
-<!-- POPUP EDIT -->
+<!-- EDIT POPUP -->
 <div id="popup">
 <h3>Modifier produit</h3>
-<input id="editName">
-<input id="editPrice">
-<input id="editImg">
-<input id="editStock">
+<input id="eName">
+<input id="ePrice">
+<input id="eImg">
+<input id="eStock">
 <button onclick="saveEdit()">Sauvegarder</button>
 </div>
 
@@ -184,32 +195,21 @@ z-index:9999;
 
 <script>
 
-let isAdmin=false;
-let editIndex=null;
+console.log("SITE OK");
 
 /* DATA */
-let products=JSON.parse(localStorage.getItem("products"))||[
-{name:"Banane verte",price:20,stock:10,img:"https://images.unsplash.com/photo-1603833665858-e61d17a86224"},
-{name:"Œufs",price:8,stock:20,img:"https://images.unsplash.com/photo-1587486913049-53fc88980cfc"}
+let products = JSON.parse(localStorage.getItem("products")) || [
+{name:"Banane verte",price:20,img:"https://images.unsplash.com/photo-1603833665858-e61d17a86224",stock:10},
+{name:"Œufs",price:8,img:"https://images.unsplash.com/photo-1587486913049-53fc88980cfc",stock:20}
 ];
 
 let cart=[];
+let isAdmin=false;
+let editIndex=null;
 
 /* SAVE */
 function save(){
 localStorage.setItem("products",JSON.stringify(products));
-}
-
-/* LOGIN ADMIN */
-function loginAdmin(){
-let pass=prompt("Mot de passe ?");
-if(pass==="1234"){
-isAdmin=true;
-document.getElementById("adminPanel").style.display="block";
-toast("Accès admin OK");
-}else{
-toast("Erreur mot de passe");
-}
 }
 
 /* TOAST */
@@ -218,6 +218,16 @@ let t=document.getElementById("toast");
 t.innerText=msg;
 t.style.display="block";
 setTimeout(()=>t.style.display="none",2000);
+}
+
+/* ADMIN LOGIN */
+function loginAdmin(){
+let pass=prompt("Mot de passe admin ?");
+if(pass==="1234"){
+isAdmin=true;
+document.getElementById("adminPanel").style.display="block";
+toast("Admin OK");
+}else toast("Erreur");
 }
 
 /* PRODUCTS */
@@ -236,8 +246,8 @@ box.innerHTML+=`
 <button onclick="add(${i})">Ajouter</button>
 
 ${isAdmin?`
-<button onclick="openEdit(${i})" style="background:#2196f3;">✏ Modifier</button>
-<button onclick="del(${i})" style="background:red;color:white;">❌ Supprimer</button>
+<button onclick="openEdit(${i})">✏ Modifier</button>
+<button onclick="del(${i})" style="background:red;color:white;">❌</button>
 `:``}
 
 </div>`;
@@ -247,68 +257,58 @@ ${isAdmin?`
 /* ADD PRODUCT */
 function addProduct(){
 
-let name=nameInput().value;
-let price=parseFloat(priceInput().value);
-let img=imgInput().value;
-let stock=parseInt(stockInput().value);
+let name=document.getElementById("name").value;
+let price=parseFloat(document.getElementById("price").value);
+let img=document.getElementById("img").value;
+let stock=parseInt(document.getElementById("stock").value);
 
 if(!name||!price||!img||!stock){
-toast("Remplis tout !");
+toast("Remplis tout");
 return;
 }
 
 products.push({name,price,img,stock});
 save();
 renderProducts();
-toast("Produit ajouté !");
+toast("Ajout OK");
 }
-
-/* INPUT SHORTCUT */
-const nameInput=()=>document.getElementById("name");
-const priceInput=()=>document.getElementById("price");
-const imgInput=()=>document.getElementById("img");
-const stockInput=()=>document.getElementById("stock");
 
 /* DELETE */
 function del(i){
 products.splice(i,1);
 save();
 renderProducts();
-toast("Produit supprimé");
+toast("Supprimé");
 }
 
 /* EDIT */
 function openEdit(i){
 editIndex=i;
-
 document.getElementById("popup").style.display="block";
 
-document.getElementById("editName").value=products[i].name;
-document.getElementById("editPrice").value=products[i].price;
-document.getElementById("editImg").value=products[i].img;
-document.getElementById("editStock").value=products[i].stock;
+eName.value=products[i].name;
+ePrice.value=products[i].price;
+eImg.value=products[i].img;
+eStock.value=products[i].stock;
 }
 
 function saveEdit(){
 products[editIndex]={
-name:editName.value,
-price:parseFloat(editPrice.value),
-img:editImg.value,
-stock:parseInt(editStock.value)
+name:eName.value,
+price:parseFloat(ePrice.value),
+img:eImg.value,
+stock:parseInt(eStock.value)
 };
 
 save();
 renderProducts();
 document.getElementById("popup").style.display="none";
-toast("Produit modifié");
+toast("Modifié");
 }
 
 /* CART */
 function add(i){
-if(products[i].stock<=0){
-toast("Rupture stock");
-return;
-}
+if(products[i].stock<=0){toast("Rupture");return;}
 
 products[i].stock--;
 
@@ -319,6 +319,7 @@ renderProducts();
 renderCart();
 }
 
+/* CART UI */
 function renderCart(){
 let box=document.getElementById("cartList");
 box.innerHTML="";
