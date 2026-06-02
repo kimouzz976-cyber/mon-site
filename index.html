@@ -1,49 +1,189 @@
-<section id="contact" style="padding:50px; background:#f4f6f8; font-family:Arial;">
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maison Kimouzz - Boutique</title>
 
-  <h2 style="text-align:center; color:#222;">🏪 Maison Kimouzz</h2>
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:#0f172a;
+  color:white;
+}
 
-  <div style="max-width:800px; margin:auto; background:white; padding:25px; border-radius:12px; box-shadow:0 0 12px rgba(0,0,0,0.1);">
+header{
+  padding:20px;
+  text-align:center;
+  background:#111827;
+}
 
-    <!-- CONTACT -->
-    <h3>📞 Contact officiel</h3>
+h1{margin:0;}
 
-    <p style="font-size:16px;">
-      📧 Email : <strong>Maisonkimouzz@gmail.com</strong>
-    </p>
+.products{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:15px;
+  padding:20px;
+}
 
-    <p style="font-size:16px;">
-      📱 Téléphone : <strong>+33 7 89 58 36 50</strong>
-    </p>
+.card{
+  background:#1f2937;
+  padding:15px;
+  border-radius:12px;
+  text-align:center;
+}
 
-    <hr style="margin:20px 0;">
+.card button{
+  background:#38bdf8;
+  border:none;
+  padding:10px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:bold;
+}
 
-    <!-- BOUTIQUE -->
-    <h3>🛒 Produits disponibles</h3>
+.card button:hover{
+  background:#0ea5e9;
+}
 
-    <ul style="list-style:none; padding:0;">
+.cart{
+  position:fixed;
+  right:10px;
+  top:10px;
+  width:280px;
+  background:#111827;
+  padding:15px;
+  border-radius:12px;
+}
 
-      <li style="padding:10px; border-bottom:1px solid #eee;">
-        🍌 Banane — <strong>à partir de 20€</strong>
-      </li>
+.cart h3{
+  margin-top:0;
+}
 
-      <li style="padding:10px; border-bottom:1px solid #eee;">
-        🥚 Œufs — <strong>9€ le plateau</strong>
-      </li>
+.item{
+  display:flex;
+  justify-content:space-between;
+  margin:5px 0;
+}
 
-      <li style="padding:10px; border-bottom:1px solid #eee;">
-        🍗 Poulet — <strong>10€</strong>
-      </li>
+.remove{
+  color:red;
+  cursor:pointer;
+}
 
-      <li style="padding:10px; border-bottom:1px solid #eee;">
-        🦆 Canard — <strong>35€ / 40€ (déplumé)</strong>
-      </li>
+.total{
+  margin-top:10px;
+  font-weight:bold;
+}
 
-    </ul>
+.order-btn{
+  width:100%;
+  margin-top:10px;
+  padding:10px;
+  background:#25D366;
+  border:none;
+  border-radius:8px;
+  font-weight:bold;
+  cursor:pointer;
+}
+</style>
+</head>
 
-    <p style="margin-top:20px; font-size:14px; color:#666;">
-      📍 Adresse : 281 route Ampadza, 97670 Chiconi
-    </p>
+<body>
 
+<header>
+<h1>🛒 Maison Kimouzz Boutique</h1>
+<p>Produits frais de Mayotte</p>
+</header>
+
+<!-- PRODUITS -->
+<div class="products">
+
+  <div class="card">
+    <h3>Banane</h3>
+    <p>2€ / kg</p>
+    <button onclick="add('Banane',2)">Ajouter</button>
   </div>
 
-</section>
+  <div class="card">
+    <h3>Œufs</h3>
+    <p>3€ / plateau</p>
+    <button onclick="add('Œufs',3)">Ajouter</button>
+  </div>
+
+  <div class="card">
+    <h3>Poulet</h3>
+    <p>8€</p>
+    <button onclick="add('Poulet',8)">Ajouter</button>
+  </div>
+
+  <div class="card">
+    <h3>Canard</h3>
+    <p>10€</p>
+    <button onclick="add('Canard',10)">Ajouter</button>
+  </div>
+
+</div>
+
+<!-- PANIER -->
+<div class="cart">
+<h3>🧺 Panier</h3>
+<div id="cart"></div>
+
+<div class="total">
+Total : <span id="total">0</span>€
+</div>
+
+<button class="order-btn" onclick="order()">Commander WhatsApp</button>
+</div>
+
+<script>
+let cart = [];
+
+function add(name, price){
+  cart.push({name, price});
+  render();
+}
+
+function removeItem(index){
+  cart.splice(index,1);
+  render();
+}
+
+function render(){
+  let cartDiv = document.getElementById("cart");
+  cartDiv.innerHTML = "";
+
+  let total = 0;
+
+  cart.forEach((item,i)=>{
+    total += item.price;
+
+    cartDiv.innerHTML += `
+      <div class="item">
+        ${item.name} - ${item.price}€
+        <span class="remove" onclick="removeItem(${i})">x</span>
+      </div>
+    `;
+  });
+
+  document.getElementById("total").innerText = total;
+}
+
+function order(){
+  let msg = "Bonjour, je veux commander :\n";
+
+  cart.forEach(item=>{
+    msg += "- " + item.name + " " + item.price + "€\n";
+  });
+
+  let url = "https://wa.me/33789583650?text=" + encodeURIComponent(msg);
+
+  window.open(url, "_blank");
+}
+</script>
+
+</body>
+</html>
