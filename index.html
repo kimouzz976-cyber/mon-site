@@ -1,109 +1,189 @@
-<section id="contact" class="contact">
-  <div class="contact-container">
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maison Kimouzz - Boutique</title>
 
-    <h2>📞 Contact & Commande</h2>
-    <p>Commandez facilement vos produits frais de Mayotte directement ici.</p>
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:#0f172a;
+  color:white;
+}
 
-    <div class="contact-box">
+header{
+  padding:20px;
+  text-align:center;
+  background:#111827;
+}
 
-      <!-- INFOS -->
-      <div class="contact-info">
-        <h3>📍 Adresse</h3>
-        <p>281 route Ampadza<br>97670 Chiconi</p>
+h1{margin:0;}
 
-        <h3>📞 Téléphone / WhatsApp</h3>
-        <p><a href="tel:0789583650">07 89 58 36 50</a></p>
+.products{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:15px;
+  padding:20px;
+}
 
-        <h3>🕒 Horaires</h3>
-        <p>Lun - Sam : 8h00 - 18h00</p>
+.card{
+  background:#1f2937;
+  padding:15px;
+  border-radius:12px;
+  text-align:center;
+}
 
-        <h3>🚚 Livraison</h3>
-        <p>Disponible selon zone</p>
-      </div>
+.card button{
+  background:#38bdf8;
+  border:none;
+  padding:10px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:bold;
+}
 
-      <!-- FORMULAIRE -->
-      <form class="contact-form">
-        <input type="text" placeholder="Votre nom" required>
-        <input type="email" placeholder="Votre email" required>
-        <textarea placeholder="Votre commande (produits + quantité)" rows="6" required></textarea>
-        <button type="submit">Envoyer la commande</button>
-      </form>
+.card button:hover{
+  background:#0ea5e9;
+}
 
-    </div>
+.cart{
+  position:fixed;
+  right:10px;
+  top:10px;
+  width:280px;
+  background:#111827;
+  padding:15px;
+  border-radius:12px;
+}
+
+.cart h3{
+  margin-top:0;
+}
+
+.item{
+  display:flex;
+  justify-content:space-between;
+  margin:5px 0;
+}
+
+.remove{
+  color:red;
+  cursor:pointer;
+}
+
+.total{
+  margin-top:10px;
+  font-weight:bold;
+}
+
+.order-btn{
+  width:100%;
+  margin-top:10px;
+  padding:10px;
+  background:#25D366;
+  border:none;
+  border-radius:8px;
+  font-weight:bold;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>🛒 Maison Kimouzz Boutique</h1>
+<p>Produits frais de Mayotte</p>
+</header>
+
+<!-- PRODUITS -->
+<div class="products">
+
+  <div class="card">
+    <h3>Banane</h3>
+    <p>2€ / kg</p>
+    <button onclick="add('Banane',2)">Ajouter</button>
   </div>
-</section>
 
-.contact {
-  padding: 70px 20px;
-  background: #0f172a;
-  color: white;
+  <div class="card">
+    <h3>Œufs</h3>
+    <p>3€ / plateau</p>
+    <button onclick="add('Œufs',3)">Ajouter</button>
+  </div>
+
+  <div class="card">
+    <h3>Poulet</h3>
+    <p>8€</p>
+    <button onclick="add('Poulet',8)">Ajouter</button>
+  </div>
+
+  <div class="card">
+    <h3>Canard</h3>
+    <p>10€</p>
+    <button onclick="add('Canard',10)">Ajouter</button>
+  </div>
+
+</div>
+
+<!-- PANIER -->
+<div class="cart">
+<h3>🧺 Panier</h3>
+<div id="cart"></div>
+
+<div class="total">
+Total : <span id="total">0</span>€
+</div>
+
+<button class="order-btn" onclick="order()">Commander WhatsApp</button>
+</div>
+
+<script>
+let cart = [];
+
+function add(name, price){
+  cart.push({name, price});
+  render();
 }
 
-.contact-container {
-  max-width: 1000px;
-  margin: auto;
-  text-align: center;
+function removeItem(index){
+  cart.splice(index,1);
+  render();
 }
 
-.contact h2 {
-  font-size: 36px;
-  margin-bottom: 10px;
+function render(){
+  let cartDiv = document.getElementById("cart");
+  cartDiv.innerHTML = "";
+
+  let total = 0;
+
+  cart.forEach((item,i)=>{
+    total += item.price;
+
+    cartDiv.innerHTML += `
+      <div class="item">
+        ${item.name} - ${item.price}€
+        <span class="remove" onclick="removeItem(${i})">x</span>
+      </div>
+    `;
+  });
+
+  document.getElementById("total").innerText = total;
 }
 
-.contact p {
-  color: #cbd5e1;
-}
+function order(){
+  let msg = "Bonjour, je veux commander :\n";
 
-.contact-box {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 30px;
-  margin-top: 40px;
-  background: #1e293b;
-  padding: 25px;
-  border-radius: 15px;
-}
+  cart.forEach(item=>{
+    msg += "- " + item.name + " " + item.price + "€\n";
+  });
 
-.contact-info h3 {
-  color: #38bdf8;
-  margin-top: 15px;
-}
+  let url = "https://wa.me/33789583650?text=" + encodeURIComponent(msg);
 
-.contact-info a {
-  color: #facc15;
-  text-decoration: none;
-  font-weight: bold;
+  window.open(url, "_blank");
 }
+</script>
 
-.contact-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.contact-form input,
-.contact-form textarea {
-  padding: 12px;
-  border-radius: 10px;
-  border: none;
-  outline: none;
-}
-
-.contact-form button {
-  background: #38bdf8;
-  padding: 12px;
-  border: none;
-  border-radius: 10px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.contact-form button:hover {
-  background: #0ea5e9;
-}
-
-@media (max-width: 768px) {
-  .contact-box {
-    grid-template-columns: 1fr;
-  }
-}
+</body>
+</html>
