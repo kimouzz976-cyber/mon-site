@@ -16,7 +16,6 @@ body{
 font-family:'Poppins',sans-serif;
 background:#081420;
 color:white;
-overflow-x:hidden;
 }
 
 body::before{
@@ -43,15 +42,8 @@ backdrop-filter:blur(10px);
 z-index:1000;
 }
 
-.logo-area{
-display:flex;
-gap:10px;
-align-items:center;
-}
-
-.logo{
-width:60px;height:60px;border-radius:15px;object-fit:cover;
-}
+.logo-area{display:flex;gap:10px;align-items:center;}
+.logo{width:60px;height:60px;border-radius:15px;object-fit:cover;}
 
 nav a{color:white;margin:0 10px;text-decoration:none;}
 
@@ -68,14 +60,7 @@ background-size:cover;
 background-position:center;
 }
 
-.hero h2{font-size:45px;}
-
-.section{
-padding:80px 20px;
-max-width:1100px;
-margin:auto;
-}
-
+.section{padding:80px 20px;max-width:1100px;margin:auto;}
 .section-title{text-align:center;font-size:38px;margin-bottom:20px;}
 
 .products{
@@ -88,14 +73,9 @@ gap:20px;
 background:rgba(255,255,255,0.08);
 border-radius:20px;
 overflow:hidden;
-backdrop-filter:blur(10px);
 }
 
-.card img{
-width:100%;
-height:200px;
-object-fit:cover;
-}
+.card img{width:100%;height:200px;object-fit:cover;}
 
 .card-content{padding:15px;}
 
@@ -107,7 +87,8 @@ margin:10px 0;
 }
 
 button{
-padding:10px;width:100%;
+padding:10px;
+width:100%;
 border:none;
 background:linear-gradient(90deg,#ffdd00,#ff7b00);
 font-weight:bold;
@@ -115,31 +96,7 @@ cursor:pointer;
 border-radius:10px;
 }
 
-/* AVIS */
-.service{
-background:rgba(255,255,255,0.07);
-padding:20px;
-border-radius:15px;
-margin-bottom:10px;
-}
-
-.review-box{
-background:rgba(255,255,255,0.08);
-padding:20px;
-border-radius:20px;
-margin-top:20px;
-}
-
-input,textarea{
-width:100%;
-padding:12px;
-margin:10px 0;
-border:none;
-border-radius:10px;
-}
-
-textarea{height:100px;}
-
+/* CART */
 .cart{
 position:fixed;
 right:15px;
@@ -154,25 +111,12 @@ overflow:auto;
 
 .total{color:#ffdd00;margin-top:10px;font-weight:bold;}
 
-/* ADMIN */
-.panel{
-position:fixed;
-left:15px;
-bottom:15px;
-width:300px;
-background:rgba(0,0,0,0.85);
-padding:15px;
+/* ORDERS */
+.orders{
+background:rgba(255,255,255,0.05);
+padding:20px;
 border-radius:15px;
-max-height:80vh;
-overflow:auto;
-}
-
-.order{
-background:rgba(255,255,255,0.1);
-padding:10px;
-margin-top:10px;
-border-radius:10px;
-font-size:12px;
+margin-top:20px;
 }
 
 </style>
@@ -189,6 +133,7 @@ font-size:12px;
 <nav>
 <a href="#products">Produits</a>
 <a href="#avis">Avis</a>
+<a href="#orders">Commandes</a>
 </nav>
 </header>
 
@@ -202,100 +147,77 @@ font-size:12px;
 
 <!-- PRODUITS -->
 <section class="section" id="products">
+
 <h2 class="section-title">Nos Produits</h2>
 
-<div class="products" id="productsList"></div>
-</section>
+<div class="products">
 
-<!-- AVIS -->
-<section class="section" id="avis">
-
-<h2 class="section-title">Avis clients</h2>
-
-<div id="listeAvis">
-
-<div class="service">
-⭐ ⭐ ⭐ ⭐ ⭐
-<h3>Fatima</h3>
-<p>Produits très frais 👍</p>
+<div class="card">
+<img src="https://images.unsplash.com/photo-1603833665858-e61d17a86224">
+<div class="card-content">
+<h3>Banane verte</h3>
+<div class="price">20€ / régime</div>
+<button onclick="add('Banane verte',20)">Ajouter</button>
+</div>
 </div>
 
-<div class="service">
-⭐ ⭐ ⭐ ⭐ ⭐
-<h3>Ali</h3>
-<p>Service excellent</p>
+<div class="card">
+<img src="https://images.unsplash.com/photo-1587486913049-53fc88980cfc">
+<div class="card-content">
+<h3>Œufs</h3>
+<div class="price">8€</div>
+<button onclick="add('Œufs',8)">Ajouter</button>
+</div>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1500595046743-cd271d694d30">
+<div class="card-content">
+<h3>Poule</h3>
+<div class="price">10€</div>
+<button onclick="add('Poule',10)">Ajouter</button>
+</div>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1474511320723-9a56873867b5">
+<div class="card-content">
+<h3>Canard</h3>
+<div class="price">35€</div>
+<button onclick="add('Canard',35)">Ajouter</button>
+</div>
 </div>
 
 </div>
-
-<div class="review-box">
-<input id="nomAvis" placeholder="Nom">
-<textarea id="texteAvis" placeholder="Avis"></textarea>
-<button onclick="ajouterAvis()">Envoyer</button>
-</div>
-
 </section>
 
 <!-- PANIER -->
 <div class="cart">
 <h3>🛒 Panier</h3>
 <div id="cart"></div>
-<div class="total">Total: <span id="total">0</span>€</div>
+
+<div class="total">
+Total: <span id="total">0</span>€
+</div>
 
 <button onclick="checkout()">Commander</button>
-<button onclick="generatePDF()">Facture PDF</button>
+<button onclick="facture()">Facture PDF</button>
 
 <p style="color:#ccc;font-size:12px;text-align:center;">
-💳 Carte bancaire bientôt
+💳 Carte bancaire bientôt disponible (Stripe)
 </p>
-
 </div>
 
-<!-- ADMIN -->
-<div class="panel">
-<h3>⚙️ Admin</h3>
-
-<input id="pname" placeholder="Nom">
-<input id="pprice" placeholder="Prix">
-<input id="pimg" placeholder="Image URL">
-
-<button onclick="addProduct()">Ajouter</button>
-
-<hr>
-
-<h4>Commandes</h4>
-<div id="orders"></div>
-
-</div>
+<!-- COMMANDES -->
+<section class="section" id="orders">
+<h2 class="section-title">📦 Commandes</h2>
+<div id="ordersList"></div>
+</section>
 
 <script>
 
 let cart=[];
 let orders=JSON.parse(localStorage.getItem("orders"))||[];
-
-let products=[
-{name:"Banane verte",price:20,img:"https://images.unsplash.com/photo-1603833665858-e61d17a86224"},
-{name:"Œufs",price:8,img:"https://images.unsplash.com/photo-1587486913049-53fc88980cfc"},
-{name:"Poule",price:10,img:"https://images.unsplash.com/photo-1500595046743-cd271d694d30"},
-{name:"Canard",price:35,img:"https://images.unsplash.com/photo-1474511320723-9a56873867b5"}
-];
-
-function renderProducts(){
-let c=document.getElementById("productsList");
-c.innerHTML="";
-
-products.forEach(p=>{
-c.innerHTML+=`
-<div class="card">
-<img src="${p.img}">
-<div class="card-content">
-<h3>${p.name}</h3>
-<div class="price">${p.price}€</div>
-<button onclick="add('${p.name}',${p.price})">Ajouter</button>
-</div>
-</div>`;
-});
-}
 
 function add(n,p){
 cart.push({name:n,price:p});
@@ -315,67 +237,67 @@ c.innerHTML+=`<div>${i.name} - ${i.price}€</div>`;
 document.getElementById("total").innerText=t;
 }
 
+function saveOrder(total){
+orders.push({cart,total,date:new Date().toLocaleString()});
+localStorage.setItem("orders",JSON.stringify(orders));
+renderOrders();
+}
+
+function renderOrders(){
+let box=document.getElementById("ordersList");
+box.innerHTML="";
+
+orders.forEach((o,i)=>{
+box.innerHTML+=`
+<div class="orders">
+<h3>Commande #${i+1}</h3>
+<p>${o.date}</p>
+<p><b>${o.total}€</b></p>
+</div>`;
+});
+}
+
 function checkout(){
 
 if(cart.length===0)return;
 
 let total=cart.reduce((a,b)=>a+b.price,0);
 
-orders.push({cart,total,date:new Date().toLocaleString()});
-localStorage.setItem("orders",JSON.stringify(orders));
+let msg="🛒 Commande Maison Kimouzz%0A%0A";
 
-renderOrders();
+cart.forEach(i=>{
+msg+="- "+i.name+" "+i.price+"€%0A";
+});
 
-let msg="Commande:%0A";
-cart.forEach(i=>msg+="- "+i.name+" "+i.price+"€%0A");
-msg+="Total:"+total+"€";
+msg+="%0ATotal:"+total+"€";
 
+saveOrder(total);
+
+// WhatsApp
 window.open("https://wa.me/33789583650?text="+msg,"_blank");
+
+// Email
 window.location.href="mailto:maisonkimouzz@gmail.com?subject=Commande&body="+msg;
 
 cart=[];
 renderCart();
 }
 
-function renderOrders(){
-let o=document.getElementById("orders");
-o.innerHTML="";
-orders.forEach((x,i)=>{
-o.innerHTML+=`<div class="order">#${i+1}<br>${x.date}<br>${x.total}€</div>`;
-});
-}
+function facture(){
 
-function generatePDF(){
-let t=cart.reduce((a,b)=>a+b.price,0);
+let total=cart.reduce((a,b)=>a+b.price,0);
+
 let w=window.open("");
-w.document.write(`<h1>Facture Kimouzz</h1>${cart.map(i=>`<p>${i.name}-${i.price}€</p>`).join("")}<h2>Total:${t}€</h2>`);
+w.document.write("<h1>Facture Maison Kimouzz</h1>");
+
+cart.forEach(i=>{
+w.document.write("<p>"+i.name+" - "+i.price+"€</p>");
+});
+
+w.document.write("<h2>Total: "+total+"€</h2>");
 w.print();
 }
 
-function addProduct(){
-let n=document.getElementById("pname").value;
-let p=document.getElementById("pprice").value;
-let i=document.getElementById("pimg").value;
-
-products.push({name:n,price:+p,img:i});
-renderProducts();
-}
-
-function ajouterAvis(){
-let n=document.getElementById("nomAvis").value;
-let t=document.getElementById("texteAvis").value;
-
-let d=document.createElement("div");
-d.className="service";
-d.innerHTML="⭐ ⭐ ⭐ ⭐ ⭐<h3>"+n+"</h3><p>"+t+"</p>";
-
-document.getElementById("listeAvis").appendChild(d);
-
-document.getElementById("nomAvis").value="";
-document.getElementById("texteAvis").value="";
-}
-
-renderProducts();
 renderOrders();
 
 </script>
