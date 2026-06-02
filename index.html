@@ -96,17 +96,23 @@ cursor:pointer;
 border-radius:10px;
 }
 
-/* CART */
+/* CART DRAGGABLE */
 .cart{
 position:fixed;
-right:15px;
-bottom:15px;
-width:300px;
+right:20px;
+bottom:20px;
+width:320px;
 background:rgba(0,0,0,0.85);
 padding:15px;
 border-radius:15px;
 max-height:80vh;
 overflow:auto;
+cursor:grab;
+z-index:999;
+}
+
+.cart:active{
+cursor:grabbing;
 }
 
 .total{color:#ffdd00;margin-top:10px;font-weight:bold;}
@@ -132,7 +138,6 @@ margin-top:20px;
 
 <nav>
 <a href="#products">Produits</a>
-<a href="#avis">Avis</a>
 <a href="#orders">Commandes</a>
 </nav>
 </header>
@@ -192,20 +197,19 @@ margin-top:20px;
 </section>
 
 <!-- PANIER -->
-<div class="cart">
+<div class="cart" id="cart">
 <h3>🛒 Panier</h3>
-<div id="cart"></div>
+<div id="cartList"></div>
 
-<div class="total">
-Total: <span id="total">0</span>€
-</div>
+<div class="total">Total: <span id="total">0</span>€</div>
 
 <button onclick="checkout()">Commander</button>
 <button onclick="facture()">Facture PDF</button>
 
 <p style="color:#ccc;font-size:12px;text-align:center;">
-💳 Carte bancaire bientôt disponible (Stripe)
+💳 Paiement par carte bancaire bientôt (Stripe)
 </p>
+
 </div>
 
 <!-- COMMANDES -->
@@ -219,13 +223,36 @@ Total: <span id="total">0</span>€
 let cart=[];
 let orders=JSON.parse(localStorage.getItem("orders"))||[];
 
+/* PANIER DRAG */
+const cartBox=document.getElementById("cart");
+let isDragging=false;
+let offsetX,offsetY;
+
+cartBox.addEventListener("mousedown",(e)=>{
+isDragging=true;
+offsetX=e.clientX-cartBox.getBoundingClientRect().left;
+offsetY=e.clientY-cartBox.getBoundingClientRect().top;
+});
+
+document.addEventListener("mousemove",(e)=>{
+if(!isDragging) return;
+cartBox.style.left=(e.clientX-offsetX)+"px";
+cartBox.style.top=(e.clientY-offsetY)+"px";
+cartBox.style.right="auto";
+cartBox.style.bottom="auto";
+cartBox.style.position="fixed";
+});
+
+document.addEventListener("mouseup",()=>isDragging=false);
+
+/* PRODUITS */
 function add(n,p){
 cart.push({name:n,price:p});
 renderCart();
 }
 
 function renderCart(){
-let c=document.getElementById("cart");
+let c=document.getElementById("cartList");
 c.innerHTML="";
 let t=0;
 
@@ -237,6 +264,7 @@ c.innerHTML+=`<div>${i.name} - ${i.price}€</div>`;
 document.getElementById("total").innerText=t;
 }
 
+/* COMMANDES */
 function saveOrder(total){
 orders.push({cart,total,date:new Date().toLocaleString()});
 localStorage.setItem("orders",JSON.stringify(orders));
@@ -257,9 +285,10 @@ box.innerHTML+=`
 });
 }
 
+/* CHECKOUT */
 function checkout(){
 
-if(cart.length===0)return;
+if(cart.length===0) return;
 
 let total=cart.reduce((a,b)=>a+b.price,0);
 
@@ -283,17 +312,14 @@ cart=[];
 renderCart();
 }
 
+/* FACTURE */
 function facture(){
-
 let total=cart.reduce((a,b)=>a+b.price,0);
-
 let w=window.open("");
 w.document.write("<h1>Facture Maison Kimouzz</h1>");
-
 cart.forEach(i=>{
 w.document.write("<p>"+i.name+" - "+i.price+"€</p>");
 });
-
 w.document.write("<h2>Total: "+total+"€</h2>");
 w.print();
 }
