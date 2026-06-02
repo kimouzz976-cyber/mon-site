@@ -1,42 +1,54 @@
-<section id="contact" style="padding:50px; background:#f7f7f7; font-family:Arial;">
+<section id="boutique" style="padding:50px; background:#f4f6f8; font-family:Arial;">
 
-  <h2 style="text-align:center; color:#222;">Maison Kimouzz</h2>
+  <h2 style="text-align:center;">🛒 Boutique Maison Kimouzz</h2>
 
-  <div style="max-width:800px; margin:auto; background:white; padding:20px; border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.1);">
+  <div style="display:flex; flex-wrap:wrap; gap:20px; justify-content:center; margin-top:30px;">
 
-    <!-- CONTACT -->
-    <h3>Contact</h3>
-    <p><strong>Email :</strong> maisonkimouzz@gmail.com</p>
+    <!-- PRODUIT 1 -->
+    <div style="width:250px; background:white; padding:15px; border-radius:12px; box-shadow:0 0 10px rgba(0,0,0,0.1); text-align:center;">
+      <h3>🍌 Banane</h3>
+      <p>À partir de <strong>20€</strong></p>
+      <button onclick="commander('Banane', '20€')" style="padding:10px; background:green; color:white; border:none; border-radius:8px; cursor:pointer;">
+        Commander
+      </button>
+    </div>
 
-    <hr style="margin:20px 0;">
+    <!-- PRODUIT 2 -->
+    <div style="width:250px; background:white; padding:15px; border-radius:12px; box-shadow:0 0 10px rgba(0,0,0,0.1); text-align:center;">
+      <h3>🥚 Œufs</h3>
+      <p>9€ le plateau</p>
+      <button onclick="commander('Œufs', '9€')" style="padding:10px; background:green; color:white; border:none; border-radius:8px; cursor:pointer;">
+        Commander
+      </button>
+    </div>
 
-    <!-- PRODUITS -->
-    <h3>Boutique / Produits disponibles</h3>
+    <!-- PRODUIT 3 -->
+    <div style="width:250px; background:white; padding:15px; border-radius:12px; box-shadow:0 0 10px rgba(0,0,0,0.1); text-align:center;">
+      <h3>🍗 Poulet</h3>
+      <p>10€</p>
+      <button onclick="commander('Poulet', '10€')" style="padding:10px; background:green; color:white; border:none; border-radius:8px; cursor:pointer;">
+        Commander
+      </button>
+    </div>
 
-    <ul style="list-style:none; padding:0;">
-
-      <li style="padding:10px; border-bottom:1px solid #eee;">
-        🍌 Banane — <strong>à partir de 20€</strong>
-      </li>
-
-      <li style="padding:10px; border-bottom:1px solid #eee;">
-        🥚 Œufs — <strong>9€ le plateau</strong>
-      </li>
-
-      <li style="padding:10px; border-bottom:1px solid #eee;">
-        🍗 Poulet — <strong>10€</strong>
-      </li>
-
-      <li style="padding:10px; border-bottom:1px solid #eee;">
-        🦆 Canard — <strong>35€ / 40€ (si déplumé)</strong>
-      </li>
-
-    </ul>
-
-    <p style="margin-top:20px; font-size:14px; color:#666;">
-      📍 Adresse : 281 route Ampadza, 97670 Chiconi
-    </p>
+    <!-- PRODUIT 4 -->
+    <div style="width:250px; background:white; padding:15px; border-radius:12px; box-shadow:0 0 10px rgba(0,0,0,0.1); text-align:center;">
+      <h3>🦆 Canard</h3>
+      <p>35€ / 40€ (déplumé)</p>
+      <button onclick="commander('Canard', '35-40€')" style="padding:10px; background:green; color:white; border:none; border-radius:8px; cursor:pointer;">
+        Commander
+      </button>
+    </div>
 
   </div>
 
 </section>
+
+<script>
+function commander(produit, prix) {
+    let numero = "270789583650"; // numéro WhatsApp (format international)
+    let message = "Bonjour, je souhaite commander : " + produit + " (" + prix + ")";
+    let url = "https://wa.me/" + numero + "?text=" + encodeURIComponent(message);
+    window.open(url, "_blank");
+}
+</script>
