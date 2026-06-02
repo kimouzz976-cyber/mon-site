@@ -39,28 +39,56 @@ header p{
   padding:25px;
 }
 
+/* ANIMATION STYLE AMAZON */
 .card{
   background:#1f2937;
-  padding:18px;
+  padding:15px;
   border-radius:14px;
   text-align:center;
-  transition:0.3s;
+  transition:0.3s ease;
   box-shadow:0 0 0 transparent;
+
+  opacity:0;
+  transform:translateY(20px);
+  animation:fadeIn 0.6s forwards;
+}
+
+.card:nth-child(1){animation-delay:0.1s;}
+.card:nth-child(2){animation-delay:0.2s;}
+.card:nth-child(3){animation-delay:0.3s;}
+.card:nth-child(4){animation-delay:0.4s;}
+
+@keyframes fadeIn{
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
 }
 
 .card:hover{
-  transform:translateY(-5px);
-  box-shadow:0 10px 25px rgba(0,0,0,0.4);
+  transform:translateY(-8px) scale(1.03);
+  box-shadow:0 15px 30px rgba(0,0,0,0.5);
 }
 
+/* IMAGE PRODUIT */
+.card img{
+  width:100%;
+  height:140px;
+  object-fit:cover;
+  border-radius:10px;
+  margin-bottom:10px;
+}
+
+/* TEXTE */
 .card h3{
-  margin-bottom:5px;
+  margin:8px 0 5px;
 }
 
 .card p{
   color:#cbd5e1;
 }
 
+/* BOUTON */
 .card button{
   background:#38bdf8;
   border:none;
@@ -86,10 +114,6 @@ header p{
   padding:15px;
   border-radius:12px;
   border:1px solid #1f2937;
-}
-
-.cart h3{
-  margin-top:0;
 }
 
 .item{
@@ -121,7 +145,7 @@ header p{
   cursor:pointer;
 }
 
-/* FOOTER / INFOS */
+/* FOOTER */
 footer{
   margin-top:40px;
   background:#0b1220;
@@ -132,12 +156,7 @@ footer{
 }
 
 footer h2{
-  margin-bottom:10px;
   color:white;
-}
-
-footer p{
-  margin:5px 0;
 }
 </style>
 </head>
@@ -153,24 +172,28 @@ footer p{
 <div class="products">
 
   <div class="card">
+    <img src="https://images.unsplash.com/photo-1574226516831-e1dff420e8d9" alt="Banane">
     <h3>Banane</h3>
     <p>20€ / kg (à partir de)</p>
     <button onclick="add('Banane',20)">Ajouter</button>
   </div>
 
   <div class="card">
+    <img src="https://images.unsplash.com/photo-1582284540020-8acbe03f492e" alt="Œufs">
     <h3>Œufs</h3>
     <p>8€ / plateau</p>
     <button onclick="add('Œufs',8)">Ajouter</button>
   </div>
 
   <div class="card">
+    <img src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d" alt="Poulet">
     <h3>Poulet</h3>
     <p>10€</p>
     <button onclick="add('Poulet',10)">Ajouter</button>
   </div>
 
   <div class="card">
+    <img src="https://images.unsplash.com/photo-1604908554162-45f6b1b7b7a6" alt="Canard">
     <h3>Canard</h3>
     <p>35€ à 40€ (déplumé)</p>
     <button onclick="add('Canard',35)">Ajouter</button>
@@ -190,7 +213,7 @@ footer p{
   <button class="order-btn" onclick="order()">Commander WhatsApp</button>
 </div>
 
-<!-- FOOTER / INFOS -->
+<!-- FOOTER -->
 <footer>
   <h2>Maison Kimouzz</h2>
   <p><strong>Email :</strong> maisonkimouzz@gmail.com</p>
