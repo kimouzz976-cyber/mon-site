@@ -13,6 +13,17 @@ body{
   background: linear-gradient(180deg,#ffb703,#fb8500,#023047);
 }
 
+/* HEADER */
+header{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  padding:15px;
+  text-align:center;
+  background:rgba(0,0,0,0.4);
+  backdrop-filter: blur(10px);
+}
+
 /* HERO */
 .hero{
   text-align:center;
@@ -33,15 +44,19 @@ body{
   cursor:pointer;
 }
 
-/* HEADER */
-header{
-  position:sticky;
-  top:0;
-  z-index:1000;
-  padding:15px;
+/* SEARCH */
+.search{
   text-align:center;
-  background:rgba(0,0,0,0.4);
-  backdrop-filter: blur(10px);
+  margin-top:15px;
+}
+
+.search input{
+  width:80%;
+  max-width:400px;
+  padding:10px;
+  border-radius:20px;
+  border:none;
+  outline:none;
 }
 
 /* PRODUITS */
@@ -52,7 +67,6 @@ header{
   padding:25px;
 }
 
-/* CARD */
 .card{
   background:rgba(255,255,255,0.15);
   backdrop-filter: blur(10px);
@@ -61,20 +75,37 @@ header{
   text-align:center;
   transition:0.3s;
   border:1px solid rgba(255,255,255,0.2);
+  animation:fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(20px);}
+  to{opacity:1; transform:translateY(0);}
 }
 
 .card:hover{
   transform:translateY(-8px) scale(1.03);
 }
 
-/* ICONES */
+/* ICON */
 .icon{
   font-size:55px;
   margin:10px 0;
-  filter: drop-shadow(0 5px 10px rgba(0,0,0,0.3));
 }
 
-/* PRIX */
+/* BADGE */
+.badge{
+  background:#ffdd00;
+  color:black;
+  font-size:12px;
+  padding:3px 8px;
+  border-radius:10px;
+  display:inline-block;
+  margin-bottom:5px;
+  font-weight:bold;
+}
+
+/* PRICE */
 .price{
   color:#ffe066;
   font-weight:bold;
@@ -98,9 +129,11 @@ header{
   right:15px;
   top:90px;
   width:300px;
-  background:rgba(0,0,0,0.5);
+  background:rgba(0,0,0,0.6);
   padding:15px;
   border-radius:15px;
+  max-height:70vh;
+  overflow:auto;
 }
 
 .item{
@@ -117,16 +150,18 @@ header{
   color:#ffe066;
 }
 
-.order-btn{
+.order-btn, .clear-btn{
   width:100%;
   margin-top:10px;
   padding:12px;
-  background:#25D366;
   border:none;
   border-radius:12px;
   font-weight:bold;
   cursor:pointer;
 }
+
+.order-btn{background:#25D366;}
+.clear-btn{background:#ff3b3b; color:white;}
 
 /* FOOTER */
 footer{
@@ -159,12 +194,17 @@ footer{
   <button onclick="document.querySelector('.products').scrollIntoView({behavior:'smooth'})">
     Commander maintenant
   </button>
+
+  <div class="search">
+    <input type="text" id="search" placeholder="🔎 Rechercher un produit..." onkeyup="filterProducts()">
+  </div>
 </div>
 
 <!-- PRODUITS -->
-<div class="products">
+<div class="products" id="products">
 
   <div class="card">
+    <div class="badge">Populaire</div>
     <div class="icon">🍌</div>
     <h3>Banane</h3>
     <div class="price">20€ / kg</div>
@@ -213,34 +253,6 @@ footer{
     <button onclick="add('Vanille',0)">Ajouter</button>
   </div>
 
-  <div class="card">
-    <div class="icon">🥬</div>
-    <h3>Salade</h3>
-    <div class="price">Sur demande</div>
-    <button onclick="add('Salade',0)">Ajouter</button>
-  </div>
-
-  <div class="card">
-    <div class="icon">🍅</div>
-    <h3>Tomate</h3>
-    <div class="price">Sur demande</div>
-    <button onclick="add('Tomate',0)">Ajouter</button>
-  </div>
-
-  <div class="card">
-    <div class="icon">🟡</div>
-    <h3>Curcuma</h3>
-    <div class="price">Sur demande</div>
-    <button onclick="add('Curcuma',0)">Ajouter</button>
-  </div>
-
-  <div class="card">
-    <div class="icon">🌱</div>
-    <h3>Songe</h3>
-    <div class="price">Sur demande</div>
-    <button onclick="add('Songe',0)">Ajouter</button>
-  </div>
-
 </div>
 
 <!-- PANIER -->
@@ -253,6 +265,7 @@ footer{
   </div>
 
   <button class="order-btn" onclick="order()">Commander WhatsApp</button>
+  <button class="clear-btn" onclick="clearCart()">Vider panier</button>
 </div>
 
 <footer>
@@ -270,9 +283,19 @@ function add(name, price){
   render();
 }
 
-function removeItem(index){
-  cart.splice(index,1);
+function clearCart(){
+  cart = [];
   render();
+}
+
+function filterProducts(){
+  let input = document.getElementById("search").value.toLowerCase();
+  let cards = document.querySelectorAll(".card");
+
+  cards.forEach(card=>{
+    let text = card.innerText.toLowerCase();
+    card.style.display = text.includes(input) ? "block" : "none";
+  });
 }
 
 function render(){
@@ -295,6 +318,11 @@ function render(){
   document.getElementById("total").innerText = total;
 }
 
+function removeItem(index){
+  cart.splice(index,1);
+  render();
+}
+
 function order(){
   let total = 0;
   let msg = "🛒 Commande Maison Kimouzz\n\n";
@@ -308,8 +336,7 @@ function order(){
     }
   });
 
-  msg += "\n💰 Total estimé : " + total + "€";
-  msg += "\n⚠️ Certains produits nécessitent confirmation du prix";
+  msg += "\n💰 Total : " + total + "€";
   msg += "\n\nMerci pour votre commande 🙏";
 
   window.open("https://wa.me/33789583650?text=" + encodeURIComponent(msg), "_blank");
