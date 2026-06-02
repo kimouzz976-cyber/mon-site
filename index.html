@@ -1,174 +1,93 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact | Maison Kimouzzz</title>
-
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
-}
-
-body{
-background:linear-gradient(135deg,#0f172a,#1e293b);
+<section id="contact" style="
 min-height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-padding:20px;
+padding:40px;
+background:linear-gradient(135deg,#0f172a,#1e293b,#2563eb);
 color:white;
-}
+font-family:Arial,sans-serif;
+">
 
-.contact-container{
+<div style="
 width:100%;
 max-width:700px;
-background:rgba(255,255,255,0.05);
-backdrop-filter:blur(10px);
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(12px);
 padding:40px;
-border-radius:20px;
+border-radius:25px;
 box-shadow:0 10px 40px rgba(0,0,0,0.4);
-text-align:center;
-animation:fadeIn 1s ease;
-}
+">
 
-.contact-container h1{
+<h2 style="
 font-size:42px;
+text-align:center;
 margin-bottom:10px;
-color:#f59e0b;
-}
+color:#ffffff;
+">
+Contactez Maison Kimouzzz
+</h2>
 
-.contact-container p{
-margin-bottom:30px;
+<p style="
+text-align:center;
+margin-bottom:35px;
+color:#dbeafe;
 font-size:18px;
-color:#e2e8f0;
-}
+">
+Produits locaux de Mayotte 🇾🇹  
+Livraison • Informations • Commandes
+</p>
 
-.contact-links{
-display:flex;
-justify-content:center;
-gap:20px;
-margin-bottom:30px;
-flex-wrap:wrap;
-}
+<form>
 
-.contact-links a{
-background:#2563eb;
-padding:15px 25px;
-border-radius:12px;
-color:white;
-text-decoration:none;
-font-weight:bold;
-transition:0.3s;
-}
-
-.contact-links a:hover{
-transform:translateY(-5px);
-background:#1d4ed8;
-}
-
-form{
-display:flex;
-flex-direction:column;
-gap:20px;
-}
-
-input,textarea{
+<input type="text" placeholder="Votre nom" style="
+width:100%;
 padding:18px;
+margin-bottom:20px;
 border:none;
-border-radius:12px;
+border-radius:15px;
 font-size:16px;
 outline:none;
-background:white;
-color:#111827;
-}
+">
 
-textarea{
+<input type="email" placeholder="Votre email" style="
+width:100%;
+padding:18px;
+margin-bottom:20px;
+border:none;
+border-radius:15px;
+font-size:16px;
+outline:none;
+">
+
+<textarea placeholder="Votre message..." style="
+width:100%;
 height:180px;
-resize:none;
-}
-
-button{
 padding:18px;
 border:none;
-border-radius:12px;
-background:#f59e0b;
+border-radius:15px;
+font-size:16px;
+resize:none;
+outline:none;
+margin-bottom:25px;
+"></textarea>
+
+<button type="submit" style="
+width:100%;
+padding:18px;
+border:none;
+border-radius:15px;
+background:#3b82f6;
 color:white;
 font-size:18px;
 font-weight:bold;
 cursor:pointer;
 transition:0.3s;
-}
-
-button:hover{
-background:#d97706;
-transform:scale(1.03);
-}
-
-.footer{
-margin-top:25px;
-font-size:14px;
-color:#94a3b8;
-}
-
-@keyframes fadeIn{
-from{
-opacity:0;
-transform:translateY(30px);
-}
-to{
-opacity:1;
-transform:translateY(0);
-}
-}
-
-</style>
-</head>
-
-<body>
-
-<div class="contact-container">
-
-<h1>Maison Kimouzzz</h1>
-
-<p>Produits locaux de Mayotte 🇾🇹<br>
-Manioc • Vanille • Fruits • Viandes • Épices</p>
-
-<div class="contact-links">
-
-<a href="https://wa.me/269TONNUMERO" target="_blank">
-📱 WhatsApp
-</a>
-
-<a href="mailto:contact@maisonkimouzzz.yt">
-✉️ Email
-</a>
-
-</div>
-
-<form action="https://formspree.io/f/TON_ID" method="POST">
-
-<input type="text" name="name" placeholder="Votre nom" required>
-
-<input type="email" name="email" placeholder="Votre email" required>
-
-<textarea name="message" placeholder="Écrivez votre message..." required></textarea>
-
-<button type="submit">
+">
 Envoyer le message
 </button>
 
 </form>
 
-<div class="footer">
-© 2026 Maison Kimouzzz — Produits authentiques de Mayotte
 </div>
-
-</div>
-
-</body>
-</html>
+</section>
