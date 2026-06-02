@@ -72,6 +72,7 @@ header{
   height:160px;
   object-fit:cover;
   border-radius:14px;
+  background:#222;
 }
 
 /* PRIX */
@@ -165,86 +166,96 @@ footer{
 <div class="products">
 
   <div class="card">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Banana-Single.jpg">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Banana-Single.jpg"
+    onerror="imgError(this,'Banane')">
     <h3>Banane</h3>
     <div class="price">20€ / kg</div>
     <button onclick="add('Banane',20)">Ajouter</button>
   </div>
 
   <div class="card">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Eggs_in_a_carton.jpg">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Eggs_in_a_carton.jpg"
+    onerror="imgError(this,'Œufs')">
     <h3>Œufs</h3>
     <div class="price">8€ / plateau</div>
     <button onclick="add('Œufs',8)">Ajouter</button>
   </div>
 
   <div class="card">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/5/50/Roast_chicken.jpg">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/50/Roast_chicken.jpg"
+    onerror="imgError(this,'Poulet')">
     <h3>Poulet</h3>
     <div class="price">10€</div>
     <button onclick="add('Poulet',10)">Ajouter</button>
   </div>
 
   <div class="card">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/5/50/Whole_roast_duck.jpg">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/50/Whole_roast_duck.jpg"
+    onerror="imgError(this,'Canard')">
     <h3>Canard</h3>
     <div class="price">35€ - 40€</div>
     <button onclick="add('Canard',35)">Ajouter</button>
   </div>
 
-  <!-- PRODUITS SUR DEMANDE -->
-
   <div class="card">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/1/10/Red_chili_peppers.jpg">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/1/10/Red_chili_peppers.jpg"
+    onerror="imgError(this,'Piments')">
     <h3>Piments</h3>
     <div class="price">4,50€ / kg</div>
     <button onclick="add('Piments',4.5)">Ajouter</button>
   </div>
 
   <div class="card">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Cassava_roots.jpg">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Cassava_roots.jpg"
+    onerror="imgError(this,'Manioc')">
     <h3>Manioc</h3>
     <div class="price">Sur demande</div>
     <button onclick="add('Manioc',0)">Ajouter</button>
   </div>
 
   <div class="card">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Coconut.jpg">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Coconut.jpg"
+    onerror="imgError(this,'Noix de coco')">
     <h3>Noix de coco</h3>
     <div class="price">Sur demande</div>
     <button onclick="add('Noix de coco',0)">Ajouter</button>
   </div>
 
   <div class="card">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/9/9c/Vanilla_pods.jpg">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/9/9c/Vanilla_pods.jpg"
+    onerror="imgError(this,'Vanille')">
     <h3>Vanille</h3>
     <div class="price">Sur demande</div>
     <button onclick="add('Vanille',0)">Ajouter</button>
   </div>
 
   <div class="card">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Green_lettuce.jpg">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Green_lettuce.jpg"
+    onerror="imgError(this,'Salade')">
     <h3>Salade</h3>
     <div class="price">Sur demande</div>
     <button onclick="add('Salade',0)">Ajouter</button>
   </div>
 
   <div class="card">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/Tomatoes.jpg">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/Tomatoes.jpg"
+    onerror="imgError(this,'Tomate')">
     <h3>Tomate</h3>
     <div class="price">Sur demande</div>
     <button onclick="add('Tomate',0)">Ajouter</button>
   </div>
 
   <div class="card">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Turmeric_Powder_and_Root.jpg">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Turmeric_Powder_and_Root.jpg"
+    onerror="imgError(this,'Curcuma')">
     <h3>Curcuma</h3>
     <div class="price">Sur demande</div>
     <button onclick="add('Curcuma',0)">Ajouter</button>
   </div>
 
   <div class="card">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Taro_root.jpg">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Taro_root.jpg"
+    onerror="imgError(this,'Songe')">
     <h3>Songe</h3>
     <div class="price">Sur demande</div>
     <button onclick="add('Songe',0)">Ajouter</button>
@@ -275,11 +286,7 @@ footer{
 let cart = [];
 
 function add(name, price){
-  cart.push({
-    name: name,
-    price: price,
-    isCustom: price === 0
-  });
+  cart.push({name, price, isCustom: price === 0});
   render();
 }
 
@@ -295,10 +302,7 @@ function render(){
 
   cart.forEach((item,i)=>{
     let priceText = item.isCustom ? "Prix sur demande" : item.price + "€";
-
-    if(!item.isCustom){
-      total += item.price;
-    }
+    if(!item.isCustom) total += item.price;
 
     cartDiv.innerHTML += `
       <div class="item">
@@ -328,8 +332,13 @@ function order(){
   msg += "\n⚠️ Certains produits nécessitent confirmation du prix";
   msg += "\n\nMerci pour votre commande 🙏";
 
-  let url = "https://wa.me/33789583650?text=" + encodeURIComponent(msg);
-  window.open(url, "_blank");
+  window.open("https://wa.me/33789583650?text=" + encodeURIComponent(msg), "_blank");
+}
+
+/* 🔥 IMAGE FALLBACK GLOBAL */
+function imgError(img, text){
+  img.onerror = null;
+  img.src = "https://via.placeholder.com/300x200?text=" + encodeURIComponent(text);
 }
 </script>
 
