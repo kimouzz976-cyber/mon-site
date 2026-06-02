@@ -1,142 +1,109 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact - Maison Kimouzz</title>
+<section id="contact" class="contact">
+  <div class="contact-container">
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #0f172a, #1e293b);
-      color: white;
-    }
+    <h2>📞 Contact & Commande</h2>
+    <p>Commandez facilement vos produits frais de Mayotte directement ici.</p>
 
-    header {
-      text-align: center;
-      padding: 40px 20px;
-    }
+    <div class="contact-box">
 
-    header h1 {
-      font-size: 40px;
-      margin-bottom: 10px;
-    }
-
-    header p {
-      color: #cbd5e1;
-    }
-
-    .container {
-      max-width: 1000px;
-      margin: auto;
-      padding: 20px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 30px;
-      margin-top: 30px;
-    }
-
-    .box h3 {
-      color: #38bdf8;
-      margin-top: 15px;
-    }
-
-    .box p, .box a {
-      color: #e2e8f0;
-      text-decoration: none;
-    }
-
-    .box a {
-      color: #facc15;
-    }
-
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      background: rgba(255,255,255,0.05);
-      padding: 20px;
-      border-radius: 15px;
-    }
-
-    input, textarea {
-      padding: 12px;
-      border: none;
-      border-radius: 10px;
-      outline: none;
-    }
-
-    button {
-      padding: 12px;
-      border: none;
-      border-radius: 10px;
-      background: #38bdf8;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background: #0ea5e9;
-    }
-
-    footer {
-      text-align: center;
-      padding: 30px;
-      color: #94a3b8;
-      margin-top: 40px;
-    }
-
-    @media (max-width: 768px) {
-      .grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
-</head>
-
-<body>
-
-  <header>
-    <h1>Contact</h1>
-    <p>Une question ou une commande ? On vous répond rapidement.</p>
-  </header>
-
-  <div class="container">
-
-    <div class="grid">
-
-      <div class="box">
+      <!-- INFOS -->
+      <div class="contact-info">
         <h3>📍 Adresse</h3>
         <p>281 route Ampadza<br>97670 Chiconi</p>
 
-        <h3>📞 Téléphone</h3>
+        <h3>📞 Téléphone / WhatsApp</h3>
         <p><a href="tel:0789583650">07 89 58 36 50</a></p>
-
-        <h3>✉️ Email</h3>
-        <p><a href="mailto:contact@kimouzz.yt">contact@kimouzz.yt</a></p>
 
         <h3>🕒 Horaires</h3>
         <p>Lun - Sam : 8h00 - 18h00</p>
+
+        <h3>🚚 Livraison</h3>
+        <p>Disponible selon zone</p>
       </div>
 
-      <form>
+      <!-- FORMULAIRE -->
+      <form class="contact-form">
         <input type="text" placeholder="Votre nom" required>
         <input type="email" placeholder="Votre email" required>
-        <textarea rows="5" placeholder="Votre message ou commande..." required></textarea>
-        <button type="submit">Envoyer</button>
+        <textarea placeholder="Votre commande (produits + quantité)" rows="6" required></textarea>
+        <button type="submit">Envoyer la commande</button>
       </form>
 
     </div>
-
   </div>
+</section>
 
-  <footer>
-    © 2026 Maison Kimouzz - Tous droits réservés
-  </footer>
+.contact {
+  padding: 70px 20px;
+  background: #0f172a;
+  color: white;
+}
 
-</body>
-</html>
+.contact-container {
+  max-width: 1000px;
+  margin: auto;
+  text-align: center;
+}
+
+.contact h2 {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.contact p {
+  color: #cbd5e1;
+}
+
+.contact-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-top: 40px;
+  background: #1e293b;
+  padding: 25px;
+  border-radius: 15px;
+}
+
+.contact-info h3 {
+  color: #38bdf8;
+  margin-top: 15px;
+}
+
+.contact-info a {
+  color: #facc15;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+}
+
+.contact-form button {
+  background: #38bdf8;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.contact-form button:hover {
+  background: #0ea5e9;
+}
+
+@media (max-width: 768px) {
+  .contact-box {
+    grid-template-columns: 1fr;
+  }
+}
