@@ -47,6 +47,15 @@ header{
   margin-top:10px;
 }
 
+/* INFO LIVRAISON */
+.delivery{
+  text-align:center;
+  padding:10px;
+  background:#fff7ed;
+  color:#9a3412;
+  font-weight:600;
+}
+
 /* SEARCH */
 .search{
   display:flex;
@@ -202,6 +211,10 @@ footer{
   <p>Produits frais • locaux • livraison rapide 🚚</p>
 </div>
 
+<div class="delivery">
+🚚 Livraison gratuite à partir de 70€ — sinon retrait à Chiconi
+</div>
+
 <div class="search">
   <input id="search" placeholder="🔎 Rechercher..." oninput="renderProducts()">
 </div>
@@ -211,7 +224,6 @@ footer{
 <div class="cart" id="cartBox">
   <div id="cart"></div>
   <div class="total">Total : <span id="total">0</span>€</div>
-
   <button class="order-btn" onclick="orderWhatsApp()">Commander WhatsApp</button>
   <button class="email-btn" onclick="orderEmail()">Commander Email</button>
   <button class="clear-btn" onclick="clearCart()">Vider</button>
@@ -222,12 +234,11 @@ footer{
 <footer>
   <h2>Maison Kimouzz</h2>
   <p>📍 281 route Ampadza, 97670 Chiconi</p>
-  <p>📩 maisonkimouzz@gmail.com</p>
+  <p>📩 maisonkimouzzz@gmail.com</p>
   <p>📞 0789583650</p>
 </footer>
 
 <script>
-
 const products = [
   {name:"Banane", price:20, icon:"🍌"},
   {name:"Œufs", price:8, icon:"🥚"},
@@ -240,7 +251,6 @@ let cart = [];
 function renderProducts(){
   let search = document.getElementById("search").value.toLowerCase();
   let box = document.getElementById("products");
-
   box.innerHTML = "";
 
   products
@@ -265,12 +275,10 @@ function add(name,price){
 function renderCart(){
   let box = document.getElementById("cart");
   let total = 0;
-
   box.innerHTML = "";
 
   cart.forEach((i,index)=>{
     total += i.price;
-
     box.innerHTML += `
       <div class="item">
         ${i.name}
@@ -331,14 +339,13 @@ function orderEmail(){
   body += "\n💰 Total : " + total + "€";
 
   window.location.href =
-    "mailto:maisonkimouzz@gmail.com?subject=" +
+    "mailto:maisonkimouzzz@gmail.com?subject=" +
     encodeURIComponent(subject) +
     "&body=" +
     encodeURIComponent(body);
 }
 
 renderProducts();
-
 </script>
 
 </body>
