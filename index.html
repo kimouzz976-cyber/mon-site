@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Maison Kimouzz - Tropical Market</title>
+<title>Maison Kimouzz - Tropical Market Pro</title>
 
 <style>
 body{
@@ -30,10 +30,8 @@ header{
   padding:60px 20px;
   background:rgba(0,0,0,0.25);
 }
-
 .hero h1{font-size:40px;margin:0;}
 .hero p{color:#ffe8a3;font-size:18px;}
-
 .hero button{
   margin-top:15px;
   padding:12px 20px;
@@ -49,17 +47,15 @@ header{
   text-align:center;
   margin-top:15px;
 }
-
 .search input{
   width:80%;
   max-width:400px;
   padding:10px;
   border-radius:20px;
   border:none;
-  outline:none;
 }
 
-/* PRODUITS */
+/* PRODUCTS */
 .products{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
@@ -67,7 +63,6 @@ header{
   padding:25px;
 }
 
-/* CARD */
 .card{
   background:rgba(255,255,255,0.15);
   backdrop-filter: blur(10px);
@@ -75,263 +70,233 @@ header{
   border-radius:18px;
   text-align:center;
   transition:0.3s;
-  border:1px solid rgba(255,255,255,0.2);
 }
+.card:hover{transform:translateY(-8px);}
 
-.card:hover{
-  transform:translateY(-8px) scale(1.03);
-  box-shadow:0 10px 25px rgba(0,0,0,0.3);
-}
+.icon{font-size:50px;}
+.price{color:#ffe066;font-weight:bold;}
 
-/* ICON */
-.icon{
-  font-size:55px;
-  margin:10px 0;
-}
-
-/* BADGE */
-.badge{
-  background:#ffdd00;
-  color:black;
-  font-size:12px;
-  padding:3px 8px;
-  border-radius:10px;
-  display:inline-block;
-  font-weight:bold;
-}
-
-/* PRICE */
-.price{
-  color:#ffe066;
-  font-weight:bold;
-  margin:8px 0;
-}
-
-/* BUTTON */
 .card button{
   width:100%;
   padding:10px;
   border:none;
   border-radius:12px;
   background:linear-gradient(90deg,#ffdd00,#ff7b00);
-  font-weight:bold;
   cursor:pointer;
 }
 
-/* PANIER */
+/* CART */
+.cart-btn{
+  position:fixed;
+  right:15px;
+  top:80px;
+  background:#000;
+  color:#fff;
+  padding:10px 15px;
+  border-radius:20px;
+  cursor:pointer;
+  z-index:2000;
+}
+
 .cart{
   position:fixed;
   right:15px;
-  top:90px;
+  top:130px;
   width:300px;
-  background:rgba(0,0,0,0.65);
+  background:rgba(0,0,0,0.8);
   padding:15px;
   border-radius:15px;
   max-height:70vh;
   overflow:auto;
+  display:none;
 }
 
-/* ITEM */
 .item{
   display:flex;
   justify-content:space-between;
-  margin:5px 0;
   font-size:14px;
+  margin:5px 0;
 }
 
-/* TOTAL */
-.total{
-  margin-top:10px;
-  font-weight:bold;
-  font-size:18px;
-  color:#ffe066;
-}
+.total{color:#ffe066;font-weight:bold;margin-top:10px;}
 
-/* BUTTONS */
-.order-btn, .clear-btn{
+.order-btn,.clear-btn{
   width:100%;
-  margin-top:10px;
-  padding:12px;
+  padding:10px;
+  margin-top:8px;
   border:none;
-  border-radius:12px;
-  font-weight:bold;
+  border-radius:10px;
   cursor:pointer;
 }
-
 .order-btn{background:#25D366;}
-.clear-btn{background:#ff3b3b; color:white;}
+.clear-btn{background:#ff3b3b;color:white;}
 
-/* FLOAT BTN TOP */
-.top-btn{
+/* TOAST */
+.toast{
   position:fixed;
   bottom:20px;
-  right:20px;
+  left:50%;
+  transform:translateX(-50%);
   background:#000;
-  color:white;
-  border:none;
   padding:10px 15px;
-  border-radius:50px;
-  cursor:pointer;
+  border-radius:20px;
+  display:none;
 }
 
 /* FOOTER */
 footer{
   text-align:center;
   padding:30px;
-  background:rgba(0,0,0,0.4);
   margin-top:40px;
-}
-
-/* MOBILE */
-@media(max-width:768px){
-  .cart{
-    position:static;
-    width:90%;
-    margin:20px auto;
-  }
+  background:rgba(0,0,0,0.4);
 }
 </style>
 </head>
 
 <body>
 
-<header>
-🌴 Maison Kimouzz - Produits tropicaux
-</header>
+<header>🌴 Maison Kimouzz - Tropical Market Pro</header>
 
 <div class="hero">
   <h1>🥭 Saveurs de Mayotte</h1>
   <p>Produits frais • locaux • livraison rapide 🚚</p>
-  <button onclick="document.querySelector('.products').scrollIntoView({behavior:'smooth'})">
-    Commander maintenant
-  </button>
-
-  <div class="search">
-    <input type="text" id="search" placeholder="🔎 Rechercher..." onkeyup="filterProducts()">
-  </div>
 </div>
 
-<!-- PRODUITS -->
-<div class="products" id="products">
-
-  <div class="card">
-    <div class="badge">Populaire</div>
-    <div class="icon">🍌</div>
-    <h3>Banane</h3>
-    <div class="price">20€ / kg</div>
-    <button onclick="add('Banane',20)">Ajouter</button>
-  </div>
-
-  <div class="card">
-    <div class="icon">🥚</div>
-    <h3>Œufs</h3>
-    <div class="price">8€ / plateau</div>
-    <button onclick="add('Œufs',8)">Ajouter</button>
-  </div>
-
-  <div class="card">
-    <div class="icon">🍗</div>
-    <h3>Poulet</h3>
-    <div class="price">10€</div>
-    <button onclick="add('Poulet',10)">Ajouter</button>
-  </div>
-
-  <div class="card">
-    <div class="icon">🦆</div>
-    <h3>Canard</h3>
-    <div class="price">35€ - 40€</div>
-    <button onclick="add('Canard',35)">Ajouter</button>
-  </div>
-
+<div class="search">
+  <input id="search" placeholder="🔎 Rechercher..." oninput="renderProducts()">
 </div>
 
-<!-- PANIER -->
-<div class="cart">
-  <h3>🧺 Panier (<span id="count">0</span>)</h3>
+<button class="cart-btn" onclick="toggleCart()">🧺 Panier (<span id="count">0</span>)</button>
+
+<div class="cart" id="cartBox">
   <div id="cart"></div>
-
-  <div class="total">
-    Total : <span id="total">0</span>€
-  </div>
-
-  <button id="orderBtn" class="order-btn" onclick="order()">Commander WhatsApp</button>
-  <button class="clear-btn" onclick="clearCart()">Vider panier</button>
+  <div class="total">Total : <span id="total">0</span>€</div>
+  <button class="order-btn" onclick="order()">Commander WhatsApp</button>
+  <button class="clear-btn" onclick="clearCart()">Vider</button>
 </div>
 
-<button class="top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">⬆</button>
+<div class="products" id="products"></div>
+
+<div class="toast" id="toast"></div>
 
 <footer>
   <h2>Maison Kimouzz</h2>
   <p>📍 281 route Ampadza, 97670 Chiconi</p>
   <p>📩 maisonkimouzz@gmail.com</p>
+  <p>📞 0789583650</p>
 </footer>
 
 <script>
-let cart = [];
 
-function add(name, price){
-  cart.push({name, price});
-  render();
+const products = [
+  {name:"Banane", price:20, icon:"🍌"},
+  {name:"Œufs", price:8, icon:"🥚"},
+  {name:"Poulet", price:10, icon:"🍗"},
+  {name:"Canard", price:35, icon:"🦆"}
+];
 
-  // petite animation
-  alert(name + " ajouté 🛒");
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+function save(){
+  localStorage.setItem("cart", JSON.stringify(cart));
 }
 
-function clearCart(){
-  cart = [];
-  render();
+function toast(msg){
+  let t = document.getElementById("toast");
+  t.innerText = msg;
+  t.style.display="block";
+  setTimeout(()=>t.style.display="none",1500);
 }
 
-function filterProducts(){
-  let input = document.getElementById("search").value.toLowerCase();
-  document.querySelectorAll(".card").forEach(card=>{
-    card.style.display = card.innerText.toLowerCase().includes(input) ? "block" : "none";
+function renderProducts(){
+  let search = document.getElementById("search").value.toLowerCase();
+  let box = document.getElementById("products");
+
+  box.innerHTML = "";
+
+  products
+  .filter(p => p.name.toLowerCase().includes(search))
+  .forEach(p=>{
+    box.innerHTML += `
+      <div class="card">
+        <div class="icon">${p.icon}</div>
+        <h3>${p.name}</h3>
+        <div class="price">${p.price}€</div>
+        <button onclick="add('${p.name}',${p.price})">Ajouter</button>
+      </div>
+    `;
   });
 }
 
-function render(){
-  let cartDiv = document.getElementById("cart");
+function add(name,price){
+  let item = cart.find(i=>i.name===name);
+  if(item) item.qty++;
+  else cart.push({name,price,qty:1});
+
+  save();
+  renderCart();
+  toast(name + " ajouté 🛒");
+}
+
+function renderCart(){
+  let box = document.getElementById("cart");
   let total = 0;
+  let count = 0;
 
-  cartDiv.innerHTML = "";
+  box.innerHTML = "";
 
-  cart.forEach((item,i)=>{
-    total += item.price;
+  cart.forEach((i,index)=>{
+    total += i.price * i.qty;
+    count += i.qty;
 
-    cartDiv.innerHTML += `
+    box.innerHTML += `
       <div class="item">
-        ${item.name} - ${item.price}€
-        <span onclick="removeItem(${i})" style="color:red;cursor:pointer">x</span>
+        ${i.name} x${i.qty}
+        <span onclick="removeItem(${index})" style="color:red;cursor:pointer">x</span>
       </div>
     `;
   });
 
-  document.getElementById("total").innerText = total;
-  document.getElementById("count").innerText = cart.length;
-
-  document.getElementById("orderBtn").disabled = cart.length === 0;
+  document.getElementById("total").innerText = total.toFixed(2);
+  document.getElementById("count").innerText = count;
 }
 
 function removeItem(i){
   cart.splice(i,1);
-  render();
+  save();
+  renderCart();
+}
+
+function clearCart(){
+  cart = [];
+  save();
+  renderCart();
+}
+
+function toggleCart(){
+  let c = document.getElementById("cartBox");
+  c.style.display = c.style.display==="block" ? "none" : "block";
 }
 
 function order(){
-  if(cart.length === 0) return;
+  if(cart.length===0) return;
 
   let msg = "🛒 Commande Maison Kimouzz\n\n";
   let total = 0;
 
-  cart.forEach(item=>{
-    msg += "- " + item.name + " : " + item.price + "€\n";
-    total += item.price;
+  cart.forEach(i=>{
+    msg += `- ${i.name} x${i.qty} : ${i.price*i.qty}€\n`;
+    total += i.price*i.qty;
   });
 
-  msg += "\n💰 Total : " + total + "€";
+  msg += `\n💰 Total : ${total.toFixed(2)}€`;
 
-  window.open("https://wa.me/33789583650?text=" + encodeURIComponent(msg), "_blank");
+  window.open("https://wa.me/33789583650?text="+encodeURIComponent(msg));
 }
+
+renderProducts();
+renderCart();
+
 </script>
 
 </body>
