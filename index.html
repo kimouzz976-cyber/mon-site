@@ -1,631 +1,9 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- REMPLACE TON ANCIEN CODE PRODUIT PAR CELUI-CI -->
 
-<title>Maison Kimouzz</title>
-
-<meta name="description" content="Produits frais et locaux de Mayotte - Maison Kimouzz">
-
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#0f172a">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
-
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-
-body{
-  font-family:'Inter',sans-serif;
-  background:#f6f7fb;
-  color:#1f1f1f;
-}
-
-/* SCROLLBAR */
-::-webkit-scrollbar{
-  width:8px;
-}
-
-::-webkit-scrollbar-thumb{
-  background:#0f172a;
-  border-radius:10px;
-}
-
-/* LOGO */
-.logo-container{
-  width:100%;
-  background:white;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  padding:20px 10px;
-}
-
-.logo-container img{
-  width:100%;
-  max-width:500px;
-  border-radius:20px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.10);
-}
-
-/* HEADER */
-header{
-  position:sticky;
-  top:0;
-  background:rgba(255,255,255,0.95);
-  backdrop-filter:blur(10px);
-  padding:16px;
-  text-align:center;
-  font-weight:800;
-  font-size:20px;
-  box-shadow:0 2px 15px rgba(0,0,0,0.06);
-  z-index:100;
-}
-
-/* HERO */
-.hero{
-  background:linear-gradient(135deg,#0f172a,#1e293b);
-  color:white;
-  text-align:center;
-  padding:60px 20px;
-  border-radius:0 0 30px 30px;
-}
-
-.hero h1{
-  font-size:40px;
-  margin-bottom:10px;
-}
-
-.hero p{
-  opacity:.95;
-  margin-top:8px;
-}
-
-.hero-badge{
-  display:inline-block;
-  margin-top:18px;
-  background:#22c55e;
-  color:white;
-  padding:10px 18px;
-  border-radius:999px;
-  font-weight:700;
-}
-
-/* SEARCH */
-.search-box{
-  padding:25px 20px 10px;
-  display:flex;
-  justify-content:center;
-}
-
-.search-box input{
-  width:100%;
-  max-width:500px;
-  padding:16px;
-  border:none;
-  border-radius:18px;
-  background:white;
-  box-shadow:0 8px 20px rgba(0,0,0,0.07);
-  font-size:16px;
-  outline:none;
-}
-
-/* CATEGORIES */
-.categories{
-  display:flex;
-  gap:10px;
-  overflow:auto;
-  padding:10px 20px 25px;
-}
-
-.categories::-webkit-scrollbar{
-  display:none;
-}
-
-.cat-btn{
-  background:white;
-  padding:10px 18px;
-  border-radius:999px;
-  white-space:nowrap;
-  border:none;
-  font-weight:600;
-  box-shadow:0 5px 12px rgba(0,0,0,0.06);
-}
-
-/* PRODUCTS */
-.products{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-  gap:20px;
-  padding:20px;
-}
-
-.card{
-  background:white;
-  border-radius:22px;
-  padding:22px;
-  text-align:center;
-  box-shadow:0 10px 25px rgba(0,0,0,0.06);
-  transition:.25s;
-  position:relative;
-  overflow:hidden;
-}
-
-.card:hover{
-  transform:translateY(-5px);
-}
-
-.product-img{
-  font-size:60px;
-  margin-bottom:10px;
-}
-
-.price{
-  color:#16a34a;
-  font-weight:800;
-  font-size:20px;
-  margin:12px 0;
-}
-
-.product-stock{
-  font-size:13px;
-  color:#64748b;
-  margin-bottom:10px;
-}
-
-/* BUTTONS */
-button{
-  cursor:pointer;
-  border:none;
-  transition:.2s;
-}
-
-button:hover{
-  opacity:.92;
-}
-
-.add-btn{
-  background:#0f172a;
-  color:white;
-  width:100%;
-  padding:12px;
-  border-radius:12px;
-  font-weight:700;
-}
-
-/* CART BUTTON */
-.cart-btn{
-  position:fixed;
-  right:20px;
-  top:85px;
-  background:#0f172a;
-  color:white;
-  width:60px;
-  height:60px;
-  border-radius:50%;
-  font-size:18px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.2);
-  z-index:999;
-}
-
-/* CART */
-.cart{
-  position:fixed;
-  right:20px;
-  top:160px;
-  width:350px;
-  max-height:80vh;
-  overflow:auto;
-  background:white;
-  border-radius:20px;
-  padding:18px;
-  box-shadow:0 20px 40px rgba(0,0,0,0.18);
-  display:none;
-  z-index:999;
-  animation:fade .25s ease;
-}
-
-@keyframes fade{
-  from{
-    opacity:0;
-    transform:translateY(-15px);
-  }
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
-}
-
-.cart-title{
-  font-size:22px;
-  font-weight:800;
-  margin-bottom:15px;
-}
-
-.item{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:12px 0;
-  border-bottom:1px solid #eee;
-}
-
-.item-name{
-  font-weight:600;
-}
-
-.qty{
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
-
-.qty button{
-  width:28px;
-  height:28px;
-  border-radius:8px;
-  background:#0f172a;
-  color:white;
-  font-weight:700;
-}
-
-.total-box{
-  margin-top:18px;
-  padding:15px;
-  border-radius:14px;
-  background:#f8fafc;
-}
-
-.total-box p{
-  margin:6px 0;
-}
-
-/* INPUTS */
-input{
-  width:100%;
-  padding:12px;
-  margin-top:10px;
-  border-radius:12px;
-  border:1px solid #ddd;
-  font-size:15px;
-}
-
-/* ACTION BUTTONS */
-.btn{
-  width:100%;
-  padding:12px;
-  border-radius:12px;
-  margin-top:10px;
-  color:white;
-  font-weight:700;
-  font-size:15px;
-}
-
-.green{
-  background:#22c55e;
-}
-
-.blue{
-  background:#3b82f6;
-}
-
-.red{
-  background:#ef4444;
-}
-
-/* STATUS */
-.status{
-  margin-top:12px;
-  font-size:14px;
-  font-weight:600;
-}
-
-/* WHATSAPP FLOAT */
-.whatsapp-float{
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  width:65px;
-  height:65px;
-  border-radius:50%;
-  background:#25d366;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-size:32px;
-  text-decoration:none;
-  color:white;
-  box-shadow:0 10px 25px rgba(0,0,0,0.25);
-  z-index:999;
-}
-
-/* REVIEWS */
-.reviews{
-  padding:20px;
-}
-
-.section-title{
-  font-size:28px;
-  font-weight:800;
-  margin-bottom:20px;
-}
-
-.review-card{
-  background:white;
-  border-radius:18px;
-  padding:18px;
-  margin-bottom:15px;
-  box-shadow:0 5px 18px rgba(0,0,0,0.06);
-}
-
-/* INFO */
-.info-section{
-  padding:20px;
-}
-
-.info-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:18px;
-}
-
-.info-card{
-  background:white;
-  border-radius:18px;
-  padding:20px;
-  box-shadow:0 5px 18px rgba(0,0,0,0.06);
-}
-
-/* FOOTER */
-footer{
-  margin-top:30px;
-  background:#0f172a;
-  color:#cbd5e1;
-  text-align:center;
-  padding:40px 20px;
-}
-
-footer h3{
-  color:white;
-  margin-bottom:12px;
-}
-
-footer p{
-  margin:8px 0;
-}
-
-/* MOBILE */
-@media(max-width:768px){
-
-  .hero h1{
-    font-size:32px;
-  }
-
-  .cart{
-    width:92%;
-    right:4%;
-    top:120px;
-  }
-
-  .cart-btn{
-    top:auto;
-    bottom:95px;
-  }
-}
-</style>
-</head>
-
-<body>
-
-<!-- LOGO -->
-<div class="logo-container">
-  <img src="8809.jpg" alt="Maison Kimouzz Logo">
-</div>
-
-<!-- HEADER -->
-<header>
-  🌴 Maison Kimouzz
-</header>
-
-<!-- HERO -->
-<section class="hero">
-
-  <h1>🥭 Produits frais de Mayotte</h1>
-
-  <p>
-    Produits locaux • Qualité premium • Service rapide
-  </p>
-
-  <div class="hero-badge">
-    🚚 Livraison gratuite dès 70€
-  </div>
-
-</section>
-
-<!-- SEARCH -->
-<div class="search-box">
-
-  <input
-    type="text"
-    id="search"
-    placeholder="🔎 Rechercher un produit..."
-    onkeyup="renderProducts()"
-  >
-
-</div>
-
-<!-- CATEGORIES -->
-<div class="categories">
-
-  <button class="cat-btn">🥭 Fruits</button>
-
-  <button class="cat-btn">🥚 Fermier</button>
-
-  <button class="cat-btn">🌿 Local</button>
-
-  <button class="cat-btn">🔥 Populaire</button>
-
-</div>
-
-<!-- CART BUTTON -->
-<button class="cart-btn" onclick="toggleCart()">
-🧺
-<span id="count">0</span>
-</button>
-
-<!-- CART -->
-<div class="cart" id="cartBox">
-
-  <div class="cart-title">
-    🛒 Votre panier
-  </div>
-
-  <div id="cart"></div>
-
-  <div class="total-box">
-
-    <p>
-      <b>Total :</b>
-      <span id="total">0</span>€
-    </p>
-
-    <p id="deliveryInfo">
-      📍 Retrait à Chiconi
-    </p>
-
-  </div>
-
-  <input
-    id="clientName"
-    placeholder="👤 Nom complet"
-  >
-
-  <input
-    id="clientAddress"
-    placeholder="📍 Adresse de livraison"
-  >
-
-  <button
-    class="btn green"
-    onclick="orderWhatsApp()"
-  >
-    Commander sur WhatsApp
-  </button>
-
-  <button
-    class="btn blue"
-    onclick="orderEmail()"
-  >
-    Commander par Email
-  </button>
-
-  <button
-    class="btn red"
-    onclick="clearCart()"
-  >
-    Vider le panier
-  </button>
-
-  <div class="status" id="status"></div>
-
-</div>
-
-<!-- PRODUCTS -->
 <div class="products" id="products"></div>
 
-<!-- INFOS -->
-<section class="info-section">
-
-  <h2 class="section-title">
-    ⭐ Pourquoi choisir Maison Kimouzz ?
-  </h2>
-
-  <div class="info-grid">
-
-    <div class="info-card">
-      <h3>🥭 Produits frais</h3>
-      <p>
-        Produits sélectionnés localement à Mayotte.
-      </p>
-    </div>
-
-    <div class="info-card">
-      <h3>🚚 Livraison rapide</h3>
-      <p>
-        Livraison offerte dès 70€ d'achat.
-      </p>
-    </div>
-
-    <div class="info-card">
-      <h3>📍 Retrait Chiconi</h3>
-      <p>
-        Pour les commandes de moins de 70€.
-      </p>
-    </div>
-
-  </div>
-
-</section>
-
-<!-- REVIEWS -->
-<section class="reviews">
-
-  <h2 class="section-title">
-    ⭐ Avis Clients
-  </h2>
-
-  <div class="review-card">
-    <b>Fatima</b>
-    <p>
-      Produits très frais 👍
-    </p>
-  </div>
-
-  <div class="review-card">
-    <b>Ali</b>
-    <p>
-      Livraison rapide et service propre 🔥
-    </p>
-  </div>
-
-  <div class="review-card">
-    <b>Mariam</b>
-    <p>
-      Très bon rapport qualité prix ❤️
-    </p>
-  </div>
-
-</section>
-
-<!-- FOOTER -->
-<footer>
-
-  <h3>🌴 Maison Kimouzz</h3>
-
-  <p>📍 Chiconi</p>
-
-  <p>📞 0789583650</p>
-
-  <p>📩 maisonkimouzzz@gmail.com</p>
-
-</footer>
-
-<!-- WHATSAPP FLOAT -->
-<a
-href="https://wa.me/33789583650"
-target="_blank"
-class="whatsapp-float"
->
-💬
-</a>
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
 
 <script>
 
@@ -636,28 +14,32 @@ const products = [
     name:"Banane",
     price:20,
     icon:"🍌",
-    stock:"En stock"
+    stock:"En stock",
+    badge:"🔥 Populaire"
   },
 
   {
     name:"Œufs",
     price:8,
     icon:"🥚",
-    stock:"Disponible"
+    stock:"Disponible",
+    badge:"⭐ Fermier"
   },
 
   {
     name:"Poule",
     price:10,
     icon:"🐔",
-    stock:"Disponible"
+    stock:"Disponible",
+    badge:"🌿 Local"
   },
 
   {
     name:"Canard",
     price:35,
     icon:"🦆",
-    stock:"Stock limité"
+    stock:"Stock limité",
+    badge:"🔥 Premium"
   }
 
 ];
@@ -676,17 +58,40 @@ function save(){
   );
 }
 
-/* STATUS */
-function showStatus(text,color="#16a34a"){
+/* TOAST */
+function toast(text){
 
-  let s=document.getElementById("status");
+  let t =
+    document.getElementById("toast");
+
+  t.innerText=text;
+
+  t.style.display="block";
+
+  setTimeout(()=>{
+
+    t.style.display="none";
+
+  },2000);
+}
+
+/* STATUS */
+function showStatus(
+  text,
+  color="#16a34a"
+){
+
+  let s =
+    document.getElementById("status");
 
   s.style.color=color;
 
   s.innerText=text;
 
   setTimeout(()=>{
+
     s.innerText="";
+
   },3000);
 }
 
@@ -712,6 +117,8 @@ function add(name,price){
   save();
 
   renderCart();
+
+  toast("✅ Produit ajouté");
 
   showStatus("✔ Produit ajouté");
 }
@@ -741,13 +148,26 @@ function decrease(i){
   renderCart();
 }
 
+/* MESSAGE LIVRAISON */
+function getDeliveryMessage(total){
+
+  if(total>=70){
+
+    return "🚚 Livraison gratuite activée";
+
+  }else{
+
+    return "📍 Retrait obligatoire à Chiconi";
+  }
+}
+
 /* PRODUITS */
 function renderProducts(){
 
-  let box=
+  let box =
     document.getElementById("products");
 
-  let search=
+  let search =
     document
     .getElementById("search")
     .value
@@ -756,6 +176,7 @@ function renderProducts(){
   box.innerHTML="";
 
   products
+
   .filter(p=>
     p.name
     .toLowerCase()
@@ -764,11 +185,15 @@ function renderProducts(){
 
   .forEach(p=>{
 
-    box.innerHTML+=`
+    box.innerHTML += `
 
       <div class="card">
 
-        <div class="product-img">
+        <div class="product-badge">
+          ${p.badge}
+        </div>
+
+        <div class="product-circle">
           ${p.icon}
         </div>
 
@@ -798,7 +223,7 @@ function renderProducts(){
 /* PANIER */
 function renderCart(){
 
-  let box=
+  let box =
     document.getElementById("cart");
 
   let total=0;
@@ -830,7 +255,7 @@ function renderCart(){
 
     count += i.qty;
 
-    box.innerHTML+=`
+    box.innerHTML += `
 
       <div class="item">
 
@@ -880,12 +305,7 @@ function renderCart(){
   document
   .getElementById("deliveryInfo")
   .innerHTML =
-
-    total>=70
-
-    ? "🚚 Livraison gratuite activée"
-
-    : "📍 Moins de 70€ → retrait obligatoire à Chiconi";
+    getDeliveryMessage(total);
 }
 
 /* CLEAR */
@@ -897,8 +317,10 @@ function clearCart(){
 
   renderCart();
 
+  toast("🗑 Panier vidé");
+
   showStatus(
-    "🗑 Panier vidé",
+    "Panier vidé",
     "#ef4444"
   );
 }
@@ -906,7 +328,7 @@ function clearCart(){
 /* TOGGLE CART */
 function toggleCart(){
 
-  let c=
+  let c =
     document.getElementById("cartBox");
 
   c.style.display =
@@ -918,6 +340,29 @@ function toggleCart(){
     : "block";
 }
 
+/* FERMER PANIER */
+window.onclick=function(e){
+
+  let cart =
+    document.getElementById("cartBox");
+
+  let btn =
+    document.querySelector(".cart-btn");
+
+  if(
+
+    e.target!==cart &&
+
+    !cart.contains(e.target) &&
+
+    e.target!==btn
+
+  ){
+
+    cart.style.display="none";
+  }
+}
+
 /* WHATSAPP */
 function orderWhatsApp(){
 
@@ -926,12 +371,12 @@ function orderWhatsApp(){
     return alert("Panier vide");
   }
 
-  let name=
+  let name =
     document
     .getElementById("clientName")
     .value;
 
-  let address=
+  let address =
     document
     .getElementById("clientAddress")
     .value;
@@ -966,13 +411,9 @@ function orderWhatsApp(){
 💰 Total : ${total}€
 `;
 
-  msg +=
-
-    total>=70
-
-    ? "\n🚚 Livraison gratuite"
-
-    : "\n📍 Retrait à Chiconi";
+  msg += `
+${getDeliveryMessage(total)}
+`;
 
   window.open(
     "https://wa.me/33789583650?text="
@@ -985,7 +426,9 @@ function orderWhatsApp(){
 
   renderCart();
 
-  showStatus("✔ Commande envoyée");
+  toast("✅ Commande envoyée");
+
+  showStatus("Commande envoyée");
 }
 
 /* EMAIL */
@@ -993,13 +436,13 @@ function orderEmail(){
 
   let total=0;
 
-  let body="Commande Maison Kimouzz\n\n";
+  let body=
+"Commande Maison Kimouzz\n\n";
 
   cart.forEach(i=>{
 
     body +=
-`${i.name} x${i.qty}
-`;
+`${i.name} x${i.qty}\n`;
 
     total += i.price*i.qty;
   });
@@ -1019,6 +462,3 @@ renderProducts();
 renderCart();
 
 </script>
-
-</body>
-</html>
