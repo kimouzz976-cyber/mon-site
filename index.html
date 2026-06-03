@@ -28,16 +28,6 @@ header{
   box-shadow:0 2px 10px rgba(0,0,0,0.06);
 }
 
-/* DELIVERY BANNER */
-.delivery-banner{
-  text-align:center;
-  padding:10px;
-  background:linear-gradient(90deg,#16a34a,#22c55e);
-  color:white;
-  font-weight:700;
-  font-size:13px;
-}
-
 /* HERO */
 .hero{
   background:linear-gradient(135deg,#0f172a,#1e293b);
@@ -129,7 +119,6 @@ header{
   border-radius:999px;
   cursor:pointer;
   font-size:14px;
-  z-index:1000;
 }
 
 .cart{
@@ -157,7 +146,6 @@ header{
   margin-top:10px;
 }
 
-/* BUTTONS */
 .order-btn{
   width:100%;
   margin-top:10px;
@@ -194,23 +182,6 @@ header{
   cursor:pointer;
 }
 
-/* TOAST */
-.toast{
-  position:fixed;
-  bottom:20px;
-  left:50%;
-  transform:translateX(-50%);
-  background:#0f172a;
-  color:white;
-  padding:12px 18px;
-  border-radius:12px;
-  display:none;
-  font-weight:600;
-  font-size:14px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.2);
-  z-index:9999;
-}
-
 /* FOOTER */
 footer{
   text-align:center;
@@ -225,10 +196,6 @@ footer{
 <body>
 
 <header>🌴 Maison Kimouzz</header>
-
-<div class="delivery-banner">
-🚚 Livraison gratuite dès 50€ • En dessous : retrait sur place à Chiconi
-</div>
 
 <div class="hero">
   <h1>🥭 Saveurs de Mayotte</h1>
@@ -252,40 +219,24 @@ footer{
 
 <div class="products" id="products"></div>
 
-<div class="toast" id="toast"></div>
-
 <footer>
   <h2>Maison Kimouzz</h2>
   <p>📍 281 route Ampadza, 97670 Chiconi</p>
-  <p>📩 maisonkimouzzz@gmail.com</p>
+  <p>📩 maisonkimouzz@gmail.com</p>
   <p>📞 0789583650</p>
 </footer>
 
 <script>
 
 const products = [
-  {name:"Banane locale", price:20, icon:"🍌"},
-  {name:"Œufs frais", price:8, icon:"🥚"},
-  {name:"Poule fermière", price:10, icon:"🐔"},
-  {name:"Canard fermier", price:35, icon:"🦆"}
+  {name:"Banane", price:20, icon:"🍌"},
+  {name:"Œufs", price:8, icon:"🥚"},
+  {name:"Poule", price:10, icon:"🐔"},
+  {name:"Canard", price:35, icon:"🦆"}
 ];
 
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let cart = [];
 
-/* SAVE */
-function saveCart(){
-  localStorage.setItem("cart", JSON.stringify(cart));
-}
-
-/* TOAST */
-function toast(msg){
-  let t = document.getElementById("toast");
-  t.innerText = msg;
-  t.style.display = "block";
-  setTimeout(()=>t.style.display="none",1500);
-}
-
-/* PRODUCTS */
 function renderProducts(){
   let search = document.getElementById("search").value.toLowerCase();
   let box = document.getElementById("products");
@@ -306,15 +257,11 @@ function renderProducts(){
   });
 }
 
-/* ADD */
 function add(name,price){
   cart.push({name,price});
-  saveCart();
   renderCart();
-  toast(name + " ajouté 🛒");
 }
 
-/* CART */
 function renderCart(){
   let box = document.getElementById("cart");
   let total = 0;
@@ -336,21 +283,16 @@ function renderCart(){
   document.getElementById("count").innerText = cart.length;
 }
 
-/* REMOVE */
 function removeItem(i){
   cart.splice(i,1);
-  saveCart();
   renderCart();
 }
 
-/* CLEAR */
 function clearCart(){
   cart = [];
-  saveCart();
   renderCart();
 }
 
-/* TOGGLE */
 function toggleCart(){
   let c = document.getElementById("cartBox");
   c.style.display = c.style.display==="block" ? "none" : "block";
@@ -377,9 +319,8 @@ function orderWhatsApp(){
 function orderEmail(){
   if(cart.length===0) return;
 
-  let subject = "Commande de produit";
-  let body = "🛒 Bonjour,
-    Ci-joint la liste de commande Maison Kimouzz\n\n";
+  let subject = "Commande Maison Kimouzz";
+  let body = "🛒 Commande Maison Kimouzz\n\n";
   let total = 0;
 
   cart.forEach(i=>{
@@ -390,15 +331,13 @@ function orderEmail(){
   body += "\n💰 Total : " + total + "€";
 
   window.location.href =
-    "mailto:maisonkimouzzz@gmail.com?subject=" +
+    "mailto:maisonkimouzz@gmail.com?subject=" +
     encodeURIComponent(subject) +
     "&body=" +
     encodeURIComponent(body);
 }
 
-/* INIT */
 renderProducts();
-renderCart();
 
 </script>
 
