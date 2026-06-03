@@ -301,3 +301,137 @@ renderCart();
 
 </body>
 </html>
+
+<script>
+
+let products = JSON.parse(localStorage.getItem("products")) || [
+{name:"Banane verte",price:20,stock:10,img:"https://images.unsplash.com/photo-1603833665858-e61d17a86224"},
+{name:"Œufs",price:8,stock:20,img:"https://images.unsplash.com/photo-1587486913049-53fc88980cfc"}
+];
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+function save(){
+localStorage.setItem("products",JSON.stringify(products));
+localStorage.setItem("cart",JSON.stringify(cart));
+}
+
+function toast(msg){
+let t=document.getElementById("toast");
+t.innerText=msg;
+t.style.display="block";
+setTimeout(()=>t.style.display="none",2000);
+}
+
+/* PRODUCTS */
+function render(){
+let box=document.getElementById("productList");
+box.innerHTML="";
+products.forEach((p,i)=>{
+box.innerHTML+=`
+<div class="card">
+<img src="${p.img}">
+<h3>${p.name}</h3>
+<div class="price">${p.price}€</div>
+<p>Stock: ${p.stock}</p>
+<button onclick="add(${i})">Ajouter</button>
+</div>`;
+});
+}
+
+/* ADD CART */
+function add(i){
+if(products[i].stock<=0){toast("Rupture");return;}
+products[i].stock--;
+
+let item=cart.find(c=>c.name===products[i].name);
+if(item) item.qty++;
+else cart.push({...products[i],qty:1});
+
+save();
+render();
+renderCart();
+}
+
+/* CART */
+function renderCart(){
+let box=document.getElementById("cartList");
+box.innerHTML="";
+let total=0;
+
+cart.forEach((c,i)=>{
+total+=c.price*c.qty;
+box.innerHTML+=`
+<div class="cart-item">
+<span>${c.name}</span>
+<div class="qty">
+<button onclick="minus(${i})">-</button>
+${c.qty}
+<button onclick="plus(${i})">+</button>
+</div>
+</div>`;
+});
+
+document.getElementById("total").innerText=total;
+}
+
+function plus(i){cart[i].qty++;save();renderCart();}
+function minus(i){cart[i].qty--;if(cart[i].qty<=0)cart.splice(i,1);save();renderCart();}
+
+/* SEARCH */
+function search(v){
+document.getElementById("productList").innerHTML="";
+products
+.filter(p=>p.name.toLowerCase().includes(v.toLowerCase()))
+.forEach((p,i)=>{
+document.getElementById("productList").innerHTML+=`
+<div class="card">
+<img src="${p.img}">
+<h3>${p.name}</h3>
+<div class="price">${p.price}€</div>
+<button onclick="add(${i})">Ajouter</button>
+</div>`;
+});
+}
+
+/* CHECKOUT FIXED WHATSAPP */
+function checkout(){
+if(cart.length===0){
+toast("Panier vide");
+return;
+}
+
+let msg="🛒 Commande Maison Kimouzz%0A%0A";
+let total=0;
+
+cart.forEach(i=>{
+msg+=`${i.name} x${i.qty} = ${i.price*i.qty}€%0A`;
+total+=i.price*i.qty;
+});
+
+msg+=`%0A💰 TOTAL: ${total}€`;
+
+/* WHATSAPP CORRECT */
+window.open(
+"https://wa.me/33789593650?text="+encodeURIComponent(msg),
+"_blank"
+);
+
+/* EMAIL BACKUP */
+setTimeout(()=>{
+window.location.href =
+"mailto:maisonkimouzz@gmail.com?subject=Commande Maison Kimouzz&body="+encodeURIComponent(msg);
+},800);
+
+toast("Commande envoyée 📦");
+
+cart=[];
+save();
+renderCart();
+}
+
+/* INIT */
+render();
+renderCart();
+
+</script>
