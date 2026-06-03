@@ -20,11 +20,10 @@ header{
   position:sticky;
   top:0;
   z-index:1000;
-  background:#ffffff;
-  padding:15px 20px;
+  background:#fff;
+  padding:15px;
   text-align:center;
   font-weight:700;
-  font-size:18px;
   box-shadow:0 2px 10px rgba(0,0,0,0.06);
 }
 
@@ -33,22 +32,11 @@ header{
   background:linear-gradient(135deg,#0f172a,#1e293b);
   color:white;
   text-align:center;
-  padding:70px 20px;
-  border-radius:0 0 25px 25px;
+  padding:60px 20px;
 }
 
-.hero h1{
-  font-size:42px;
-  margin:0;
-}
-
-.hero p{
-  color:#cbd5e1;
-  margin-top:10px;
-}
-
-/* INFO LIVRAISON */
-.delivery{
+/* DELIVERY */
+.delivery-banner{
   text-align:center;
   padding:10px;
   background:#fff7ed;
@@ -60,144 +48,104 @@ header{
 .search{
   display:flex;
   justify-content:center;
-  margin-top:20px;
+  margin:20px;
 }
 
 .search input{
   width:90%;
   max-width:420px;
   padding:12px;
-  border-radius:12px;
-  border:1px solid #e5e7eb;
-  outline:none;
-  background:white;
+  border-radius:10px;
+  border:1px solid #ddd;
 }
 
 /* PRODUCTS */
 .products{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:18px;
-  padding:30px;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:15px;
+  padding:20px;
 }
 
 .card{
   background:white;
-  border-radius:16px;
-  padding:18px;
-  box-shadow:0 8px 20px rgba(0,0,0,0.06);
-  transition:0.25s ease;
+  border-radius:15px;
+  padding:15px;
   text-align:center;
+  box-shadow:0 5px 15px rgba(0,0,0,0.06);
 }
 
-.card:hover{
-  transform:translateY(-5px);
-  box-shadow:0 12px 25px rgba(0,0,0,0.1);
-}
-
-.icon{
-  font-size:42px;
-  margin-bottom:10px;
+.card img{
+  width:100%;
+  height:120px;
+  object-fit:cover;
+  border-radius:10px;
 }
 
 .price{
-  color:#16a34a;
-  font-weight:700;
-  margin:8px 0;
-}
-
-.card button{
-  width:100%;
-  padding:10px;
-  border:none;
-  border-radius:10px;
-  background:#0f172a;
-  color:white;
-  font-weight:600;
-  cursor:pointer;
+  color:green;
+  font-weight:bold;
 }
 
 /* CART */
 .cart-btn{
   position:fixed;
-  right:20px;
+  right:15px;
   top:80px;
-  background:#0f172a;
+  background:#111827;
   color:white;
   padding:10px 14px;
-  border-radius:999px;
+  border-radius:50px;
   cursor:pointer;
-  font-size:14px;
 }
 
 .cart{
   position:fixed;
-  right:20px;
+  right:15px;
   top:130px;
   width:320px;
   background:white;
-  border-radius:16px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.15);
   padding:15px;
+  border-radius:15px;
   display:none;
+  box-shadow:0 10px 25px rgba(0,0,0,0.15);
 }
+
+/* INPUTS */
+input, textarea{
+  width:100%;
+  margin-top:5px;
+  padding:8px;
+  border-radius:8px;
+  border:1px solid #ddd;
+  margin-bottom:8px;
+}
+
+/* BUTTONS */
+button{
+  width:100%;
+  padding:10px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:600;
+}
+
+.add{background:#111827;color:white;}
+.whatsapp{background:#22c55e;color:white;}
+.email{background:#3b82f6;color:white;}
+.clear{background:#ef4444;color:white;}
 
 .item{
   display:flex;
   justify-content:space-between;
-  padding:6px 0;
-  font-size:14px;
-  border-bottom:1px solid #f1f1f1;
+  border-bottom:1px solid #eee;
+  padding:5px 0;
 }
 
-.total{
-  font-weight:700;
-  margin-top:10px;
-}
-
-.order-btn{
-  width:100%;
-  margin-top:10px;
-  padding:10px;
-  border:none;
-  border-radius:10px;
-  background:#22c55e;
-  color:white;
-  font-weight:600;
-  cursor:pointer;
-}
-
-.email-btn{
-  width:100%;
-  margin-top:8px;
-  padding:10px;
-  border:none;
-  border-radius:10px;
-  background:#3b82f6;
-  color:white;
-  font-weight:600;
-  cursor:pointer;
-}
-
-.clear-btn{
-  width:100%;
-  margin-top:8px;
-  padding:10px;
-  border:none;
-  border-radius:10px;
-  background:#ef4444;
-  color:white;
-  font-weight:600;
-  cursor:pointer;
-}
-
-/* FOOTER */
-footer{
-  text-align:center;
-  padding:40px 20px;
-  background:#0f172a;
-  color:#cbd5e1;
-  margin-top:40px;
+/* MOBILE */
+@media(max-width:600px){
+  .cart{width:90%; right:5%;}
 }
 </style>
 </head>
@@ -207,61 +155,77 @@ footer{
 <header>🌴 Maison Kimouzz</header>
 
 <div class="hero">
-  <h1>🥭 Saveurs de Mayotte</h1>
-  <p>Produits frais • locaux • livraison rapide 🚚</p>
+  <h1>🥭 Produits de Mayotte</h1>
+  <p>Frais • Local • Rapide 🚚</p>
 </div>
 
-<div class="delivery">
-🚚 Livraison gratuite à partir de 70€ — sinon retrait à Chiconi
+<div class="delivery-banner">
+🚚 Livraison gratuite dès 70€ | Sinon retrait à Chiconi
 </div>
 
 <div class="search">
-  <input id="search" placeholder="🔎 Rechercher..." oninput="renderProducts()">
+<input id="search" placeholder="Rechercher..." oninput="renderProducts()">
 </div>
 
-<button class="cart-btn" onclick="toggleCart()">🧺 Panier (<span id="count">0</span>)</button>
+<button class="cart-btn" onclick="toggleCart()">🧺 <span id="count">0</span></button>
 
 <div class="cart" id="cartBox">
-  <div id="cart"></div>
-  <div class="total">Total : <span id="total">0</span>€</div>
-  <button class="order-btn" onclick="orderWhatsApp()">Commander WhatsApp</button>
-  <button class="email-btn" onclick="orderEmail()">Commander Email</button>
-  <button class="clear-btn" onclick="clearCart()">Vider</button>
+
+<h3>🧾 Panier</h3>
+
+<div id="cart"></div>
+
+<p id="deliveryInfo"></p>
+
+<p><b>Total: <span id="total">0</span>€</b></p>
+
+<!-- CLIENT INFO -->
+<input id="name" placeholder="Nom">
+<input id="phone" placeholder="Téléphone">
+<textarea id="address" placeholder="Adresse"></textarea>
+
+<button class="whatsapp" onclick="orderWhatsApp()">Commander WhatsApp</button>
+<button class="email" onclick="orderEmail()">Commander Email</button>
+<button class="clear" onclick="clearCart()">Vider</button>
+
 </div>
 
 <div class="products" id="products"></div>
 
-<footer>
-  <h2>Maison Kimouzz</h2>
-  <p>📍 281 route Ampadza, 97670 Chiconi</p>
-  <p>📩 maisonkimouzzz@gmail.com</p>
-  <p>📞 0789583650</p>
+<footer style="text-align:center;padding:30px;background:#111827;color:white;margin-top:30px;">
+<p>📩 maisonkimouzzz@gmail.com</p>
+<p>📞 0789583650</p>
+<p>📍 Chiconi - Mayotte</p>
 </footer>
 
 <script>
+
 const products = [
-  {name:"Banane", price:20, icon:"🍌"},
-  {name:"Œufs", price:8, icon:"🥚"},
-  {name:"Poule", price:10, icon:"🐔"},
-  {name:"Canard", price:35, icon:"🦆"}
+  {name:"Banane", price:20, img:"https://via.placeholder.com/300x200?text=Banane"},
+  {name:"Œufs", price:8, img:"https://via.placeholder.com/300x200?text=Oeufs"},
+  {name:"Poule", price:10, img:"https://via.placeholder.com/300x200?text=Poule"},
+  {name:"Canard", price:35, img:"https://via.placeholder.com/300x200?text=Canard"}
 ];
 
-let cart = [];
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+function saveCart(){
+  localStorage.setItem("cart", JSON.stringify(cart));
+}
 
 function renderProducts(){
   let search = document.getElementById("search").value.toLowerCase();
   let box = document.getElementById("products");
   box.innerHTML = "";
 
-  products
-  .filter(p => p.name.toLowerCase().includes(search))
+  products.filter(p=>p.name.toLowerCase().includes(search))
   .forEach(p=>{
     box.innerHTML += `
       <div class="card">
-        <div class="icon">${p.icon}</div>
+        <img src="${p.img}">
         <h3>${p.name}</h3>
-        <div class="price">${p.price}€</div>
-        <button onclick="add('${p.name}',${p.price})">Ajouter</button>
+        <p class="price">${p.price}€</p>
+        <button class="add" onclick="add('${p.name}',${p.price})">Ajouter</button>
       </div>
     `;
   });
@@ -269,12 +233,14 @@ function renderProducts(){
 
 function add(name,price){
   cart.push({name,price});
+  saveCart();
   renderCart();
 }
 
 function renderCart(){
   let box = document.getElementById("cart");
   let total = 0;
+
   box.innerHTML = "";
 
   cart.forEach((i,index)=>{
@@ -282,13 +248,22 @@ function renderCart(){
     box.innerHTML += `
       <div class="item">
         ${i.name}
-        <span onclick="removeItem(${index})" style="color:red;cursor:pointer">x</span>
+        <span onclick="removeItem(${index})" style="color:red">x</span>
       </div>
     `;
   });
 
   document.getElementById("total").innerText = total;
   document.getElementById("count").innerText = cart.length;
+
+  let delivery = document.getElementById("deliveryInfo");
+  if(total >= 70){
+    delivery.innerText = "🚚 Livraison GRATUITE";
+  } else {
+    delivery.innerText = "📦 Retrait à Chiconi";
+  }
+
+  saveCart();
 }
 
 function removeItem(i){
@@ -310,6 +285,10 @@ function toggleCart(){
 function orderWhatsApp(){
   if(cart.length===0) return;
 
+  let name = document.getElementById("name").value;
+  let phone = document.getElementById("phone").value;
+  let address = document.getElementById("address").value;
+
   let msg = "🛒 Commande Maison Kimouzz\n\n";
   let total = 0;
 
@@ -319,16 +298,16 @@ function orderWhatsApp(){
   });
 
   msg += "\n💰 Total : " + total + "€";
+  msg += total >= 70 ? "\n🚚 Livraison gratuite" : "\n📦 Retrait à Chiconi";
+  msg += "\n\n👤 " + name + "\n📞 " + phone + "\n📍 " + address;
 
   window.open("https://wa.me/33789583650?text="+encodeURIComponent(msg));
 }
 
 /* EMAIL */
 function orderEmail(){
-  if(cart.length===0) return;
-
   let subject = "Commande Maison Kimouzz";
-  let body = "🛒 Commande Maison Kimouzz\n\n";
+  let body = "Commande:\n\n";
   let total = 0;
 
   cart.forEach(i=>{
@@ -336,16 +315,16 @@ function orderEmail(){
     total += i.price;
   });
 
-  body += "\n💰 Total : " + total + "€";
+  body += "\nTotal: " + total + "€";
+  body += total >= 70 ? "\nLivraison gratuite" : "\nRetrait à Chiconi";
 
   window.location.href =
-    "mailto:maisonkimouzzz@gmail.com?subject=" +
-    encodeURIComponent(subject) +
-    "&body=" +
-    encodeURIComponent(body);
+    "mailto:maisonkimouzzz@gmail.com?subject="+encodeURIComponent(subject)+"&body="+encodeURIComponent(body);
 }
 
 renderProducts();
+renderCart();
+
 </script>
 
 </body>
