@@ -18,6 +18,7 @@ body{
   color:#1f1f1f;
 }
 
+/* HEADER */
 header{
   position:sticky;
   top:0;
@@ -26,8 +27,10 @@ header{
   text-align:center;
   font-weight:700;
   box-shadow:0 2px 10px rgba(0,0,0,0.06);
+  z-index:10;
 }
 
+/* HERO */
 .hero{
   background:linear-gradient(135deg,#0f172a,#1e293b);
   color:white;
@@ -36,20 +39,7 @@ header{
   border-radius:0 0 25px 25px;
 }
 
-.search{
-  display:flex;
-  justify-content:center;
-  margin:20px 0;
-}
-
-.search input{
-  width:90%;
-  max-width:420px;
-  padding:12px;
-  border-radius:12px;
-  border:1px solid #ddd;
-}
-
+/* PRODUCTS */
 .products{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
@@ -63,7 +53,9 @@ header{
   border-radius:16px;
   text-align:center;
   box-shadow:0 8px 20px rgba(0,0,0,0.06);
+  transition:.2s;
 }
+.card:hover{transform:scale(1.03)}
 
 .icon{font-size:40px;}
 .price{color:#16a34a;font-weight:700;margin:8px 0;}
@@ -71,8 +63,10 @@ header{
 button{
   cursor:pointer;
   border:none;
+  border-radius:10px;
 }
 
+/* CART BUTTON */
 .cart-btn{
   position:fixed;
   right:20px;
@@ -81,8 +75,10 @@ button{
   color:white;
   padding:10px 14px;
   border-radius:999px;
+  z-index:20;
 }
 
+/* CART */
 .cart{
   position:fixed;
   right:20px;
@@ -93,14 +89,21 @@ button{
   padding:15px;
   box-shadow:0 10px 30px rgba(0,0,0,0.15);
   display:none;
+  animation:fade .2s ease;
+}
+
+@keyframes fade{
+  from{opacity:0;transform:translateY(-10px)}
+  to{opacity:1;transform:translateY(0)}
 }
 
 .item{
   display:flex;
   justify-content:space-between;
-  padding:6px 0;
+  padding:8px 0;
   border-bottom:1px solid #eee;
   font-size:14px;
+  align-items:center;
 }
 
 .qty{
@@ -110,13 +113,13 @@ button{
 }
 
 .qty button{
-  width:22px;
-  height:22px;
-  border-radius:6px;
+  width:24px;
+  height:24px;
   background:#0f172a;
   color:white;
 }
 
+/* INPUTS */
 input{
   width:100%;
   padding:8px;
@@ -125,11 +128,11 @@ input{
   border:1px solid #ddd;
 }
 
+/* ACTION BUTTONS */
 .btn{
   width:100%;
   margin-top:8px;
   padding:10px;
-  border-radius:10px;
   color:white;
   font-weight:600;
 }
@@ -139,10 +142,44 @@ input{
 .red{background:#ef4444;}
 .dark{background:#0f172a;}
 
+/* STATUS */
 .status{
   font-size:13px;
   margin-top:8px;
   color:green;
+}
+
+/* WHATSAPP FLOAT */
+.whatsapp{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:#25d366;
+  color:white;
+  width:55px;
+  height:55px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:24px;
+  text-decoration:none;
+  box-shadow:0 10px 25px rgba(0,0,0,0.25);
+  z-index:50;
+}
+
+/* TOAST */
+.toast{
+  position:fixed;
+  bottom:90px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#111;
+  color:white;
+  padding:10px 15px;
+  border-radius:10px;
+  display:none;
+  z-index:100;
 }
 
 footer{
@@ -162,10 +199,7 @@ footer{
 <div class="hero">
   <h1>🥭 Produits de Mayotte</h1>
   <p>Frais • Locaux • Livraison rapide</p>
-</div>
-
-<div class="search">
-  <input id="search" placeholder="Rechercher..." oninput="renderProducts()">
+  <p><b>🚚 Livraison gratuite dès 70€</b></p>
 </div>
 
 <button class="cart-btn" onclick="toggleCart()">🧺 (<span id="count">0</span>)</button>
@@ -174,7 +208,7 @@ footer{
 
   <div id="cart"></div>
 
-  <div class="total">Total : <span id="total">0</span>€</div>
+  <p><b>Total : <span id="total">0</span>€</b></p>
 
   <input id="clientName" placeholder="Nom complet">
   <input id="clientAddress" placeholder="Adresse de livraison">
@@ -189,10 +223,12 @@ footer{
 
 <div class="products" id="products"></div>
 
+<a class="whatsapp" href="https://wa.me/33789583650">💬</a>
+
+<div class="toast" id="toast"></div>
+
 <footer>
-  <p>📍 Chiconi</p>
-  <p>📩 maisonkimouzzz@gmail.com</p>
-  <p>📞 0789583650</p>
+  📍 Chiconi • 📞 0789583650 • 📩 maisonkimouzzz@gmail.com
 </footer>
 
 <script>
@@ -205,39 +241,23 @@ const products = [
 ];
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
-let client = JSON.parse(localStorage.getItem("client")) || {name:"", address:""};
-
-document.getElementById("clientName").value = client.name;
-document.getElementById("clientAddress").value = client.address;
 
 function save(){
   localStorage.setItem("cart", JSON.stringify(cart));
 }
 
-function saveClient(){
-  client = {
-    name:document.getElementById("clientName").value,
-    address:document.getElementById("clientAddress").value
-  };
-  localStorage.setItem("client", JSON.stringify(client));
-}
-
-document.addEventListener("input", saveClient);
-
-/* Livraison gratuite dès 70€ */
-function getDelivery(total){
-  return total >= 70 ? 0 : 5;
-}
-
+/* ADD */
 function add(name, price){
-  let item = cart.find(p=>p.name===name);
-  if(item) item.qty++;
+  let f = cart.find(i=>i.name===name);
+  if(f) f.qty++;
   else cart.push({name, price, qty:1});
 
   save();
   renderCart();
+  toast("Ajouté au panier");
 }
 
+/* CART UPDATE */
 function increase(i){
   cart[i].qty++;
   save();
@@ -252,15 +272,12 @@ function decrease(i){
   renderCart();
 }
 
+/* RENDER */
 function renderProducts(){
-  let search = document.getElementById("search").value.toLowerCase();
-  let box = document.getElementById("products");
-
+  let box=document.getElementById("products");
   box.innerHTML="";
 
-  products
-  .filter(p=>p.name.toLowerCase().includes(search))
-  .forEach(p=>{
+  products.forEach(p=>{
     box.innerHTML+=`
       <div class="card">
         <div class="icon">${p.icon}</div>
@@ -272,23 +289,23 @@ function renderProducts(){
   });
 }
 
+/* CART */
 function renderCart(){
   let box=document.getElementById("cart");
-  let total=0;
-  let count=0;
+  let total=0, count=0;
 
   box.innerHTML="";
 
-  if(cart.length === 0){
+  if(cart.length===0){
     box.innerHTML="<p>🛒 Panier vide</p>";
-    document.getElementById("total").innerText = 0;
-    document.getElementById("count").innerText = 0;
+    document.getElementById("total").innerText=0;
+    document.getElementById("count").innerText=0;
     return;
   }
 
   cart.forEach((i,index)=>{
-    total += i.price*i.qty;
-    count += i.qty;
+    total+=i.price*i.qty;
+    count+=i.qty;
 
     box.innerHTML+=`
       <div class="item">
@@ -302,98 +319,79 @@ function renderCart(){
     `;
   });
 
-  let delivery = getDelivery(total);
-  let final = total + delivery;
-
-  document.getElementById("total").innerText = final;
+  let delivery = total>=70?0:5;
+  document.getElementById("total").innerText = total + delivery;
   document.getElementById("count").innerText = count;
 
-  box.innerHTML += `
+  box.innerHTML+=`
     <div class="status">
-      ${delivery===0 ? "🚚 Livraison gratuite dès 70€" : "🚚 Livraison : 5€"}
+      ${delivery===0?"🚚 Livraison gratuite dès 70€":"🚚 Livraison : 5€"}
     </div>
   `;
 }
 
+/* CLEAR */
+function clearCart(){
+  cart=[];
+  save();
+  renderCart();
+  toast("Panier vidé");
+}
+
+/* TOGGLE */
 function toggleCart(){
   let c=document.getElementById("cartBox");
   c.style.display = c.style.display==="block"?"none":"block";
 }
 
+/* MAPS */
 function openMaps(){
-  let address=document.getElementById("clientAddress").value;
-  if(!address) return alert("Adresse manquante");
-
-  window.open("https://www.google.com/maps/search/"+encodeURIComponent(address));
+  let a=document.getElementById("clientAddress").value;
+  if(!a) return alert("Adresse manquante");
+  window.open("https://www.google.com/maps/search/"+encodeURIComponent(a));
 }
 
+/* WHATSAPP */
 function orderWhatsApp(){
   if(cart.length===0) return alert("Panier vide");
 
   let name=document.getElementById("clientName").value;
   let address=document.getElementById("clientAddress").value;
 
-  if(!name || !address) return alert("Nom + adresse requis");
+  if(!name||!address) return alert("Nom + adresse requis");
 
-  let total=0;
   let msg=`🛒 Maison Kimouzz\n\n👤 ${name}\n📍 ${address}\n\n`;
+  let total=0;
 
   cart.forEach(i=>{
     msg+=`- ${i.name} x${i.qty}\n`;
     total+=i.price*i.qty;
   });
 
-  let delivery=getDelivery(total);
-  let final=total+delivery;
+  let delivery=total>=70?0:5;
 
-  msg+=`\n🚚 Livraison : ${delivery===0?"Gratuite dès 70€":"5€"}`;
-  msg+=`\n💰 Total : ${final}€`;
+  msg+=`\n🚚 Livraison: ${delivery===0?"Gratuite dès 70€":"5€"}`;
+  msg+=`\n💰 Total: ${total+delivery}€`;
 
   window.open("https://wa.me/33789583650?text="+encodeURIComponent(msg));
 
   cart=[];
   save();
   renderCart();
-
-  showStatus("✔ Commande envoyée");
+  toast("Commande envoyée");
 }
 
+/* EMAIL */
 function orderEmail(){
-  if(cart.length===0) return alert("Panier vide");
-
-  let name=document.getElementById("clientName").value;
-  let address=document.getElementById("clientAddress").value;
-
-  if(!name || !address) return alert("Nom + adresse requis");
-
-  let total=0;
-  let body=`🛒 Maison Kimouzz\n\n👤 ${name}\n📍 ${address}\n\n`;
-
-  cart.forEach(i=>{
-    body+=`- ${i.name} x${i.qty}\n`;
-    total+=i.price*i.qty;
-  });
-
-  let delivery=getDelivery(total);
-  let final=total+delivery;
-
-  body+=`\n🚚 Livraison : ${delivery===0?"Gratuite dès 70€":"5€"}`;
-  body+=`\n💰 Total : ${final}€`;
-
-  window.location.href=
-    "mailto:maisonkimouzzz@gmail.com?subject=Commande Maison Kimouzz&body="+encodeURIComponent(body);
-
-  cart=[];
-  save();
-  renderCart();
-
-  showStatus("✔ Email prêt");
+  alert("Garde ton système WhatsApp 👍 (email optionnel)");
 }
 
-function showStatus(msg){
-  let s=document.getElementById("status");
-  s.innerText=msg;
-  setTimeout(()=>{ s.innerText=""; },3000);
+/* TOAST */
+function toast(t){
+  let x=document.getElementById("toast");
+  x.innerText=t;
+  x.style.display="block";
+  setTimeout(()=>x.style.display="none",1500);
 }
 
 renderProducts();
