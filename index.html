@@ -146,6 +146,13 @@ header{
   margin-top:10px;
 }
 
+/* 🚚 DELIVERY INFO */
+#deliveryInfo{
+  font-size:13px;
+  margin-top:8px;
+  font-weight:600;
+}
+
 .order-btn{
   width:100%;
   margin-top:10px;
@@ -211,6 +218,8 @@ footer{
 <div class="cart" id="cartBox">
   <div id="cart"></div>
   <div class="total">Total : <span id="total">0</span>€</div>
+
+  <div id="deliveryInfo"></div>
 
   <button class="order-btn" onclick="orderWhatsApp()">Commander WhatsApp</button>
   <button class="email-btn" onclick="orderEmail()">Commander Email</button>
@@ -281,6 +290,20 @@ function renderCart(){
 
   document.getElementById("total").innerText = total;
   document.getElementById("count").innerText = cart.length;
+
+  // 🚚 LOGIQUE LIVRAISON
+  let delivery = document.getElementById("deliveryInfo");
+
+  if(total >= 50){
+    delivery.innerHTML = "🚚 Livraison gratuite";
+    delivery.style.color = "green";
+  } else if(total > 0){
+    let remain = (50 - total).toFixed(2);
+    delivery.innerHTML = "🏪 Retrait sur place • Livraison gratuite à partir de 50€ (encore " + remain + "€)";
+    delivery.style.color = "#d97706";
+  } else {
+    delivery.innerHTML = "";
+  }
 }
 
 function removeItem(i){
