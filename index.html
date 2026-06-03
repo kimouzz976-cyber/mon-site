@@ -3,10 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Maison Kimouzz V3</title>
-
-<meta name="theme-color" content="#0f172a">
+<title>Maison Kimouzz V4</title>
 
 <!-- FIREBASE -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
@@ -14,16 +11,16 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 
 <style>
-body{margin:0;font-family:Arial;background:#f6f7fb;color:#111}
+body{margin:0;font-family:Arial;background:#f6f7fb}
 
 /* HEADER */
 header{
+background:#0f172a;
+color:white;
+padding:15px;
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:15px;
-background:#0f172a;
-color:white;
 position:sticky;
 top:0;
 }
@@ -35,8 +32,6 @@ color:white;
 text-align:center;
 padding:60px 20px;
 }
-.hero h1{font-size:38px}
-.hero h2{color:#4ade80}
 
 /* GRID */
 .grid{
@@ -49,7 +44,7 @@ padding:20px;
 .card{
 background:white;
 padding:15px;
-border-radius:15px;
+border-radius:12px;
 box-shadow:0 10px 20px rgba(0,0,0,.05);
 }
 
@@ -78,7 +73,6 @@ padding:15px;
 overflow:auto;
 display:none;
 z-index:999;
-box-shadow:-10px 0 30px rgba(0,0,0,.2);
 }
 
 /* AUTH */
@@ -87,9 +81,8 @@ position:fixed;
 inset:0;
 background:rgba(0,0,0,.6);
 display:flex;
-align-items:center;
 justify-content:center;
-z-index:9999;
+align-items:center;
 }
 
 .auth-box{
@@ -105,11 +98,13 @@ padding:10px;
 margin:5px 0;
 }
 
-.kmz{
-background:#16a34a;
-color:white;
-padding:10px;
-border-radius:10px;
+/* ADMIN */
+#admin{
+display:none;
+padding:20px;
+background:#fff;
+margin:20px;
+border-radius:12px;
 }
 </style>
 </head>
@@ -131,24 +126,17 @@ border-radius:10px;
 
 <!-- HEADER -->
 <header>
-<div>🌴 Kimouzz V3</div>
+<div>🌴 Kimouzz V4</div>
 <div>🪙 <span id="kmz">0</span> KMZ <button onclick="toggleCart()">🛒</button></div>
 </header>
 
 <!-- HERO -->
 <section class="hero">
-<h1>🌴 Produire localement</h1>
-<h2>Nourrir Mayotte</h2>
-<p>Agriculture • Pêche • Élevage • Restauration</p>
+<h1>🌴 Produire • Consommer • Transformer</h1>
+<p>Mayotte — Agriculture • Pêche • Élevage • Restaurants</p>
 </section>
 
-<!-- VISION -->
-<section style="padding:30px;text-align:center;">
-<h2>🌍 Notre mission</h2>
-<p>Construire une économie locale autonome à Mayotte.</p>
-</section>
-
-<!-- PRODUCTS -->
+<!-- PRODUITS -->
 <section class="grid" id="products"></section>
 
 <!-- RESTAURANTS -->
@@ -158,6 +146,15 @@ border-radius:10px;
 <div class="card">🥩 Boucherie locale</div>
 </section>
 
+<!-- ADMIN -->
+<div id="admin">
+<h2>🧑‍💼 Admin Dashboard</h2>
+<button onclick="loadOrders()">📦 Commandes</button>
+<button onclick="loadUsers()">👤 Users</button>
+<button onclick="loadStats()">📊 Stats KMZ</button>
+<div id="adminData"></div>
+</div>
+
 <!-- CART -->
 <div class="cart" id="cart">
 <h3>🛒 Panier</h3>
@@ -165,7 +162,6 @@ border-radius:10px;
 <div id="items"></div>
 
 <p><b>Total:</b> <span id="total">0</span>€</p>
-<p class="kmz">🪙 KMZ</p>
 
 <button class="green" onclick="checkout()">Commander</button>
 <button class="red" onclick="clearCart()">Vider</button>
@@ -201,9 +197,17 @@ let p=document.getElementById("password").value;
 
 auth.createUserWithEmailAndPassword(e,p)
 .then(async u=>{
-await db.collection("users").doc(u.user.uid).set({kmz:0});
+
+await db.collection("users").doc(u.user.uid).set({
+kmz:0,
+role:"client"
+});
+
 user=u.user;
 document.getElementById("auth").style.display="none";
+
+checkRole();
+
 });
 }
 
@@ -215,7 +219,22 @@ auth.signInWithEmailAndPassword(e,p)
 .then(u=>{
 user=u.user;
 document.getElementById("auth").style.display="none";
+checkRole();
 });
+}
+
+/* ================= ROLE ================= */
+
+async function checkRole(){
+
+let doc=await db.collection("users").doc(user.uid).get();
+
+let role=doc.data().role;
+
+if(role==="admin"){
+document.getElementById("admin").style.display="block";
+}
+
 }
 
 /* ================= DATA ================= */
@@ -227,26 +246,31 @@ const products=[
 {name:"Œufs",price:8,icon:"🥚"},
 {name:"Poulet",price:12,icon:"🐔"},
 {name:"Poisson",price:25,icon:"🐟"},
-{name:"Fromage",price:15,icon:"🧀"}
+{name:"Fromage",price:15,icon:"🧀"},
+{name:"Mangue",price:6,icon:"🥭"}
 ];
 
 /* ================= KMZ ================= */
 
 async function addKMZ(amount){
+
 if(!user) return;
 
 db.collection("users").doc(user.uid).update({
 kmz: firebase.firestore.FieldValue.increment(amount)
 });
+
 }
 
 /* ================= PRODUCTS ================= */
 
 function renderProducts(){
+
 let box=document.getElementById("products");
 box.innerHTML="";
 
 products.forEach(p=>{
+
 let div=document.createElement("div");
 div.className="card";
 
@@ -266,7 +290,9 @@ add(p);
 
 div.appendChild(btn);
 box.appendChild(div);
+
 });
+
 }
 
 function add(p){
@@ -279,6 +305,7 @@ else cart.push({...p,qty:1});
 addKMZ(1);
 
 renderCart();
+
 }
 
 /* ================= CART ================= */
@@ -299,6 +326,7 @@ box.appendChild(div);
 });
 
 document.getElementById("total").innerText=total;
+document.getElementById("kmz").innerText="LIVE";
 }
 
 function clearCart(){
@@ -316,10 +344,78 @@ db.collection("orders").add({
 user:user.uid,
 cart:cart,
 total:total,
+status:"pending",
 date:new Date()
 });
 
-window.open("https://wa.me/33789583650?text="+encodeURIComponent("Commande: "+total));
+alert("Commande envoyée 🚀");
+
+}
+
+/* ================= ADMIN ================= */
+
+function loadOrders(){
+
+db.collection("orders").get().then(snap=>{
+
+let html="";
+
+snap.forEach(d=>{
+
+let o=d.data();
+
+html+=`
+<div class="card">
+<b>Total:</b> ${o.total}€ <br>
+<b>Status:</b> ${o.status}
+</div>
+`;
+
+});
+
+document.getElementById("adminData").innerHTML=html;
+
+});
+
+}
+
+function loadUsers(){
+
+db.collection("users").get().then(snap=>{
+
+let html="";
+
+snap.forEach(d=>{
+
+html+=`
+<div class="card">
+KMZ: ${d.data().kmz}
+</div>
+`;
+
+});
+
+document.getElementById("adminData").innerHTML=html;
+
+});
+
+}
+
+function loadStats(){
+
+db.collection("users").get().then(snap=>{
+
+let total=0;
+
+snap.forEach(d=>{
+total+=d.data().kmz||0;
+});
+
+document.getElementById("adminData").innerHTML=
+"🪙 KMZ total: "+total;
+
+});
+
 }
 
 /* ================= UI ================= */
