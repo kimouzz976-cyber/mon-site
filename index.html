@@ -6,11 +6,13 @@
 <title>Maison Kimouzz - Tropical Market Pro</title>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
 body{
   margin:0;
-  font-family:Arial, sans-serif;
-  color:white;
-  background: linear-gradient(180deg,#ffb703,#fb8500,#023047);
+  font-family:'Inter', sans-serif;
+  background:#f6f7fb;
+  color:#1f1f1f;
 }
 
 /* HEADER */
@@ -18,137 +20,185 @@ header{
   position:sticky;
   top:0;
   z-index:1000;
-  padding:15px;
+  background:#ffffff;
+  padding:15px 20px;
   text-align:center;
-  background:rgba(0,0,0,0.4);
-  backdrop-filter: blur(10px);
+  font-weight:700;
+  font-size:18px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.06);
 }
 
 /* HERO */
 .hero{
+  background:linear-gradient(135deg,#0f172a,#1e293b);
+  color:white;
   text-align:center;
-  padding:60px 20px;
-  background:rgba(0,0,0,0.25);
+  padding:70px 20px;
+  border-radius:0 0 25px 25px;
 }
-.hero h1{font-size:40px;margin:0;}
-.hero p{color:#ffe8a3;font-size:18px;}
+
+.hero h1{
+  font-size:42px;
+  margin:0;
+}
+
+.hero p{
+  color:#cbd5e1;
+  margin-top:10px;
+}
+
 .hero button{
-  margin-top:15px;
-  padding:12px 20px;
+  margin-top:20px;
+  padding:12px 22px;
   border:none;
-  border-radius:25px;
-  background:#25D366;
-  font-weight:bold;
+  border-radius:10px;
+  background:#22c55e;
+  color:white;
+  font-weight:600;
   cursor:pointer;
 }
 
 /* SEARCH */
 .search{
-  text-align:center;
-  margin-top:15px;
-}
-.search input{
-  width:80%;
-  max-width:400px;
-  padding:10px;
-  border-radius:20px;
-  border:none;
+  display:flex;
+  justify-content:center;
+  margin-top:20px;
 }
 
-/* PRODUCTS */
+.search input{
+  width:90%;
+  max-width:420px;
+  padding:12px;
+  border-radius:12px;
+  border:1px solid #e5e7eb;
+  outline:none;
+  background:white;
+}
+
+/* PRODUITS */
 .products{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:20px;
-  padding:25px;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:18px;
+  padding:30px;
 }
 
+/* CARD */
 .card{
-  background:rgba(255,255,255,0.15);
-  backdrop-filter: blur(10px);
-  padding:15px;
-  border-radius:18px;
+  background:white;
+  border-radius:16px;
+  padding:18px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.06);
+  transition:0.25s ease;
   text-align:center;
-  transition:0.3s;
 }
-.card:hover{transform:translateY(-8px);}
 
-.icon{font-size:50px;}
-.price{color:#ffe066;font-weight:bold;}
+.card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 12px 25px rgba(0,0,0,0.1);
+}
+
+.icon{
+  font-size:42px;
+  margin-bottom:10px;
+}
+
+.card h3{
+  margin:8px 0;
+  font-size:18px;
+}
+
+.price{
+  color:#16a34a;
+  font-weight:700;
+  margin:8px 0;
+}
 
 .card button{
   width:100%;
   padding:10px;
   border:none;
-  border-radius:12px;
-  background:linear-gradient(90deg,#ffdd00,#ff7b00);
+  border-radius:10px;
+  background:#0f172a;
+  color:white;
+  font-weight:600;
   cursor:pointer;
+}
+
+.card button:hover{
+  background:#1e293b;
+}
+
+/* CART BUTTON */
+.cart-btn{
+  position:fixed;
+  right:20px;
+  top:80px;
+  background:#0f172a;
+  color:white;
+  padding:10px 14px;
+  border-radius:999px;
+  cursor:pointer;
+  font-size:14px;
 }
 
 /* CART */
-.cart-btn{
-  position:fixed;
-  right:15px;
-  top:80px;
-  background:#000;
-  color:#fff;
-  padding:10px 15px;
-  border-radius:20px;
-  cursor:pointer;
-  z-index:2000;
-}
-
 .cart{
   position:fixed;
-  right:15px;
+  right:20px;
   top:130px;
-  width:300px;
-  background:rgba(0,0,0,0.8);
+  width:320px;
+  background:white;
+  border-radius:16px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.15);
   padding:15px;
-  border-radius:15px;
-  max-height:70vh;
-  overflow:auto;
   display:none;
 }
 
 .item{
   display:flex;
   justify-content:space-between;
+  padding:6px 0;
   font-size:14px;
-  margin:5px 0;
+  border-bottom:1px solid #f1f1f1;
 }
 
-.total{color:#ffe066;font-weight:bold;margin-top:10px;}
+.total{
+  font-weight:700;
+  margin-top:10px;
+}
 
-.order-btn,.clear-btn{
+.order-btn{
   width:100%;
+  margin-top:10px;
   padding:10px;
-  margin-top:8px;
   border:none;
   border-radius:10px;
+  background:#22c55e;
+  color:white;
+  font-weight:600;
   cursor:pointer;
 }
-.order-btn{background:#25D366;}
-.clear-btn{background:#ff3b3b;color:white;}
 
-/* TOAST */
-.toast{
-  position:fixed;
-  bottom:20px;
-  left:50%;
-  transform:translateX(-50%);
-  background:#000;
-  padding:10px 15px;
-  border-radius:20px;
-  display:none;
+.clear-btn{
+  width:100%;
+  margin-top:8px;
+  padding:10px;
+  border:none;
+  border-radius:10px;
+  background:#ef4444;
+  color:white;
+  font-weight:600;
+  cursor:pointer;
 }
 
 /* FOOTER */
 footer{
   text-align:center;
-  padding:30px;
+  padding:40px 20px;
+  background:#0f172a;
+  color:#cbd5e1;
   margin-top:40px;
-  background:rgba(0,0,0,0.4);
 }
 </style>
 </head>
@@ -177,8 +227,6 @@ footer{
 
 <div class="products" id="products"></div>
 
-<div class="toast" id="toast"></div>
-
 <footer>
   <h2>Maison Kimouzz</h2>
   <p>📍 281 route Ampadza, 97670 Chiconi</p>
@@ -195,18 +243,7 @@ const products = [
   {name:"Canard", price:35, icon:"🦆"}
 ];
 
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-function save(){
-  localStorage.setItem("cart", JSON.stringify(cart));
-}
-
-function toast(msg){
-  let t = document.getElementById("toast");
-  t.innerText = msg;
-  t.style.display="block";
-  setTimeout(()=>t.style.display="none",1500);
-}
+let cart = [];
 
 function renderProducts(){
   let search = document.getElementById("search").value.toLowerCase();
@@ -229,47 +266,38 @@ function renderProducts(){
 }
 
 function add(name,price){
-  let item = cart.find(i=>i.name===name);
-  if(item) item.qty++;
-  else cart.push({name,price,qty:1});
-
-  save();
+  cart.push({name,price});
   renderCart();
-  toast(name + " ajouté 🛒");
 }
 
 function renderCart(){
   let box = document.getElementById("cart");
   let total = 0;
-  let count = 0;
 
   box.innerHTML = "";
 
   cart.forEach((i,index)=>{
-    total += i.price * i.qty;
-    count += i.qty;
+    total += i.price;
 
     box.innerHTML += `
       <div class="item">
-        ${i.name} x${i.qty}
+        ${i.name}
         <span onclick="removeItem(${index})" style="color:red;cursor:pointer">x</span>
       </div>
     `;
   });
 
-  document.getElementById("total").innerText = total.toFixed(2);
-  document.getElementById("count").innerText = count;
+  document.getElementById("total").innerText = total;
+  document.getElementById("count").innerText = cart.length;
 }
 
 function removeItem(i){
   cart.splice(i,1);
-  save();
   renderCart();
 }
 
 function clearCart(){
   cart = [];
-  save();
   renderCart();
 }
 
@@ -285,17 +313,16 @@ function order(){
   let total = 0;
 
   cart.forEach(i=>{
-    msg += `- ${i.name} x${i.qty} : ${i.price*i.qty}€\n`;
-    total += i.price*i.qty;
+    msg += "- " + i.name + " : " + i.price + "€\n";
+    total += i.price;
   });
 
-  msg += `\n💰 Total : ${total.toFixed(2)}€`;
+  msg += "\n💰 Total : " + total + "€";
 
   window.open("https://wa.me/33789583650?text="+encodeURIComponent(msg));
 }
 
 renderProducts();
-renderCart();
 
 </script>
 
