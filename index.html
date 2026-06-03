@@ -73,6 +73,19 @@ header{
   padding:15px;
   text-align:center;
   box-shadow:0 5px 15px rgba(0,0,0,0.06);
+  position:relative;
+  overflow:hidden;
+}
+
+.icon-badge{
+  position:absolute;
+  top:10px;
+  left:10px;
+  background:#111827;
+  color:white;
+  padding:5px 8px;
+  border-radius:8px;
+  font-size:14px;
 }
 
 .card img{
@@ -109,16 +122,6 @@ header{
   border-radius:15px;
   display:none;
   box-shadow:0 10px 25px rgba(0,0,0,0.15);
-}
-
-/* INPUTS */
-input, textarea{
-  width:100%;
-  margin-top:5px;
-  padding:8px;
-  border-radius:8px;
-  border:1px solid #ddd;
-  margin-bottom:8px;
 }
 
 /* BUTTONS */
@@ -179,7 +182,6 @@ button{
 
 <p><b>Total: <span id="total">0</span>€</b></p>
 
-<!-- CLIENT INFO -->
 <input id="name" placeholder="Nom">
 <input id="phone" placeholder="Téléphone">
 <textarea id="address" placeholder="Adresse"></textarea>
@@ -201,10 +203,10 @@ button{
 <script>
 
 const products = [
-  {name:"Banane", price:20, img:"https://via.placeholder.com/300x200?text=Banane"},
-  {name:"Œufs", price:8, img:"https://via.placeholder.com/300x200?text=Oeufs"},
-  {name:"Poule", price:10, img:"https://via.placeholder.com/300x200?text=Poule"},
-  {name:"Canard", price:35, img:"https://via.placeholder.com/300x200?text=Canard"}
+  {name:"Banane", price:20, icon:"🍌"},
+  {name:"Œufs", price:8, icon:"🥚"},
+  {name:"Poule", price:10, icon:"🐔"},
+  {name:"Canard", price:35, icon:"🦆"}
 ];
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -218,17 +220,19 @@ function renderProducts(){
   let box = document.getElementById("products");
   box.innerHTML = "";
 
-  products.filter(p=>p.name.toLowerCase().includes(search))
-  .forEach(p=>{
-    box.innerHTML += `
-      <div class="card">
-        <img src="${p.img}">
-        <h3>${p.name}</h3>
-        <p class="price">${p.price}€</p>
-        <button class="add" onclick="add('${p.name}',${p.price})">Ajouter</button>
-      </div>
-    `;
-  });
+  products
+    .filter(p => p.name.toLowerCase().includes(search))
+    .forEach(p => {
+      box.innerHTML += `
+        <div class="card">
+          <div class="icon-badge">${p.icon}</div>
+          <img src="https://via.placeholder.com/300x200?text=${p.name}">
+          <h3>${p.icon} ${p.name}</h3>
+          <p class="price">${p.price}€</p>
+          <button class="add" onclick="add('${p.name}',${p.price})">Ajouter</button>
+        </div>
+      `;
+    });
 }
 
 function add(name,price){
@@ -248,7 +252,7 @@ function renderCart(){
     box.innerHTML += `
       <div class="item">
         ${i.name}
-        <span onclick="removeItem(${index})" style="color:red">x</span>
+        <span onclick="removeItem(${index})" style="color:red;cursor:pointer">x</span>
       </div>
     `;
   });
@@ -256,12 +260,8 @@ function renderCart(){
   document.getElementById("total").innerText = total;
   document.getElementById("count").innerText = cart.length;
 
-  let delivery = document.getElementById("deliveryInfo");
-  if(total >= 70){
-    delivery.innerText = "🚚 Livraison GRATUITE";
-  } else {
-    delivery.innerText = "📦 Retrait à Chiconi";
-  }
+  document.getElementById("deliveryInfo").innerText =
+    total >= 70 ? "🚚 Livraison GRATUITE" : "📦 Retrait à Chiconi";
 
   saveCart();
 }
@@ -281,7 +281,6 @@ function toggleCart(){
   c.style.display = c.style.display==="block" ? "none" : "block";
 }
 
-/* WHATSAPP */
 function orderWhatsApp(){
   if(cart.length===0) return;
 
@@ -304,7 +303,6 @@ function orderWhatsApp(){
   window.open("https://wa.me/33789583650?text="+encodeURIComponent(msg));
 }
 
-/* EMAIL */
 function orderEmail(){
   let subject = "Commande Maison Kimouzz";
   let body = "Commande:\n\n";
@@ -316,7 +314,6 @@ function orderEmail(){
   });
 
   body += "\nTotal: " + total + "€";
-  body += total >= 70 ? "\nLivraison gratuite" : "\nRetrait à Chiconi";
 
   window.location.href =
     "mailto:maisonkimouzzz@gmail.com?subject="+encodeURIComponent(subject)+"&body="+encodeURIComponent(body);
