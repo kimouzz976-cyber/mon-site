@@ -32,10 +32,10 @@ header{
 .delivery-banner{
   text-align:center;
   padding:10px;
-  background:#22c55e;
+  background:linear-gradient(90deg,#16a34a,#22c55e);
   color:white;
-  font-weight:600;
-  font-size:14px;
+  font-weight:700;
+  font-size:13px;
 }
 
 /* HERO */
@@ -118,17 +118,6 @@ header{
   cursor:pointer;
 }
 
-/* BADGE */
-.badge{
-  font-size:12px;
-  background:#0f172a;
-  color:white;
-  padding:3px 8px;
-  border-radius:10px;
-  display:inline-block;
-  margin-bottom:6px;
-}
-
 /* CART */
 .cart-btn{
   position:fixed;
@@ -166,13 +155,6 @@ header{
 .total{
   font-weight:700;
   margin-top:10px;
-}
-
-/* DELIVERY INFO */
-#deliveryInfo{
-  font-size:13px;
-  margin-top:8px;
-  font-weight:600;
 }
 
 /* BUTTONS */
@@ -220,10 +202,13 @@ header{
   transform:translateX(-50%);
   background:#0f172a;
   color:white;
-  padding:10px 15px;
-  border-radius:10px;
+  padding:12px 18px;
+  border-radius:12px;
   display:none;
-  z-index:2000;
+  font-weight:600;
+  font-size:14px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.2);
+  z-index:9999;
 }
 
 /* FOOTER */
@@ -242,7 +227,7 @@ footer{
 <header>🌴 Maison Kimouzz</header>
 
 <div class="delivery-banner">
-🚚 Livraison gratuite dès 50€ • En dessous : retrait sur place
+🚚 Livraison gratuite dès 50€ • En dessous : retrait sur place à Chiconi
 </div>
 
 <div class="hero">
@@ -259,8 +244,6 @@ footer{
 <div class="cart" id="cartBox">
   <div id="cart"></div>
   <div class="total">Total : <span id="total">0</span>€</div>
-
-  <div id="deliveryInfo"></div>
 
   <button class="order-btn" onclick="orderWhatsApp()">Commander WhatsApp</button>
   <button class="email-btn" onclick="orderEmail()">Commander Email</button>
@@ -281,14 +264,20 @@ footer{
 <script>
 
 const products = [
-  {name:"Banane locale", price:20, icon:"🍌", badge:"Populaire"},
-  {name:"Œufs frais", price:8, icon:"🥚", badge:"Fraîcheur"},
-  {name:"Poule fermière", price:10, icon:"🐔", badge:"Local"},
-  {name:"Canard fermier", price:35, icon:"🦆", badge:"Premium"}
+  {name:"Banane locale", price:20, icon:"🍌"},
+  {name:"Œufs frais", price:8, icon:"🥚"},
+  {name:"Poule fermière", price:10, icon:"🐔"},
+  {name:"Canard fermier", price:35, icon:"🦆"}
 ];
 
-let cart = [];
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
+/* SAVE */
+function saveCart(){
+  localStorage.setItem("cart", JSON.stringify(cart));
+}
+
+/* TOAST */
 function toast(msg){
   let t = document.getElementById("toast");
   t.innerText = msg;
@@ -296,6 +285,7 @@ function toast(msg){
   setTimeout(()=>t.style.display="none",1500);
 }
 
+/* PRODUCTS */
 function renderProducts(){
   let search = document.getElementById("search").value.toLowerCase();
   let box = document.getElementById("products");
@@ -307,7 +297,6 @@ function renderProducts(){
   .forEach(p=>{
     box.innerHTML += `
       <div class="card">
-        <div class="badge">${p.badge}</div>
         <div class="icon">${p.icon}</div>
         <h3>${p.name}</h3>
         <div class="price">${p.price}€</div>
@@ -317,12 +306,15 @@ function renderProducts(){
   });
 }
 
+/* ADD */
 function add(name,price){
   cart.push({name,price});
+  saveCart();
   renderCart();
   toast(name + " ajouté 🛒");
 }
 
+/* CART */
 function renderCart(){
   let box = document.getElementById("cart");
   let total = 0;
@@ -342,31 +334,23 @@ function renderCart(){
 
   document.getElementById("total").innerText = total;
   document.getElementById("count").innerText = cart.length;
-
-  let delivery = document.getElementById("deliveryInfo");
-
-  if(total >= 50){
-    delivery.innerHTML = "🚚 Livraison gratuite";
-    delivery.style.color = "green";
-  } else if(total > 0){
-    let remain = (50 - total).toFixed(2);
-    delivery.innerHTML = "🏪 Retrait sur place • + " + remain + "€ pour livraison gratuite";
-    delivery.style.color = "#d97706";
-  } else {
-    delivery.innerHTML = "";
-  }
 }
 
+/* REMOVE */
 function removeItem(i){
   cart.splice(i,1);
+  saveCart();
   renderCart();
 }
 
+/* CLEAR */
 function clearCart(){
   cart = [];
+  saveCart();
   renderCart();
 }
 
+/* TOGGLE */
 function toggleCart(){
   let c = document.getElementById("cartBox");
   c.style.display = c.style.display==="block" ? "none" : "block";
@@ -411,7 +395,9 @@ function orderEmail(){
     encodeURIComponent(body);
 }
 
+/* INIT */
 renderProducts();
+renderCart();
 
 </script>
 
