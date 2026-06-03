@@ -106,7 +106,7 @@ header{
   z-index:1000;
 }
 
-/* OVERLAY (léger, non bloquant UX) */
+/* OVERLAY */
 .overlay{
   position:fixed;
   inset:0;
@@ -115,7 +115,7 @@ header{
   z-index:998;
 }
 
-/* CART PRO (drawer non bloquant) */
+/* CART */
 .cart{
   position:fixed;
   right:20px;
@@ -128,7 +128,6 @@ header{
   z-index:999;
   box-shadow:0 15px 35px rgba(0,0,0,0.2);
   animation:pop .2s ease;
-  pointer-events:auto;
 }
 
 @keyframes pop{
@@ -136,7 +135,7 @@ header{
   to{transform:translateY(0);opacity:1}
 }
 
-/* HEADER PANIER */
+/* CLOSE */
 .close-cart{
   display:flex;
   justify-content:space-between;
@@ -153,7 +152,7 @@ header{
   cursor:pointer;
 }
 
-/* CONTINUE BUTTON */
+/* CONTINUE */
 .continue-btn{
   margin-top:10px;
   width:100%;
@@ -164,7 +163,7 @@ header{
   cursor:pointer;
 }
 
-/* MOBILE FULL SCREEN */
+/* MOBILE */
 @media(max-width:768px){
   .cart{
     width:100%;
@@ -196,7 +195,6 @@ header{
 
 <body>
 
-<!-- OVERLAY -->
 <div class="overlay" id="overlay" onclick="closeCart()"></div>
 
 <header>🌴 Maison Kimouzz</header>
@@ -209,10 +207,8 @@ header{
   <input id="search" placeholder="Rechercher..." oninput="App.renderProducts()">
 </div>
 
-<!-- CART BTN -->
 <button class="cart-btn" onclick="toggleCart()">🧺 <span id="count">0</span></button>
 
-<!-- CART -->
 <div class="cart" id="cartBox">
 
   <div class="close-cart">
@@ -224,13 +220,19 @@ header{
 
   <p><b>Total :</b> <span id="total">0</span>€</p>
 
-  <input id="clientName" placeholder="Nom">
+  <!-- TYPE COMMANDE -->
+  <select id="orderType" style="width:100%;padding:10px;margin-top:10px;border-radius:10px;">
+    <option value="pickup">📦 Retrait</option>
+    <option value="delivery">🚚 Livraison</option>
+  </select>
+
+  <input id="clientName" placeholder="Nom et prénom">
   <input id="clientAddress" placeholder="Adresse">
+  <input id="clientPhone" placeholder="Téléphone">
 
   <button onclick="orderWhatsApp()" class="add-btn">WhatsApp</button>
   <button onclick="orderEmail()" class="add-btn">Email</button>
 
-  <!-- NOUVEAU BOUTON UX -->
   <button class="continue-btn" onclick="closeCart()">← Continuer mes achats</button>
 
   <button onclick="clearCart()" style="background:red;color:white;width:100%;margin-top:8px;padding:12px;border-radius:12px;border:none;">
@@ -239,14 +241,12 @@ header{
 
 </div>
 
-<!-- PRODUCTS -->
 <div class="products" id="products"></div>
 
 <a class="whatsapp-float" href="https://wa.me/33789583650">💬</a>
 
 <script>
 
-/* SAFE LOAD */
 function loadCart(){
   try{
     return JSON.parse(localStorage.getItem("cart")) || [];
@@ -256,7 +256,6 @@ function loadCart(){
   }
 }
 
-/* APP */
 const App = {
 
   products:[
@@ -282,7 +281,6 @@ const App = {
     this.save();
     this.renderCart();
 
-    // PANIER NE BLOQUE PAS
     document.getElementById("cartBox").style.display="block";
   },
 
@@ -335,7 +333,6 @@ const App = {
   }
 };
 
-/* CART CONTROL PRO */
 function openCart(){
   document.getElementById("cartBox").style.display="block";
   document.getElementById("overlay").style.display="block";
@@ -348,43 +345,74 @@ function closeCart(){
 
 function toggleCart(){
   const c=document.getElementById("cartBox");
-
   if(c.style.display==="block") closeCart();
   else openCart();
 }
 
-/* ACTIONS */
+/* WHATSAPP FINAL */
 function orderWhatsApp(){
 
+  let type=document.getElementById("orderType").value;
   let name=document.getElementById("clientName").value;
   let address=document.getElementById("clientAddress").value;
+  let phone=document.getElementById("clientPhone").value;
 
-  if(!name||!address) return alert("Nom + adresse requis");
+  let total=App.cart.reduce((t,i)=>t+i.price*i.qty,0);
 
-  let msg=`🛒 Maison Kimouzz\n\n${name}\n${address}\n\n`;
+  if(App.cart.length===0) return alert("Panier vide");
+
+  let msg=`🛒 Maison Kimouzz\n\n`;
+
+  if(type==="delivery"){
+
+    if(!name || !address || !phone)
+      return alert("Remplis Nom + Adresse + Téléphone");
+
+    msg+=`🚚 Livraison\n`;
+    msg+=`${name}\n${address}\n${phone}\n`;
+
+  }else{
+
+    msg+=`📦 Retrait\n281 route ampadza 97670 chiconi\n`;
+  }
+
+  msg+="\n";
 
   App.cart.forEach(i=>{
     msg+=`- ${i.name} x${i.qty}\n`;
   });
+
+  msg+=`\n💰 Total : ${total}€`;
+
+  if(total>=70) msg+=`\n🚚 Livraison gratuite`;
 
   window.open("https://wa.me/33789583650?text="+encodeURIComponent(msg));
 
   closeCart();
 }
 
+/* EMAIL */
 function orderEmail(){
 
-  let body="Commande\n\n";
+  let type=document.getElementById("orderType").value;
+
+  let body="Commande Maison Kimouzz\n\n";
+
+  if(type==="delivery"){
+    body+="Livraison\n";
+    body+=document.getElementById("clientName").value+"\n";
+    body+=document.getElementById("clientAddress").value+"\n";
+    body+=document.getElementById("clientPhone").value+"\n\n";
+  }else{
+    body+="Retrait: 281 route ampadza 97670 chiconi\n\n";
+  }
 
   App.cart.forEach(i=>{
     body+=`${i.name} x${i.qty}\n`;
   });
 
   window.location.href=
-    "mailto:maisonkimouzzz@gmail.com?subject=Commande&body="
-    + encodeURIComponent(body);
-
-  closeCart();
+    "mailto:maisonkimouzzz@gmail.com?subject=Commande&body="+encodeURIComponent(body);
 }
 
 function clearCart(){
@@ -393,7 +421,6 @@ function clearCart(){
   App.renderCart();
 }
 
-/* INIT */
 App.renderProducts();
 App.renderCart();
 
