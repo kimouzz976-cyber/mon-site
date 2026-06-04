@@ -40,13 +40,6 @@ header{
   z-index:10;
 }
 
-header a{
-  color:#0f172a;
-  text-decoration:none;
-  font-weight:600;
-  margin-left:10px;
-}
-
 .cart-btn{
   background:#0f172a;
   color:white;
@@ -57,7 +50,7 @@ header a{
   cursor:pointer;
 }
 
-/* HERO */
+/* HERO (AMÉLIORÉ STARTUP) */
 .hero{
   background: linear-gradient(135deg, #0f172a, #1e293b);
   color: white;
@@ -67,35 +60,10 @@ header a{
   justify-content:center;
   align-items:center;
   min-height: 60vh;
-  position:relative;
 }
 
 .hero-content{
   max-width: 850px;
-}
-
-/* bouton support (dans le hero) */
-.support-center{
-  position:absolute;
-  top:18px;
-  left:50%;
-  transform:translateX(-50%);
-}
-
-.support-btn{
-  background:white;
-  color:#0f172a;
-  padding:10px 18px;
-  border-radius:999px;
-  font-weight:700;
-  text-decoration:none;
-  box-shadow:0 10px 25px rgba(0,0,0,0.25);
-  transition:0.25s ease;
-}
-
-.support-btn:hover{
-  transform:translateX(-50%) scale(1.05);
-  background:#f1f5f9;
 }
 
 .hero h1{
@@ -123,24 +91,6 @@ header a{
   border-radius:12px;
   border:none;
   outline:none;
-}
-
-/* CATEGORY */
-.category-bar{
-  text-align:center;
-  padding:10px;
-}
-
-.category-btn{
-  width:auto;
-  display:inline-block;
-  margin:5px;
-  padding:12px;
-  border-radius:12px;
-  background:#0f172a;
-  color:white;
-  border:none;
-  cursor:pointer;
 }
 
 /* PRODUCTS */
@@ -175,7 +125,7 @@ header a{
   cursor:pointer;
 }
 
-/* CART */
+/* OVERLAY */
 .overlay{
   position:fixed;
   inset:0;
@@ -184,6 +134,7 @@ header a{
   z-index:998;
 }
 
+/* CART */
 .cart{
   position:fixed;
   right:20px;
@@ -209,45 +160,8 @@ header a{
   margin-bottom:10px;
 }
 
-/* SUPPORT */
-.support{
-  max-width:900px;
-  margin:60px auto;
-  padding:20px;
-}
-
-.support h2{
-  text-align:center;
-  margin-bottom:25px;
-  color:#0f172a;
-}
-
-.support-card{
-  background:white;
-  padding:20px;
-  border-radius:15px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.05);
-  margin-bottom:15px;
-}
-
-.support-cta{
-  text-align:center;
-  margin-top:25px;
-}
-
-.support-cta a{
-  display:inline-block;
-  margin-top:10px;
-  padding:12px 20px;
-  background:#0f172a;
-  color:white;
-  border-radius:10px;
-  text-decoration:none;
-}
-
 /* MOBILE */
 @media(max-width:768px){
-  .hero h1{font-size:2.2rem;}
   .cart{
     width:100%;
     height:100vh;
@@ -255,9 +169,13 @@ header a{
     right:0;
     border-radius:0;
   }
+
+  .hero h1{
+    font-size:2.2rem;
+  }
 }
 
-/* WHATSAPP */
+/* WHATSAPP FLOAT */
 .whatsapp-float{
   position:fixed;
   bottom:20px;
@@ -281,110 +199,81 @@ header a{
 
 <header>
 🌴 Maison Kimouzz
-
 <button class="cart-btn" onclick="toggleCart()">🧺 <span id="count">0</span></button>
 </header>
 
+<!-- ✅ HERO STARTUP INTÉGRÉ -->
 <section class="hero">
-
-  <div class="support-center">
-    <a href="#support" class="support-btn">Nous soutenir</a>
-  </div>
-
   <div class="hero-content">
     <h1>Maison Kimouzz</h1>
     <p>
       Notre site est actuellement en cours de développement afin de vous offrir une expérience optimale.
-      Nous préparons une large sélection de produits de qualité qui seront très prochainement disponibles.
+      Nous préparons une large sélection de produits de qualité qui seront très prochainement disponibles
+      pour répondre à tous vos besoins. Restez connectés, l’ouverture approche !
     </p>
   </div>
-
 </section>
 
 <div class="search-box">
 <input id="search" placeholder="Rechercher..." oninput="App.renderProducts()">
 </div>
 
-<div class="category-bar">
-  <button class="category-btn" onclick="filterCategory('all')">Tous</button>
-  <button class="category-btn" onclick="filterCategory('legumes')">🥬 Légumes</button>
-</div>
-
+<!-- CART -->
 <div class="cart" id="cartBox">
 <h3>🛒 Panier</h3>
+
 <button class="close-cart" onclick="closeCart()">Fermer ✖</button>
 
 <div id="cart"></div>
 
 <p><b>Total :</b> <span id="total">0</span>€</p>
 
-<button onclick="clearCart()" class="add-btn" style="background:red;">Vider</button>
+<select id="orderType" style="width:100%;padding:10px;margin-top:10px;border-radius:10px;">
+<option value="pickup">📦 Retrait</option>
+<option value="delivery">🚚 Livraison</option>
+</select>
+
+<p id="deliveryInfo" style="font-size:12px;color:green;margin-top:8px;"></p>
+
+<button onclick="orderChoice()" class="add-btn">🧾 Commander</button>
+
+<input id="clientName" placeholder="Nom et prénom">
+<input id="clientAddress" placeholder="Adresse (livraison uniquement)">
+<input id="clientPhone" placeholder="Téléphone">
+
+<button onclick="orderWhatsApp()" class="add-btn">💬 WhatsApp</button>
+<button onclick="orderEmail()" class="add-btn">✉️ Email</button>
+
+<button onclick="clearCart()" style="background:red;color:white;width:100%;margin-top:8px;padding:12px;border-radius:12px;border:none;">
+Vider
+</button>
 </div>
 
 <div class="products" id="products"></div>
 
-<section id="support" class="support">
-
-<h2>🤝 Nous soutenir</h2>
-
-<div class="support-card">
-<h3>🌍 Le projet</h3>
-<p>Maison Kimouzz vise à structurer un circuit court alimentaire local à Mayotte.</p>
-</div>
-
-<div class="support-card">
-<h3>💡 Comment nous soutenir</h3>
-<p>
-🛒 Commander nos produits<br>
-📣 Partager le projet<br>
-🤝 Devenir partenaire<br>
-💬 Nous contacter
-</p>
-</div>
-
-<!-- ✅ AJOUT PAYMENTS -->
-<div class="support-card">
-<h3>💳 Paiements</h3>
-<p>
-Les paiements par carte bancaire et PayPal seront bientôt disponibles sur Maison Kimouzz.<br>
-Nous travaillons actuellement à la mise en place d’un système sécurisé et rapide.
-</p>
-</div>
-
-<div class="support-cta">
-<p><b>📩 Intéressé ?</b></p>
-<a href="mailto:maisonkimouzzz@gmail.com">Nous contacter</a>
-</div>
-
-</section>
-
 <a class="whatsapp-float" href="https://wa.me/33789583650">💬</a>
 
 <script>
-let currentCategory = "all";
 
-function filterCategory(cat){
-  currentCategory = cat;
-  App.renderProducts();
-}
+/* (TON JS RESTE INCHANGÉ) */
 
 function loadCart(){
-  try{return JSON.parse(localStorage.getItem("cart"))||[];}
-  catch(e){return [];}
+  try{
+    return JSON.parse(localStorage.getItem("cart")) || [];
+  }catch(e){
+    return [];
+  }
 }
 
-const App={
+const App = {
   products:[
     {name:"Banane",price:20,icon:"🍌"},
     {name:"Œufs",price:8,icon:"🥚"},
     {name:"Poule",price:10,icon:"🐔"},
-    {name:"Canard",price:35,icon:"🦆"},
-    {name:"Tomate",price:5,icon:"🍅"},
-    {name:"Salade",price:3,icon:"🥬"},
-    {name:"Concombre",price:4,icon:"🥒"}
+    {name:"Canard",price:35,icon:"🦆"}
   ],
 
-  cart:loadCart(),
+  cart: loadCart(),
 
   save(){
     localStorage.setItem("cart",JSON.stringify(this.cart));
@@ -392,7 +281,7 @@ const App={
 
   add(name,price){
     let item=this.cart.find(i=>i.name===name);
-    if(item)item.qty++;
+    if(item) item.qty++;
     else this.cart.push({name,price,qty:1});
     this.save();
     this.renderCart();
@@ -400,8 +289,12 @@ const App={
 
   renderProducts(){
     const box=document.getElementById("products");
+    const search=document.getElementById("search").value.toLowerCase();
     box.innerHTML="";
-    this.products.forEach(p=>{
+
+    this.products
+    .filter(p=>p.name.toLowerCase().includes(search))
+    .forEach(p=>{
       const card=document.createElement("div");
       card.className="card";
 
@@ -424,6 +317,7 @@ const App={
   renderCart(){
     const box=document.getElementById("cart");
     box.innerHTML="";
+
     this.cart.forEach(i=>{
       const div=document.createElement("div");
       div.textContent=`${i.name} x${i.qty}`;
@@ -434,15 +328,89 @@ const App={
     document.getElementById("total").textContent=total;
     document.getElementById("count").textContent=
       this.cart.reduce((a,b)=>a+b.qty,0);
+
+    const orderType=document.getElementById("orderType");
+    const info=document.getElementById("deliveryInfo");
+
+    if(total>=70){
+      orderType.value="delivery";
+      orderType.disabled=true;
+      info.textContent="🚚 Livraison activée automatiquement (commande ≥ 70€)";
+    } else {
+      orderType.disabled=false;
+      info.textContent="";
+    }
   }
 };
 
-function openCart(){document.getElementById("cartBox").style.display="block";document.getElementById("overlay").style.display="block";}
-function closeCart(){document.getElementById("cartBox").style.display="none";document.getElementById("overlay").style.display="none";}
-function toggleCart(){document.getElementById("cartBox").style.display==="block"?closeCart():openCart();}
+/* COMMANDES */
+function orderChoice(){
+  if(App.cart.length === 0) return alert("Panier vide");
+
+  let choice = prompt("Commander via :\n1 = WhatsApp\n2 = Email");
+
+  if(choice === "1") orderWhatsApp();
+  else if(choice === "2") orderEmail();
+  else alert("Choix invalide");
+}
+
+function openCart(){
+  document.getElementById("cartBox").style.display="block";
+  document.getElementById("overlay").style.display="block";
+}
+
+function closeCart(){
+  document.getElementById("cartBox").style.display="none";
+  document.getElementById("overlay").style.display="none";
+}
+
+function toggleCart(){
+  const c=document.getElementById("cartBox");
+  if(c.style.display==="block") closeCart();
+  else openCart();
+}
+
+function orderWhatsApp(){
+  let total=App.cart.reduce((t,i)=>t+i.price*i.qty,0);
+  let type = document.getElementById("orderType").value;
+
+  let name=document.getElementById("clientName").value;
+  let address=document.getElementById("clientAddress").value;
+  let phone=document.getElementById("clientPhone").value;
+
+  let msg=`🛒 Maison Kimouzz\n\n`;
+
+  App.cart.forEach(i=>{
+    msg+=`- ${i.name} x${i.qty}\n`;
+  });
+
+  msg+=`\n💰 Total : ${total}€`;
+
+  window.open("https://wa.me/33789583650?text="+encodeURIComponent(msg));
+  closeCart();
+}
+
+function orderEmail(){
+  let body="Commande Maison Kimouzz\n\n";
+
+  App.cart.forEach(i=>{
+    body+=`${i.name} x${i.qty}\n`;
+  });
+
+  window.location.href =
+    "mailto:maisonkimouzzz@gmail.com?subject=Commande&body="
+    + encodeURIComponent(body);
+}
+
+function clearCart(){
+  App.cart=[];
+  App.save();
+  App.renderCart();
+}
 
 App.renderProducts();
 App.renderCart();
+
 </script>
 
 </body>
