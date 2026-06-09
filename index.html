@@ -1,2338 +1,680 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Maison Kimouzz — Produits frais de Mayotte</title>
-
-<meta name="description" content="Maison Kimouzz — Produits frais et locaux de Mayotte. Livraison, retrait, agriculture locale et circuit court." />
-<meta name="theme-color" content="#0d1f0f" />
-
+<meta name="description" content="Produits frais et locaux de Mayotte - Maison Kimouzz">
+<meta name="theme-color" content="#0d1f0f">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-
-:root{
-  --dark:#0d1f0f;
-  --green:#2d6a2f;
-  --green2:#3c8d40;
-  --green-light:#4caf50;
-  --accent:#f4c842;
-  --cream:#faf6ef;
-  --gray:#6b7280;
-  --gray-light:#f3f4f6;
-  --white:#ffffff;
-  --danger:#ef4444;
-  --radius:22px;
-  --shadow:0 10px 30px rgba(0,0,0,.08);
+:root {
+  --dark: #0d1f0f;
+  --green: #2d6a2f;
+  --green-light: #4caf50;
+  --accent: #f4c842;
+  --cream: #faf6ef;
+  --gray: #6b7280;
+  --gray-light: #f3f4f6;
+  --radius: 20px;
 }
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--dark); overflow-x:hidden; }
+::-webkit-scrollbar{width:6px} ::-webkit-scrollbar-track{background:var(--cream)} ::-webkit-scrollbar-thumb{background:var(--green);border-radius:99px}
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-
-html{
-  scroll-behavior:smooth;
-}
-
-body{
-  font-family:'DM Sans',sans-serif;
-  background:var(--cream);
-  color:var(--dark);
-  overflow-x:hidden;
-}
-
-img{
-  max-width:100%;
-}
-
-::-webkit-scrollbar{
-  width:6px;
-}
-
-::-webkit-scrollbar-track{
-  background:var(--cream);
-}
-
-::-webkit-scrollbar-thumb{
-  background:var(--green);
-  border-radius:999px;
-}
-
-/* ================= HEADER ================= */
-
-header{
-  position:sticky;
-  top:0;
-  z-index:500;
-  background:rgba(250,246,239,.95);
+/* HEADER */
+header {
+  position:sticky; top:0;
+  background:rgba(250,246,239,0.95);
   backdrop-filter:blur(14px);
-  border-bottom:1px solid rgba(0,0,0,.06);
   padding:14px 28px;
-
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-
-.logo{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-family:'Playfair Display',serif;
-  font-weight:900;
-  font-size:1.5rem;
-}
-
-.logo span{
-  color:var(--green-light);
-}
-
-nav{
-  display:flex;
-  align-items:center;
-  gap:26px;
-}
-
-nav a{
-  text-decoration:none;
-  color:var(--gray);
-  font-weight:600;
-  transition:.2s;
-  position:relative;
-}
-
-nav a:hover{
-  color:var(--dark);
-}
-
-nav a::after{
-  content:'';
-  position:absolute;
-  left:0;
-  bottom:-6px;
-  width:0;
-  height:2px;
-  background:var(--green);
-  transition:.2s;
-}
-
-nav a:hover::after{
-  width:100%;
-}
-
-.header-right{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-
-.admin-btn,
-.cart-btn{
-  border:none;
-  cursor:pointer;
-  font-family:'DM Sans',sans-serif;
-  font-weight:700;
-  transition:.2s;
-}
-
-.admin-btn{
-  background:white;
-  border:1px solid rgba(0,0,0,.08);
-  color:var(--dark);
-  padding:11px 16px;
-  border-radius:999px;
-}
-
-.admin-btn:hover{
-  transform:translateY(-2px);
-}
-
-.cart-btn{
-  background:var(--dark);
-  color:white;
-  padding:11px 18px;
-  border-radius:999px;
-
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-.cart-btn:hover{
-  background:var(--green);
-}
-
-.cart-count{
-  width:24px;
-  height:24px;
-  border-radius:50%;
-  background:var(--accent);
-  color:var(--dark);
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  font-size:.8rem;
-  font-weight:900;
-}
-
-/* ================= HERO ================= */
-
-.hero{
-  min-height:92vh;
-  background:linear-gradient(135deg,#08120a,#122615);
-  color:white;
-
-  display:grid;
-  grid-template-columns:1fr 1fr;
-
-  overflow:hidden;
-  position:relative;
-}
-
-.hero::before{
-  content:'';
-  position:absolute;
-  inset:0;
-  background:
-  radial-gradient(circle at 80% 30%, rgba(76,175,80,.3), transparent 35%),
-  radial-gradient(circle at 10% 80%, rgba(244,200,66,.1), transparent 40%);
-}
-
-.hero-left{
-  padding:90px 60px;
-  position:relative;
-  z-index:2;
-}
-
-.hero-badge{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-
-  background:rgba(244,200,66,.15);
-  border:1px solid rgba(244,200,66,.4);
-
-  color:var(--accent);
-
-  padding:8px 18px;
-  border-radius:999px;
-
-  margin-bottom:28px;
-
-  font-size:.82rem;
-  font-weight:700;
-  letter-spacing:.05em;
-  text-transform:uppercase;
-}
-
-.hero h1{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(2.9rem,6vw,5rem);
-  line-height:1.05;
-  margin-bottom:24px;
-}
-
-.hero h1 em{
-  color:var(--accent);
-  font-style:normal;
-}
-
-.hero p{
-  max-width:520px;
-  color:rgba(255,255,255,.7);
-  line-height:1.8;
-  margin-bottom:34px;
-  font-size:1.05rem;
-}
-
-.hero-btns{
-  display:flex;
-  flex-wrap:wrap;
-  gap:14px;
-}
-
-.btn-primary,
-.btn-secondary{
-  text-decoration:none;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-
-  border-radius:999px;
-  padding:15px 28px;
-
-  font-weight:700;
-  transition:.25s;
-}
-
-.btn-primary{
-  background:var(--accent);
-  color:var(--dark);
-}
-
-.btn-primary:hover{
-  transform:translateY(-3px);
-  box-shadow:0 15px 30px rgba(244,200,66,.25);
-}
-
-.btn-secondary{
-  border:1.5px solid rgba(255,255,255,.25);
-  color:white;
-}
-
-.btn-secondary:hover{
-  background:rgba(255,255,255,.08);
-}
-
-.hero-right{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  position:relative;
-}
-
-.hero-grid{
-  width:100%;
-  max-width:520px;
-
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:18px;
-
-  padding:30px;
-  position:relative;
-  z-index:2;
-}
-
-.hero-card{
-  background:rgba(255,255,255,.08);
-  border:1px solid rgba(255,255,255,.08);
-
-  border-radius:20px;
-  padding:24px 14px;
-
-  text-align:center;
-
-  backdrop-filter:blur(8px);
-
-  transition:.25s;
-}
-
-.hero-card:hover{
-  transform:translateY(-6px);
-  background:rgba(255,255,255,.12);
-}
-
-.hero-icon{
-  font-size:2.7rem;
-  display:block;
-  margin-bottom:10px;
-}
-
-.hero-label{
-  font-size:.82rem;
-  color:rgba(255,255,255,.65);
-}
-
-/* ================= STATS ================= */
-
-.stats-band{
-  background:var(--green);
-  color:white;
-
-  display:flex;
-  justify-content:center;
-  gap:60px;
-
-  padding:28px 20px;
-  flex-wrap:wrap;
-}
-
-.stat{
-  text-align:center;
-}
-
-.stat strong{
-  display:block;
-  font-size:2rem;
-  font-family:'Playfair Display',serif;
-}
-
-.stat span{
-  font-size:.8rem;
-  opacity:.85;
-  text-transform:uppercase;
-  letter-spacing:.06em;
-}
-
-/* ================= SECTION TITLES ================= */
-
-.section-title{
-  font-family:'Playfair Display',serif;
-  font-size:2.3rem;
-  margin-bottom:18px;
-}
-
-.section-sub{
-  color:var(--gray);
-  line-height:1.7;
-}
-
-/* ================= SHOP ================= */
-
-.shop{
-  max-width:1300px;
-  margin:auto;
-  padding:70px 24px;
-}
-
-.shop-top{
-  display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
-  gap:30px;
-  margin-bottom:34px;
-  flex-wrap:wrap;
-}
-
-.delivery-banner{
-  margin-top:20px;
-
-  background:#fffbea;
-  border:2px solid var(--accent);
-
-  border-radius:20px;
-  padding:18px 22px;
-
-  display:flex;
-  gap:16px;
-
-  max-width:760px;
-}
-
-.delivery-banner .ico{
-  font-size:2rem;
-}
-
-.delivery-banner h4{
-  margin-bottom:6px;
-}
-
-.delivery-banner p{
-  line-height:1.7;
-  font-size:.92rem;
-  color:#555;
-}
-
-.delivery-banner strong{
-  color:var(--green);
-}
-
-.controls{
-  margin-top:30px;
-  display:flex;
-  gap:16px;
-  flex-wrap:wrap;
-}
-
-.search{
-  position:relative;
-  flex:1;
-  min-width:240px;
-}
-
-.search input{
-  width:100%;
-  background:white;
-
-  border:1.5px solid rgba(0,0,0,.08);
-  border-radius:16px;
-
-  padding:15px 16px 15px 48px;
-
-  font-family:'DM Sans',sans-serif;
-  font-size:.95rem;
-  outline:none;
-}
-
-.search input:focus{
-  border-color:var(--green);
-}
-
-.search svg{
-  position:absolute;
-  left:16px;
-  top:50%;
-  transform:translateY(-50%);
-  color:var(--gray);
-}
-
-.chips{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-}
-
-.chip{
-  background:white;
-  border:1px solid rgba(0,0,0,.08);
-  border-radius:999px;
-
-  padding:12px 18px;
-
-  font-weight:700;
-  cursor:pointer;
-  transition:.2s;
-}
-
-.chip:hover{
-  border-color:var(--green);
-  color:var(--green);
-}
-
-.chip.active{
-  background:var(--dark);
-  color:white;
-}
-
-.products{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
-  gap:22px;
-}
-
-.card{
-  background:white;
-  border-radius:var(--radius);
-  overflow:hidden;
-
-  box-shadow:var(--shadow);
-
-  transition:.3s;
-
-  display:flex;
-  flex-direction:column;
-}
-
-.card:hover{
-  transform:translateY(-8px);
-}
-
-.card-top{
-  background:linear-gradient(180deg,#f5f5f5,#efefef);
-  padding:30px 20px 22px;
-  text-align:center;
-  position:relative;
-}
-
-.card-icon{
-  font-size:4rem;
-}
-
-.badge{
-  position:absolute;
-  top:14px;
-  right:14px;
-
-  background:var(--accent);
-  color:var(--dark);
-
-  border-radius:999px;
-  padding:5px 10px;
-
-  font-size:.72rem;
-  font-weight:900;
-}
-
-.card-body{
-  padding:18px;
-  display:flex;
-  flex-direction:column;
-  flex:1;
-}
-
-.card-category{
-  font-size:.72rem;
-  text-transform:uppercase;
-  letter-spacing:.08em;
-  color:var(--gray);
-  margin-bottom:8px;
-  font-weight:700;
-}
-
-.card-title{
-  font-family:'Playfair Display',serif;
-  font-size:1.25rem;
-  margin-bottom:8px;
-}
-
-.card-desc{
-  font-size:.88rem;
-  line-height:1.6;
-  color:var(--gray);
-  margin-bottom:18px;
-  flex:1;
-}
-
-.stock{
-  margin-bottom:16px;
-  font-size:.82rem;
-  font-weight:700;
-}
-
-.stock.good{
-  color:var(--green);
-}
-
-.stock.low{
-  color:#d97706;
-}
-
-.stock.out{
-  color:var(--danger);
-}
-
-.card-footer{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-}
-
-.price{
-  font-family:'Playfair Display',serif;
-  font-size:1.7rem;
-  color:var(--green);
-  font-weight:900;
-}
-
-.price span{
-  font-size:.75rem;
-  color:var(--gray);
-  font-family:'DM Sans',sans-serif;
-}
-
-.add-btn{
-  width:46px;
-  height:46px;
-  border:none;
-  border-radius:14px;
-
-  background:var(--dark);
-  color:white;
-
-  font-size:1.5rem;
-  font-weight:900;
-
-  cursor:pointer;
-  transition:.2s;
-}
-
-.add-btn:hover{
-  background:var(--green);
-  transform:scale(1.06);
-}
-
-.add-btn:disabled{
-  opacity:.45;
-  cursor:not-allowed;
-  transform:none;
-}
-
-/* ================= PROJECT ================= */
-
-.project{
-  background:var(--dark);
-  color:white;
-  padding:80px 24px;
-}
-
-.project-inner{
-  max-width:1200px;
-  margin:auto;
-
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:50px;
-  align-items:center;
-}
-
-.project-card{
-  background:rgba(255,255,255,.05);
-  border:1px solid rgba(255,255,255,.06);
-
-  border-radius:22px;
-  padding:28px;
-}
-
-.project-list{
-  display:flex;
-  flex-direction:column;
-  gap:18px;
-  margin-top:26px;
-}
-
-.project-item{
-  display:flex;
-  gap:16px;
-}
-
-.project-item strong{
-  display:block;
-  margin-bottom:5px;
-}
-
-.project-item p{
-  color:rgba(255,255,255,.65);
-  line-height:1.6;
-  font-size:.9rem;
-}
-
-/* ================= REVIEWS ================= */
-
-.reviews{
-  max-width:1200px;
-  margin:auto;
-  padding:80px 24px;
-}
-
-.reviews-grid{
-  margin-top:40px;
-
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
-  gap:24px;
-}
-
-.review{
-  background:white;
-  border-radius:20px;
-  padding:24px;
-
-  box-shadow:var(--shadow);
-}
-
-.stars{
-  color:var(--accent);
-  margin-bottom:14px;
-}
-
-.review p{
-  line-height:1.7;
-  color:#444;
-  margin-bottom:20px;
-}
-
-.user{
-  display:flex;
-  gap:12px;
-  align-items:center;
-}
-
-.avatar{
-  width:44px;
-  height:44px;
-  border-radius:50%;
-  background:var(--gray-light);
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.user strong{
-  display:block;
-}
-
-.user span{
-  color:var(--gray);
-  font-size:.8rem;
-}
-
-/* ================= SUPPORT ================= */
-
-.support{
-  background:white;
-  padding:80px 24px;
-}
-
-.support-inner{
-  max-width:1100px;
-  margin:auto;
-}
-
-.support-grid{
-  margin-top:40px;
-
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
-  gap:22px;
-}
-
-.support-card{
-  background:var(--cream);
-  border-radius:20px;
-  padding:26px;
-  border-left:5px solid var(--green);
-}
-
-.support-card h3{
-  margin-bottom:14px;
-}
-
-.support-card p{
-  line-height:1.7;
-  color:#555;
-}
-
-/* ================= FOOTER ================= */
-
-footer{
-  background:var(--dark);
-  color:rgba(255,255,255,.6);
-  text-align:center;
-  padding:28px 20px;
-  font-size:.85rem;
-}
-
-footer a{
-  color:var(--accent);
-  text-decoration:none;
-}
-
-/* ================= CART ================= */
-
-.overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.5);
-  display:none;
-  z-index:900;
-}
-
-.cart{
-  position:fixed;
-  top:0;
-  right:0;
-  bottom:0;
-
-  width:430px;
-  background:white;
-
-  z-index:1000;
-
-  display:flex;
-  flex-direction:column;
-
-  transform:translateX(100%);
-  transition:.35s;
-}
-
-.cart.open{
-  transform:translateX(0);
-}
-
-.cart-header{
-  padding:24px;
-  border-bottom:1px solid rgba(0,0,0,.06);
-
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.cart-header h3{
-  font-family:'Playfair Display',serif;
-  font-size:1.5rem;
-}
-
-.close-btn{
-  width:38px;
-  height:38px;
-
-  border:none;
-  border-radius:50%;
-
-  cursor:pointer;
-  background:var(--gray-light);
-
-  font-size:1rem;
-}
-
-.cart-items{
-  flex:1;
-  overflow-y:auto;
-  padding:18px 24px;
-}
-
-.cart-empty{
-  text-align:center;
-  padding:60px 20px;
-  color:var(--gray);
-}
-
-.cart-empty .big{
-  font-size:3rem;
-  margin-bottom:10px;
-}
-
-.cart-item{
-  display:flex;
-  gap:14px;
-  align-items:center;
-
-  padding:14px 0;
-  border-bottom:1px solid rgba(0,0,0,.06);
-}
-
-.cart-ico{
-  font-size:2rem;
-}
-
-.cart-info{
-  flex:1;
-}
-
-.cart-name{
-  font-weight:700;
-  margin-bottom:4px;
-}
-
-.cart-price{
-  font-size:.85rem;
-  color:var(--gray);
-}
-
-.qty{
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
-
-.qty button{
-  width:28px;
-  height:28px;
-
-  border-radius:8px;
-  border:1px solid rgba(0,0,0,.1);
-
-  background:white;
-
-  cursor:pointer;
-  font-weight:900;
-}
-
-.qty button:hover{
-  background:var(--dark);
-  color:white;
-}
-
-.cart-footer{
-  padding:20px 24px;
-  border-top:1px solid rgba(0,0,0,.06);
-}
-
-.delivery-box{
-  background:#fffbea;
-  border:1.5px solid var(--accent);
-
-  border-radius:14px;
-  padding:14px;
-  margin-bottom:18px;
-
-  font-size:.86rem;
-  line-height:1.6;
-}
-
-.progress{
-  height:7px;
-  border-radius:999px;
-  overflow:hidden;
-  background:#f0e7c1;
-  margin-top:10px;
-}
-
-.progress div{
-  height:100%;
-  background:var(--green);
-  width:0%;
-  transition:.3s;
-}
-
-.total{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:18px;
-}
-
-.total strong{
-  font-size:1.8rem;
-  color:var(--green);
-  font-family:'Playfair Display',serif;
-}
-
-.checkout,
-.clear{
-  width:100%;
-  border:none;
-  cursor:pointer;
-  font-family:'DM Sans',sans-serif;
-  font-weight:700;
-  border-radius:14px;
-}
-
-.checkout{
-  background:var(--dark);
-  color:white;
-  padding:16px;
-  margin-bottom:10px;
-}
-
-.checkout:hover{
-  background:var(--green);
-}
-
-.clear{
-  background:white;
-  border:1px solid rgba(0,0,0,.1);
-  padding:12px;
-}
-
-/* ================= ADMIN ================= */
-
-.admin-panel{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.55);
-
-  display:none;
-  align-items:center;
-  justify-content:center;
-
-  z-index:1200;
-  padding:20px;
-}
-
-.admin-box{
-  width:100%;
-  max-width:1000px;
-  max-height:90vh;
-  overflow:auto;
-
-  background:white;
-  border-radius:28px;
-
-  padding:30px;
-}
-
-.admin-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:24px;
-}
-
-.admin-head h2{
-  font-family:'Playfair Display',serif;
-}
-
-.admin-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
-  gap:18px;
-}
-
-.admin-card{
-  background:var(--cream);
-  border-radius:18px;
-  padding:18px;
-}
-
-.admin-card input,
-.admin-card textarea,
-.admin-card select{
-  width:100%;
-  margin-top:8px;
-  margin-bottom:14px;
-
-  border-radius:12px;
-  border:1px solid rgba(0,0,0,.08);
-
-  padding:12px;
-  font-family:'DM Sans',sans-serif;
-}
-
-.admin-card textarea{
-  resize:vertical;
-  min-height:80px;
-}
-
-.save-btn{
-  margin-top:24px;
-
-  background:var(--green);
-  color:white;
-
-  border:none;
-  padding:14px 24px;
-  border-radius:14px;
-
-  font-weight:700;
-  cursor:pointer;
-}
-
-.save-btn:hover{
-  background:var(--green2);
-}
-
-/* ================= TOAST ================= */
-
-.toast{
-  position:fixed;
-  left:50%;
-  bottom:100px;
-
-  transform:translateX(-50%) translateY(20px);
-
-  background:var(--dark);
-  color:white;
-
-  padding:14px 22px;
-  border-radius:999px;
-
-  opacity:0;
+  display:flex; justify-content:space-between; align-items:center;
+  z-index:200;
+  border-bottom:1px solid rgba(0,0,0,0.07);
+}
+.logo { font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:900; color:var(--dark); }
+.logo span { color:var(--green-light); }
+nav { display:flex; gap:24px; align-items:center; }
+nav a { text-decoration:none; color:var(--gray); font-size:0.9rem; font-weight:500; transition:color .2s; }
+nav a:hover { color:var(--dark); }
+.cart-btn {
+  background:var(--dark); color:white; border:none;
+  padding:10px 18px; border-radius:99px; cursor:pointer;
+  font-family:'DM Sans',sans-serif; font-size:0.9rem; font-weight:600;
+  display:flex; align-items:center; gap:8px; transition:all .2s;
+}
+.cart-btn:hover { background:var(--green); transform:translateY(-1px); }
+.cart-count {
+  background:var(--accent); color:var(--dark);
+  width:22px; height:22px; border-radius:50%;
+  display:inline-flex; align-items:center; justify-content:center;
+  font-size:.75rem; font-weight:700;
+}
+
+/* HERO */
+.hero {
+  background:var(--dark); color:white;
+  min-height:88vh;
+  display:grid; grid-template-columns:1fr 1fr;
+  align-items:center; overflow:hidden; position:relative;
+}
+.hero::before {
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(ellipse at 70% 50%,rgba(45,106,47,.35) 0%,transparent 70%);
   pointer-events:none;
-
-  transition:.3s;
-
-  z-index:1400;
 }
-
-.toast.show{
-  opacity:1;
-  transform:translateX(-50%) translateY(0);
+.hero-left { padding:80px 60px; position:relative; z-index:2; }
+.hero-badge {
+  display:inline-block;
+  background:rgba(244,200,66,.15); border:1px solid rgba(244,200,66,.4);
+  color:var(--accent); padding:6px 16px; border-radius:99px;
+  font-size:.8rem; font-weight:600; letter-spacing:.05em; text-transform:uppercase; margin-bottom:28px;
 }
-
-/* ================= FLOAT ================= */
-
-.whatsapp{
-  position:fixed;
-  right:24px;
-  bottom:24px;
-
-  width:62px;
-  height:62px;
-  border-radius:50%;
-
-  background:#25d366;
-  color:white;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  text-decoration:none;
-  font-size:28px;
-
-  box-shadow:0 10px 30px rgba(37,211,102,.4);
-
-  z-index:800;
+.hero h1 { font-family:'Playfair Display',serif; font-size:clamp(2.8rem,5vw,4.5rem); line-height:1.1; margin-bottom:24px; font-weight:900; }
+.hero h1 em { font-style:normal; color:var(--accent); }
+.hero p { font-size:1.05rem; line-height:1.7; color:rgba(255,255,255,.7); max-width:420px; margin-bottom:36px; }
+.hero-btns { display:flex; gap:14px; flex-wrap:wrap; }
+.btn-primary { background:var(--accent); color:var(--dark); padding:14px 28px; border-radius:99px; text-decoration:none; font-weight:700; font-size:.95rem; transition:all .25s; display:inline-block; }
+.btn-primary:hover { transform:translateY(-2px); box-shadow:0 10px 30px rgba(244,200,66,.35); }
+.btn-outline { background:transparent; color:white; padding:14px 28px; border-radius:99px; text-decoration:none; font-weight:600; font-size:.95rem; border:1.5px solid rgba(255,255,255,.3); transition:all .25s; display:inline-block; }
+.btn-outline:hover { background:rgba(255,255,255,.1); }
+.hero-right { height:100%; min-height:88vh; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+.hero-emoji-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; padding:60px 40px 60px 20px; position:relative; z-index:2; }
+.hero-emoji-cell {
+  background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.1);
+  border-radius:18px; padding:24px 18px; text-align:center;
+  backdrop-filter:blur(6px); transition:all .3s; animation:floatIn .6s ease both;
 }
+.hero-emoji-cell:hover { background:rgba(255,255,255,.12); transform:translateY(-4px); }
+.hero-emoji-cell:nth-child(1){animation-delay:.05s}.hero-emoji-cell:nth-child(2){animation-delay:.1s}
+.hero-emoji-cell:nth-child(3){animation-delay:.15s}.hero-emoji-cell:nth-child(4){animation-delay:.2s}
+.hero-emoji-cell:nth-child(5){animation-delay:.25s}.hero-emoji-cell:nth-child(6){animation-delay:.3s}
+.hero-emoji-cell .ico { font-size:2.5rem; display:block; margin-bottom:8px; }
+.hero-emoji-cell .lbl { font-size:.75rem; color:rgba(255,255,255,.6); font-weight:500; }
+@keyframes floatIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
 
-.whatsapp:hover{
-  transform:scale(1.08);
+/* STATS */
+.stats-band { background:var(--green); color:white; display:flex; justify-content:center; gap:60px; padding:28px 20px; flex-wrap:wrap; }
+.stat { text-align:center; }
+.stat-num { font-family:'Playfair Display',serif; font-size:2rem; font-weight:900; display:block; }
+.stat-lbl { font-size:.8rem; opacity:.8; font-weight:500; text-transform:uppercase; letter-spacing:.05em; }
+
+/* LIVRAISON INFO BANNER */
+.delivery-banner {
+  background:#fffbea; border:2px solid var(--accent);
+  border-radius:16px; padding:18px 24px;
+  display:flex; align-items:flex-start; gap:14px;
+  margin-bottom:28px;
 }
+.delivery-banner .db-icon { font-size:1.8rem; flex-shrink:0; }
+.delivery-banner h4 { font-size:1rem; font-weight:700; margin-bottom:6px; color:var(--dark); }
+.delivery-banner p { font-size:.85rem; color:#555; line-height:1.6; margin:0; }
+.delivery-banner strong { color:var(--green); }
 
-/* ================= RESPONSIVE ================= */
-
-@media(max-width:980px){
-
-  .hero{
-    grid-template-columns:1fr;
-  }
-
-  .hero-right{
-    display:none;
-  }
-
-  .project-inner{
-    grid-template-columns:1fr;
-  }
-
-  nav{
-    display:none;
-  }
-
+/* SHOP HEADER */
+.shop-header { max-width:1200px; margin:0 auto; padding:48px 24px 20px; }
+.shop-header h2 { font-family:'Playfair Display',serif; font-size:2rem; font-weight:900; margin-bottom:24px; }
+.search-filter-row { display:flex; gap:14px; align-items:center; flex-wrap:wrap; margin-bottom:20px; }
+.search-wrap { position:relative; flex:1; min-width:200px; }
+.search-wrap svg { position:absolute; left:16px; top:50%; transform:translateY(-50%); color:var(--gray); }
+.search-wrap input {
+  width:100%; padding:14px 14px 14px 46px;
+  border-radius:14px; border:1.5px solid rgba(0,0,0,.1);
+  background:white; font-family:'DM Sans',sans-serif; font-size:.95rem; outline:none; transition:border-color .2s;
 }
-
-@media(max-width:640px){
-
-  .hero-left{
-    padding:70px 26px;
-  }
-
-  .hero h1{
-    font-size:2.6rem;
-  }
-
-  .cart{
-    width:100%;
-  }
-
-  .stats-band{
-    gap:30px;
-  }
-
+.search-wrap input:focus { border-color:var(--green); }
+.cat-chips { display:flex; gap:8px; flex-wrap:wrap; }
+.cat-chip {
+  padding:10px 18px; border-radius:99px; border:1.5px solid rgba(0,0,0,.12);
+  background:white; font-family:'DM Sans',sans-serif; font-size:.85rem; font-weight:600;
+  cursor:pointer; transition:all .2s; color:var(--dark);
 }
+.cat-chip:hover { border-color:var(--green); color:var(--green); }
+.cat-chip.active { background:var(--dark); color:white; border-color:var(--dark); }
 
+/* PRODUCTS */
+.products-wrap { max-width:1200px; margin:0 auto; padding:0 24px 60px; }
+.no-results { text-align:center; padding:60px 20px; color:var(--gray); font-size:1.1rem; }
+.products { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:20px; }
+.card {
+  background:white; border-radius:var(--radius); overflow:hidden;
+  box-shadow:0 4px 24px rgba(0,0,0,.06); transition:all .3s;
+  display:flex; flex-direction:column; animation:cardIn .4s ease both;
+}
+.card:hover { transform:translateY(-6px); box-shadow:0 20px 50px rgba(0,0,0,.12); }
+@keyframes cardIn { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+.card-image { background:var(--gray-light); padding:28px 20px 18px; text-align:center; position:relative; }
+.card-emoji { font-size:4rem; display:block; line-height:1; }
+.card-badge { position:absolute; top:12px; right:12px; background:var(--accent); color:var(--dark); font-size:.7rem; font-weight:700; padding:3px 9px; border-radius:99px; text-transform:uppercase; }
+.card-body { padding:16px 18px 20px; flex:1; display:flex; flex-direction:column; }
+.card-cat { font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--gray); margin-bottom:6px; }
+.card-name { font-family:'Playfair Display',serif; font-size:1.15rem; font-weight:700; margin-bottom:6px; }
+.card-desc { font-size:.8rem; color:var(--gray); line-height:1.5; margin-bottom:14px; flex:1; }
+.card-footer { display:flex; justify-content:space-between; align-items:center; }
+.price { font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:900; color:var(--green); }
+.price span { font-family:'DM Sans',sans-serif; font-size:.75rem; color:var(--gray); font-weight:400; }
+.add-btn {
+  background:var(--dark); color:white; border:none;
+  width:42px; height:42px; border-radius:12px; cursor:pointer;
+  font-size:1.5rem; font-weight:700;
+  display:flex; align-items:center; justify-content:center; transition:all .2s; flex-shrink:0;
+}
+.add-btn:hover { background:var(--green); transform:scale(1.08); }
+.add-btn.added { background:var(--green-light); animation:pulse .3s ease; }
+@keyframes pulse { 0%{transform:scale(1)} 50%{transform:scale(1.2)} 100%{transform:scale(1)} }
+
+/* DELIVERY SECTION */
+.delivery-section { background:var(--dark); color:white; padding:70px 24px; }
+.delivery-inner { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
+.delivery-inner h2 { font-family:'Playfair Display',serif; font-size:2.2rem; font-weight:900; margin-bottom:20px; }
+.delivery-inner > div > p { color:rgba(255,255,255,.65); line-height:1.7; margin-bottom:28px; }
+.delivery-info-box {
+  background:rgba(244,200,66,.12); border:1px solid rgba(244,200,66,.35);
+  border-radius:14px; padding:18px 20px; margin-bottom:28px;
+}
+.delivery-info-box p { color:rgba(255,255,255,.85); font-size:.9rem; line-height:1.7; margin:0; }
+.delivery-info-box strong { color:var(--accent); }
+.delivery-steps { display:flex; flex-direction:column; gap:20px; }
+.step { display:flex; gap:18px; align-items:flex-start; background:rgba(255,255,255,.05); padding:18px 20px; border-radius:14px; border:1px solid rgba(255,255,255,.08); }
+.step-num { background:var(--accent); color:var(--dark); font-weight:900; font-size:.85rem; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.step-text strong { display:block; margin-bottom:4px; font-size:.95rem; }
+.step-text p { font-size:.82rem; color:rgba(255,255,255,.55); margin:0; line-height:1.5; }
+
+/* REVIEWS */
+.reviews-section { max-width:1200px; margin:0 auto; padding:70px 24px; }
+.reviews-section h2 { font-family:'Playfair Display',serif; font-size:2rem; font-weight:900; margin-bottom:36px; text-align:center; }
+.reviews-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(270px,1fr)); gap:20px; }
+.review-card { background:white; padding:24px; border-radius:18px; box-shadow:0 4px 20px rgba(0,0,0,.06); }
+.stars { color:var(--accent); font-size:1.1rem; margin-bottom:12px; }
+.review-text { font-size:.9rem; line-height:1.6; color:#444; margin-bottom:16px; }
+.reviewer { display:flex; align-items:center; gap:10px; }
+.reviewer-avatar { width:38px; height:38px; border-radius:50%; background:var(--gray-light); display:flex; align-items:center; justify-content:center; font-size:1.2rem; }
+.reviewer-name { font-weight:700; font-size:.85rem; }
+.reviewer-loc { font-size:.75rem; color:var(--gray); }
+
+/* SUPPORT */
+.support-section { background:var(--cream); border-top:1px solid rgba(0,0,0,.07); padding:70px 24px; }
+.support-inner { max-width:900px; margin:0 auto; }
+.support-inner h2 { font-family:'Playfair Display',serif; font-size:2rem; font-weight:900; margin-bottom:8px; text-align:center; }
+.support-sub { text-align:center; color:var(--gray); margin-bottom:40px; font-size:.95rem; }
+.support-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:18px; margin-bottom:36px; }
+.support-card { background:white; padding:26px; border-radius:18px; box-shadow:0 4px 20px rgba(0,0,0,.05); border-left:4px solid var(--green); }
+.support-card h3 { font-size:1rem; font-weight:700; margin-bottom:10px; }
+.support-card p { font-size:.85rem; line-height:1.6; color:var(--gray); }
+.support-cta { text-align:center; }
+.support-cta p { margin-bottom:14px; color:var(--gray); }
+
+/* CART OVERLAY */
+.overlay { position:fixed; inset:0; background:rgba(0,0,0,.45); display:none; z-index:300; }
+
+/* CART PANEL */
+.cart-panel {
+  position:fixed; right:0; top:0; bottom:0; width:420px;
+  background:white; z-index:400;
+  display:flex; flex-direction:column;
+  transform:translateX(100%);
+  transition:transform .35s cubic-bezier(.4,0,.2,1);
+  box-shadow:-20px 0 60px rgba(0,0,0,.18);
+}
+.cart-panel.open { transform:translateX(0); }
+.cart-header { padding:24px; border-bottom:1px solid rgba(0,0,0,.07); display:flex; justify-content:space-between; align-items:center; }
+.cart-header h3 { font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:900; }
+.cart-close { background:var(--gray-light); border:none; width:36px; height:36px; border-radius:50%; cursor:pointer; font-size:1.1rem; display:flex; align-items:center; justify-content:center; transition:background .2s; }
+.cart-close:hover { background:#e5e7eb; }
+.cart-items { flex:1; overflow-y:auto; padding:16px 24px; }
+.cart-empty { text-align:center; padding:60px 20px; color:var(--gray); }
+.cart-empty .big-ico { font-size:3rem; margin-bottom:12px; display:block; }
+.cart-item { display:flex; align-items:center; gap:14px; padding:14px 0; border-bottom:1px solid rgba(0,0,0,.06); }
+.cart-item-ico { font-size:2rem; width:48px; text-align:center; }
+.cart-item-info { flex:1; }
+.cart-item-name { font-weight:700; font-size:.95rem; margin-bottom:2px; }
+.cart-item-price { font-size:.82rem; color:var(--gray); }
+.qty-controls { display:flex; align-items:center; gap:10px; }
+.qty-btn { width:28px; height:28px; border-radius:8px; border:1.5px solid rgba(0,0,0,.12); background:white; cursor:pointer; font-size:1rem; font-weight:700; display:flex; align-items:center; justify-content:center; transition:all .15s; }
+.qty-btn:hover { background:var(--dark); color:white; border-color:var(--dark); }
+.qty-num { font-weight:700; min-width:18px; text-align:center; }
+.cart-footer { padding:20px 24px; border-top:1px solid rgba(0,0,0,.07); }
+
+/* Delivery notice in cart */
+.cart-delivery-notice {
+  background:#fffbea; border:1.5px solid var(--accent);
+  border-radius:12px; padding:12px 14px; margin-bottom:16px;
+  font-size:.82rem; line-height:1.6; color:#555;
+}
+.cart-delivery-notice strong { color:var(--dark); }
+.cart-delivery-notice .progress-bar-wrap { background:#f0e8c0; border-radius:99px; height:6px; margin-top:8px; overflow:hidden; }
+.cart-delivery-notice .progress-bar { background:var(--green); height:6px; border-radius:99px; transition:width .4s; }
+
+.cart-total-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
+.cart-total-row span { font-weight:500; color:var(--gray); }
+.cart-total-row strong { font-family:'Playfair Display',serif; font-size:1.6rem; font-weight:900; color:var(--green); }
+.checkout-btn { width:100%; padding:16px; background:var(--dark); color:white; border:none; border-radius:14px; font-family:'DM Sans',sans-serif; font-size:1rem; font-weight:700; cursor:pointer; transition:all .2s; margin-bottom:10px; }
+.checkout-btn:hover { background:var(--green); }
+.clear-btn { width:100%; padding:11px; background:transparent; color:var(--gray); border:1.5px solid rgba(0,0,0,.1); border-radius:12px; font-family:'DM Sans',sans-serif; font-size:.85rem; font-weight:600; cursor:pointer; transition:all .2s; }
+.clear-btn:hover { border-color:#ef4444; color:#ef4444; }
+
+/* WHATSAPP */
+.whatsapp-float { position:fixed; bottom:24px; right:24px; width:58px; height:58px; background:#25d366; border-radius:50%; display:flex; align-items:center; justify-content:center; color:white; font-size:26px; text-decoration:none; box-shadow:0 8px 24px rgba(37,211,102,.45); transition:transform .2s; z-index:90; }
+.whatsapp-float:hover { transform:scale(1.1); }
+
+/* FOOTER */
+footer { background:var(--dark); color:rgba(255,255,255,.55); text-align:center; padding:28px 20px; font-size:.82rem; }
+footer a { color:var(--accent); text-decoration:none; }
+
+/* TOAST */
+.toast { position:fixed; bottom:100px; left:50%; transform:translateX(-50%) translateY(20px); background:var(--dark); color:white; padding:12px 22px; border-radius:99px; font-size:.88rem; font-weight:600; opacity:0; transition:all .3s; z-index:500; white-space:nowrap; pointer-events:none; }
+.toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+
+/* RESPONSIVE */
+@media(max-width:900px) {
+  .hero { grid-template-columns:1fr; }
+  .hero-right { display:none; }
+  .hero-left { padding:60px 28px; }
+  .delivery-inner { grid-template-columns:1fr; gap:36px; }
+  nav { display:none; }
+}
+@media(max-width:600px) {
+  .hero h1 { font-size:2.3rem; }
+  .cart-panel { width:100%; }
+  .stats-band { gap:30px; }
+}
 </style>
 </head>
 <body>
 
 <div class="overlay" id="overlay" onclick="closeCart()"></div>
-
 <div class="toast" id="toast"></div>
-
-<!-- ADMIN -->
-<div class="admin-panel" id="adminPanel">
-  <div class="admin-box">
-
-    <div class="admin-head">
-      <h2>⚙️ Gestion des produits</h2>
-      <button class="close-btn" onclick="closeAdmin()">✕</button>
-    </div>
-
-    <div class="admin-grid" id="adminGrid"></div>
-
-    <button class="save-btn" onclick="saveProducts()">
-      💾 Sauvegarder les modifications
-    </button>
-
-  </div>
-</div>
 
 <!-- HEADER -->
 <header>
-
-  <div class="logo">
-    🌴 Maison <span>Kimouzz</span>
-  </div>
-
+  <div class="logo">🌴 Maison <span>Kimouzz</span></div>
   <nav>
     <a href="#boutique">Boutique</a>
-    <a href="#projet">Projet</a>
-    <a href="#avis">Avis</a>
-    <a href="#support">Support</a>
+    <a href="#livraison">Livraison</a>
+    <a href="#support">Nous soutenir</a>
   </nav>
-
-  <div class="header-right">
-
-    <button class="admin-btn" onclick="openAdmin()">
-      ⚙️ Admin
-    </button>
-
-    <button class="cart-btn" onclick="toggleCart()">
-      🧺 Panier
-      <span class="cart-count" id="count">0</span>
-    </button>
-
-  </div>
-
+  <button class="cart-btn" onclick="toggleCart()">
+    🧺 Mon panier <span class="cart-count" id="count">0</span>
+  </button>
 </header>
 
 <!-- HERO -->
 <section class="hero">
-
   <div class="hero-left">
-
-    <div class="hero-badge">
-      🌿 Produits frais · Circuit court · Mayotte
-    </div>
-
-    <h1>
-      Le vrai goût de <em>Mayotte</em>, directement chez vous
-    </h1>
-
-    <p>
-      Fruits, légumes, viandes, œufs, miel et produits locaux sélectionnés auprès des producteurs mahorais.
-      Maison Kimouzz construit un écosystème agricole et logistique local pour renforcer l’autonomie alimentaire de Mayotte.
-    </p>
-
+    <div class="hero-badge">🌿 Produits frais · Mayotte</div>
+    <h1>Le goût vrai de <em>Mayotte</em>, livré chez vous</h1>
+    <p>Maison Kimouzz sélectionne les meilleurs produits locaux — fruits, légumes, viandes, œufs — directement auprès des producteurs de l'île. Frais. Naturels. Engagés.</p>
     <div class="hero-btns">
-
-      <a href="#boutique" class="btn-primary">
-        🛒 Découvrir la boutique
-      </a>
-
-      <a href="#projet" class="btn-secondary">
-        🌍 Découvrir le projet
-      </a>
-
+      <a href="#boutique" class="btn-primary">Découvrir la boutique →</a>
+      <a href="#support" class="btn-outline">Nous soutenir</a>
     </div>
-
   </div>
-
   <div class="hero-right">
-
-    <div class="hero-grid">
-
-      <div class="hero-card">
-        <span class="hero-icon">🍌</span>
-        <span class="hero-label">Bananes</span>
-      </div>
-
-      <div class="hero-card">
-        <span class="hero-icon">🥭</span>
-        <span class="hero-label">Mangues</span>
-      </div>
-
-      <div class="hero-card">
-        <span class="hero-icon">🥥</span>
-        <span class="hero-label">Coco</span>
-      </div>
-
-      <div class="hero-card">
-        <span class="hero-icon">🍅</span>
-        <span class="hero-label">Tomates</span>
-      </div>
-
-      <div class="hero-card">
-        <span class="hero-icon">🐓</span>
-        <span class="hero-label">Volaille</span>
-      </div>
-
-      <div class="hero-card">
-        <span class="hero-icon">🍯</span>
-        <span class="hero-label">Miel</span>
-      </div>
-
+    <div class="hero-emoji-grid">
+      <div class="hero-emoji-cell"><span class="ico">🍌</span><span class="lbl">Banane</span></div>
+      <div class="hero-emoji-cell"><span class="ico">🥥</span><span class="lbl">Coco</span></div>
+      <div class="hero-emoji-cell"><span class="ico">🍅</span><span class="lbl">Tomate</span></div>
+      <div class="hero-emoji-cell"><span class="ico">🥚</span><span class="lbl">Œufs</span></div>
+      <div class="hero-emoji-cell"><span class="ico">🐓</span><span class="lbl">Poulet</span></div>
+      <div class="hero-emoji-cell"><span class="ico">🥬</span><span class="lbl">Légumes</span></div>
     </div>
-
   </div>
-
 </section>
 
 <!-- STATS -->
-<section class="stats-band">
+<div class="stats-band">
+  <div class="stat"><span class="stat-num">100%</span><span class="stat-lbl">Local & Frais</span></div>
+  <div class="stat"><span class="stat-num">4</span><span class="stat-lbl">Catégories</span></div>
+  <div class="stat"><span class="stat-num">48h</span><span class="stat-lbl">Livraison rapide</span></div>
+  <div class="stat"><span class="stat-num">60€</span><span class="stat-lbl">Min. pour livraison</span></div>
+</div>
 
-  <div class="stat">
-    <strong>100%</strong>
-    <span>Produits locaux</span>
-  </div>
+<!-- BOUTIQUE -->
+<div id="boutique" class="shop-header">
+  <h2>Notre boutique 🛒</h2>
 
-  <div class="stat">
-    <strong>48h</strong>
-    <span>Livraison rapide</span>
-  </div>
-
-  <div class="stat">
-    <strong>60€</strong>
-    <span>Livraison domicile</span>
-  </div>
-
-  <div class="stat">
-    <strong>∞</strong>
-    <span>Vision long terme</span>
-  </div>
-
-</section>
-
-<!-- SHOP -->
-<section class="shop" id="boutique">
-
-  <div class="shop-top">
-
+  <!-- Delivery Info Banner -->
+  <div class="delivery-banner">
+    <div class="db-icon">🚐</div>
     <div>
-
-      <h2 class="section-title">
-        Notre boutique 🛒
-      </h2>
-
-      <p class="section-sub">
-        Des produits frais, naturels et locaux sélectionnés avec soin à Mayotte.
+      <h4>Livraison ou retrait ?</h4>
+      <p>
+        <strong>Commande ≥ 60€ → Livraison à domicile</strong> incluse (Mayotte).<br>
+        <strong>Commande &lt; 60€ → Retrait gratuit</strong> à Chiconi · 281 route Ampadza · 97670.
       </p>
-
-      <div class="delivery-banner">
-
-        <div class="ico">🚐</div>
-
-        <div>
-
-          <h4>Livraison ou retrait</h4>
-
-          <p>
-            <strong>Commande ≥ 60€ :</strong> livraison à domicile sous 48h.<br>
-            <strong>Commande &lt; 60€ :</strong> retrait gratuit à Chiconi — 281 route Ampadza.
-          </p>
-
-        </div>
-
-      </div>
-
     </div>
-
   </div>
 
-  <div class="controls">
-
-    <div class="search">
-
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="11" cy="11" r="8"></circle>
-        <path d="m21 21-4.3-4.3"></path>
-      </svg>
-
-      <input
-        type="text"
-        id="search"
-        placeholder="Rechercher un produit..."
-        oninput="renderProducts()"
-      >
-
+  <div class="search-filter-row">
+    <div class="search-wrap">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input id="search" placeholder="Rechercher un produit..." oninput="App.render()">
     </div>
-
-    <div class="chips">
-
-      <button class="chip active" onclick="setCategory('all',this)">
-        Tous
-      </button>
-
-      <button class="chip" onclick="setCategory('fruits',this)">
-        🍌 Fruits
-      </button>
-
-      <button class="chip" onclick="setCategory('legumes',this)">
-        🥬 Légumes
-      </button>
-
-      <button class="chip" onclick="setCategory('viandes',this)">
-        🍗 Viandes
-      </button>
-
-      <button class="chip" onclick="setCategory('oeufs',this)">
-        🥚 Œufs & miel
-      </button>
-
+    <div class="cat-chips">
+      <button class="cat-chip active" onclick="setCategory('all',this)">Tous</button>
+      <button class="cat-chip" onclick="setCategory('fruits',this)">🍌 Fruits</button>
+      <button class="cat-chip" onclick="setCategory('legumes',this)">🥬 Légumes</button>
+      <button class="cat-chip" onclick="setCategory('viandes',this)">🍗 Viandes</button>
+      <button class="cat-chip" onclick="setCategory('oeufs',this)">🥚 Œufs & Miel</button>
     </div>
-
   </div>
+</div>
 
-  <br><br>
-
+<div class="products-wrap">
   <div class="products" id="products"></div>
+  <div class="no-results" id="no-results" style="display:none">Aucun produit trouvé 😕</div>
+</div>
 
-</section>
-
-<!-- PROJECT -->
-<section class="project" id="projet">
-
-  <div class="project-inner">
-
+<!-- LIVRAISON -->
+<section id="livraison" class="delivery-section">
+  <div class="delivery-inner">
     <div>
+      <h2>Livraison & Retrait 🚐</h2>
+      <p>Commandez en ligne et choisissez entre la livraison à domicile ou le retrait à notre point de collecte à Chiconi.</p>
 
-      <h2 class="section-title">
-        🌍 Le projet Maison Kimouzz
-      </h2>
-
-      <p class="section-sub" style="color:rgba(255,255,255,.7)">
-        Maison Kimouzz est plus qu’une boutique.
-        C’est un projet agro-économique intégré visant à développer une économie locale durable à Mayotte.
-      </p>
-
-      <div class="project-list">
-
-        <div class="project-item">
-          <div>🌱</div>
-          <div>
-            <strong>Agriculture locale</strong>
-            <p>Valoriser les producteurs mahorais et renforcer la souveraineté alimentaire.</p>
-          </div>
-        </div>
-
-        <div class="project-item">
-          <div>🚚</div>
-          <div>
-            <strong>Logistique & livraison</strong>
-            <p>Créer un réseau de distribution moderne et efficace à Mayotte.</p>
-          </div>
-        </div>
-
-        <div class="project-item">
-          <div>🏪</div>
-          <div>
-            <strong>Points physiques</strong>
-            <p>Développer des boutiques, restaurants, boucheries et espaces locaux.</p>
-          </div>
-        </div>
-
+      <div class="delivery-info-box">
+        <p>
+          🚚 <strong>Livraison à domicile</strong> : dès <strong>60€</strong> d'achat · délai 48h · Mayotte uniquement.<br><br>
+          📍 <strong>Retrait gratuit</strong> (commande &lt; 60€) :<br>
+          281 route Ampadza · Chiconi · 97670<br>
+          Sur rendez-vous via WhatsApp.
+        </p>
       </div>
-
+      <a href="https://wa.me/33789583650" target="_blank" class="btn-primary">Prendre rendez-vous →</a>
     </div>
-
-    <div class="project-card">
-
-      <h3 style="margin-bottom:18px">
-        🚀 Vision à long terme
-      </h3>
-
-      <p style="line-height:1.8;color:rgba(255,255,255,.75)">
-        Développer un écosystème économique mahorais connecté :
-        agriculture, élevage, pêche, transformation locale, livraison,
-        fidélité numérique et distribution moderne.
-      </p>
-
-      <br>
-
-      <p style="line-height:1.8;color:rgba(255,255,255,.75)">
-        L’objectif : garder davantage de valeur économique sur le territoire,
-        réduire la dépendance aux importations et créer des emplois locaux.
-      </p>
-
+    <div class="delivery-steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text">
+          <strong>Commandez en ligne</strong>
+          <p>Choisissez vos produits et validez via WhatsApp ou le site.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text">
+          <strong>On prépare votre panier</strong>
+          <p>Nos équipes sélectionnent les meilleurs produits du jour pour vous.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text">
+          <strong>Livraison ou retrait</strong>
+          <p>≥ 60€ : livraison chez vous sous 48h. &lt; 60€ : retrait à Chiconi (281 rte Ampadza).</p>
+        </div>
+      </div>
     </div>
-
   </div>
-
 </section>
 
-<!-- REVIEWS -->
-<section class="reviews" id="avis">
-
-  <h2 class="section-title" style="text-align:center">
-    ❤️ Ce qu'ils pensent de nous
-  </h2>
-
+<!-- AVIS -->
+<section class="reviews-section">
+  <h2>Ce qu'ils disent de nous ❤️</h2>
   <div class="reviews-grid">
-
-    <div class="review">
-
+    <div class="review-card">
       <div class="stars">★★★★★</div>
-
-      <p>
-        “Des produits très frais et une vraie qualité locale.
-        Enfin une plateforme qui valorise les producteurs mahorais.”
-      </p>
-
-      <div class="user">
-
-        <div class="avatar">👩</div>
-
-        <div>
-          <strong>Fatima O.</strong>
-          <span>Mamoudzou</span>
-        </div>
-
-      </div>
-
+      <p class="review-text">"Des produits vraiment frais, on sent que tout vient du coin. Les bananes étaient délicieuses ! Je recommande à 100%."</p>
+      <div class="reviewer"><div class="reviewer-avatar">👩</div><div><div class="reviewer-name">Fatima O.</div><div class="reviewer-loc">Mamoudzou</div></div></div>
     </div>
-
-    <div class="review">
-
+    <div class="review-card">
       <div class="stars">★★★★★</div>
-
-      <p>
-        “Livraison rapide et très bon service.
-        Les produits sont excellents.”
-      </p>
-
-      <div class="user">
-
-        <div class="avatar">👨</div>
-
-        <div>
-          <strong>Karim A.</strong>
-          <span>Koungou</span>
-        </div>
-
-      </div>
-
+      <p class="review-text">"Enfin une boutique locale sérieuse. La livraison était rapide et tout était bien emballé."</p>
+      <div class="reviewer"><div class="reviewer-avatar">👨</div><div><div class="reviewer-name">Karim A.</div><div class="reviewer-loc">Koungou</div></div></div>
     </div>
-
-    <div class="review">
-
+    <div class="review-card">
       <div class="stars">★★★★☆</div>
-
-      <p>
-        “Très belle initiative locale.
-        J’espère voir encore plus de produits bientôt.”
-      </p>
-
-      <div class="user">
-
-        <div class="avatar">👩‍🦱</div>
-
-        <div>
-          <strong>Naïma S.</strong>
-          <span>Bandraboua</span>
-        </div>
-
-      </div>
-
+      <p class="review-text">"Super initiative pour valoriser les produits mahorais. Le poulet local est bien meilleur qu'en grande surface."</p>
+      <div class="reviewer"><div class="reviewer-avatar">👩‍🦱</div><div><div class="reviewer-name">Naïma S.</div><div class="reviewer-loc">Bandraboua</div></div></div>
     </div>
-
   </div>
-
 </section>
 
 <!-- SUPPORT -->
-<section class="support" id="support">
-
+<section id="support" class="support-section">
   <div class="support-inner">
-
-    <h2 class="section-title" style="text-align:center">
-      🤝 Soutenir Maison Kimouzz
-    </h2>
-
-    <p class="section-sub" style="text-align:center">
-      Un projet mahorais pensé pour les Mahorais.
-    </p>
-
+    <h2>🤝 Nous soutenir</h2>
+    <p class="support-sub">Maison Kimouzz est un projet porté par des Mahorais, pour les Mahorais.</p>
     <div class="support-grid">
-
-      <div class="support-card">
-        <h3>🌍 Mission</h3>
-        <p>
-          Développer un circuit court alimentaire durable à Mayotte.
-        </p>
-      </div>
-
-      <div class="support-card">
-        <h3>📣 Aider le projet</h3>
-        <p>
-          Commandez, partagez le projet ou devenez partenaire local.
-        </p>
-      </div>
-
-      <div class="support-card">
-        <h3>💳 Paiements</h3>
-        <p>
-          Carte bancaire et PayPal bientôt disponibles.
-        </p>
-      </div>
-
+      <div class="support-card"><h3>🌍 Le projet</h3><p>Structurer un circuit court alimentaire local à Mayotte, valoriser les producteurs et offrir des produits sains à tous.</p></div>
+      <div class="support-card"><h3>💡 Comment aider</h3><p>🛒 Commander nos produits<br>📣 Partager autour de vous<br>🤝 Devenir partenaire ou fournisseur</p></div>
+      <div class="support-card"><h3>💳 Paiements</h3><p>Paiement par carte et PayPal bientôt disponibles. En attendant : virement ou paiement à la livraison / au retrait.</p></div>
     </div>
-
-    <div style="text-align:center;margin-top:40px">
-
-      <a href="mailto:maisonkimouzzz@gmail.com" class="btn-primary">
-        📩 Nous contacter
-      </a>
-
+    <div class="support-cta">
+      <p>📩 Une question, une idée, un partenariat ?</p>
+      <a href="mailto:maisonkimouzzz@gmail.com" class="btn-primary">Nous écrire →</a>
     </div>
-
   </div>
-
 </section>
 
 <footer>
-
-  © 2026 Maison Kimouzz · Chiconi · Mayotte ·
-  <a href="mailto:maisonkimouzzz@gmail.com">
-    maisonkimouzzz@gmail.com
-  </a>
-
+  <p>© 2025 Maison Kimouzz · 281 route Ampadza, Chiconi 97670 · <a href="mailto:maisonkimouzzz@gmail.com">maisonkimouzzz@gmail.com</a></p>
 </footer>
 
-<!-- CART -->
-<div class="cart" id="cart">
-
+<!-- CART PANEL -->
+<div class="cart-panel" id="cartPanel">
   <div class="cart-header">
-
     <h3>🧺 Mon panier</h3>
-
-    <button class="close-btn" onclick="closeCart()">
-      ✕
-    </button>
-
+    <button class="cart-close" onclick="closeCart()">✕</button>
   </div>
-
   <div class="cart-items" id="cartItems"></div>
-
   <div class="cart-footer">
-
-    <div class="delivery-box" id="deliveryBox"></div>
-
-    <div class="total">
-
+    <div class="cart-delivery-notice" id="cartDeliveryNotice"></div>
+    <div class="cart-total-row">
       <span>Total</span>
-
-      <strong id="total">
-        0€
-      </strong>
-
+      <strong id="total">0€</strong>
     </div>
-
-    <button class="checkout" onclick="checkout()">
-      Commander via WhatsApp 📲
-    </button>
-
-    <button class="clear" onclick="clearCart()">
-      Vider le panier
-    </button>
-
+    <button class="checkout-btn" onclick="checkout()">Commander via WhatsApp 📲</button>
+    <button class="clear-btn" onclick="App.clear()">Vider le panier</button>
   </div>
-
 </div>
 
-<!-- FLOAT -->
-<a
-  href="https://wa.me/33789583650"
-  target="_blank"
-  class="whatsapp"
->
-  💬
-</a>
+<a class="whatsapp-float" href="https://wa.me/33789583650" target="_blank" title="WhatsApp">💬</a>
 
 <script>
-
 const DELIVERY_MIN = 60;
+const PICKUP_ADDRESS = "281 route Ampadza, Chiconi 97670";
 
-let currentCategory = 'all';
-
-const defaultProducts = [
-
-{
-  id:1,
-  name:"Banane locale",
-  price:20,
-  stock:12,
-  icon:"🍌",
-  cat:"fruits",
-  badge:"Populaire",
-  desc:"Bananes fraîches récoltées localement."
-},
-
-{
-  id:2,
-  name:"Mangue",
-  price:15,
-  stock:8,
-  icon:"🥭",
-  cat:"fruits",
-  badge:"Saison",
-  desc:"Mangues sucrées de saison."
-},
-
-{
-  id:3,
-  name:"Noix de coco",
-  price:12,
-  stock:20,
-  icon:"🥥",
-  cat:"fruits",
-  badge:null,
-  desc:"Cocos fraîches de Mayotte."
-},
-
-{
-  id:4,
-  name:"Tomate",
-  price:5,
-  stock:35,
-  icon:"🍅",
-  cat:"legumes",
-  badge:null,
-  desc:"Tomates rouges cultivées localement."
-},
-
-{
-  id:5,
-  name:"Salade verte",
-  price:3,
-  stock:15,
-  icon:"🥬",
-  cat:"legumes",
-  badge:null,
-  desc:"Laitues fraîches du jour."
-},
-
-{
-  id:6,
-  name:"Concombre",
-  price:4,
-  stock:6,
-  icon:"🥒",
-  cat:"legumes",
-  badge:null,
-  desc:"Concombres frais et croquants."
-},
-
-{
-  id:7,
-  name:"Poule locale",
-  price:10,
-  stock:10,
-  icon:"🐓",
-  cat:"viandes",
-  badge:"Local",
-  desc:"Volaille locale élevée à Mayotte."
-},
-
-{
-  id:8,
-  name:"Cabri",
-  price:45,
-  stock:4,
-  icon:"🐐",
-  cat:"viandes",
-  badge:"Festif",
-  desc:"Cabri de Mayotte."
-},
-
-{
-  id:9,
-  name:"Œufs x12",
-  price:8,
-  stock:30,
-  icon:"🥚",
-  cat:"oeufs",
-  badge:null,
-  desc:"Œufs frais de poules locales."
-},
-
-{
-  id:10,
-  name:"Miel local",
-  price:18,
-  stock:7,
-  icon:"🍯",
-  cat:"oeufs",
-  badge:"Artisanal",
-  desc:"Miel artisanal de Mayotte."
-}
-
+const PRODUCTS = [
+  // Fruits
+  { id:1,  name:"Banane locale",   price:20, icon:"🍌", cat:"fruits",  desc:"Régime entier de bananes fraîches de Mayotte.", badge:"Populaire" },
+  { id:2,  name:"Noix de coco",    price:12, icon:"🥥", cat:"fruits",  desc:"Cocos fraîches récoltées localement.", badge:null },
+  { id:3,  name:"Mangue",          price:15, icon:"🥭", cat:"fruits",  desc:"Mangues sucrées de saison.", badge:"Saison" },
+  { id:4,  name:"Papaye",          price:8,  icon:"🍐", cat:"fruits",  desc:"Papayes mûres à point, cultivées à Mayotte.", badge:null },
+  { id:5,  name:"Ananas",          price:10, icon:"🍍", cat:"fruits",  desc:"Ananas frais et juteux.", badge:null },
+  // Légumes
+  { id:6,  name:"Tomate",          price:5,  icon:"🍅", cat:"legumes", desc:"Tomates rouges cultivées localement.", badge:null },
+  { id:7,  name:"Salade verte",    price:3,  icon:"🥬", cat:"legumes", desc:"Laitue fraîche du jour.", badge:null },
+  { id:8,  name:"Concombre",       price:4,  icon:"🥒", cat:"legumes", desc:"Concombres frais et croquants.", badge:null },
+  { id:9,  name:"Aubergine",       price:4,  icon:"🫙", cat:"legumes", desc:"Aubergines locales fermes.", badge:null },
+  { id:10, name:"Piment",          price:3,  icon:"🌶️", cat:"legumes", desc:"Piments frais, variétés locales.", badge:"Épicé" },
+  // Viandes
+  { id:11, name:"Poule locale",    price:10, icon:"🐓", cat:"viandes", desc:"Poulet élevé en plein air à Mayotte.", badge:"Local" },
+  { id:12, name:"Canard",          price:35, icon:"🦆", cat:"viandes", desc:"Canard entier, élevage local.", badge:null },
+  { id:13, name:"Cabri",           price:45, icon:"🐐", cat:"viandes", desc:"Cabri de Mayotte, idéal pour le rougail.", badge:"Festif" },
+  // Oeufs & Miel
+  { id:14, name:"Œufs (x12)",      price:8,  icon:"🥚", cat:"oeufs",  desc:"Œufs frais de poules locales.", badge:null },
+  { id:15, name:"Miel local",      price:18, icon:"🍯", cat:"oeufs",  desc:"Miel artisanal de Mayotte.", badge:"Artisanal" },
 ];
 
-function loadProducts(){
+let currentCat = "all";
 
-  const saved = localStorage.getItem('mk_products');
-
-  if(saved){
-    return JSON.parse(saved);
-  }
-
-  return defaultProducts;
-
-}
-
-let PRODUCTS = loadProducts();
-
-let cart = JSON.parse(localStorage.getItem('mk_cart')) || [];
-
-function saveProductsData(){
-  localStorage.setItem('mk_products', JSON.stringify(PRODUCTS));
-}
-
-function saveCart(){
-  localStorage.setItem('mk_cart', JSON.stringify(cart));
-}
-
-function setCategory(cat,el){
-
-  currentCategory = cat;
-
-  document.querySelectorAll('.chip').forEach(btn=>{
-    btn.classList.remove('active');
-  });
-
+function setCategory(cat, el) {
+  currentCat = cat;
+  document.querySelectorAll('.cat-chip').forEach(c => c.classList.remove('active'));
   el.classList.add('active');
-
-  renderProducts();
-
+  App.render();
 }
 
-function renderProducts(){
-
-  const box = document.getElementById('products');
-
-  const q = document.getElementById('search').value.toLowerCase().trim();
-
-  box.innerHTML = '';
-
-  const labels = {
-    fruits:'Fruits',
-    legumes:'Légumes',
-    viandes:'Viandes',
-    oeufs:'Œufs & miel'
-  };
-
-  const filtered = PRODUCTS.filter(p=>{
-
-    const matchCat = currentCategory === 'all' || p.cat === currentCategory;
-
-    const matchSearch =
-      p.name.toLowerCase().includes(q) ||
-      p.desc.toLowerCase().includes(q);
-
-    return matchCat && matchSearch;
-
-  });
-
-  filtered.forEach(p=>{
-
-    let stockClass = 'good';
-    let stockLabel = 'En stock';
-
-    if(p.stock <= 5){
-      stockClass = 'low';
-      stockLabel = 'Stock faible';
-    }
-
-    if(p.stock <= 0){
-      stockClass = 'out';
-      stockLabel = 'Rupture';
-    }
-
-    const div = document.createElement('div');
-
-    div.className = 'card';
-
-    div.innerHTML = `
-
-      <div class="card-top">
-
-        <div class="card-icon">${p.icon}</div>
-
-        ${p.badge ? `<div class="badge">${p.badge}</div>` : ''}
-
-      </div>
-
-      <div class="card-body">
-
-        <div class="card-category">
-          ${labels[p.cat]}
-        </div>
-
-        <div class="card-title">
-          ${p.name}
-        </div>
-
-        <div class="card-desc">
-          ${p.desc}
-        </div>
-
-        <div class="stock ${stockClass}">
-          ● ${stockLabel} (${p.stock})
-        </div>
-
-        <div class="card-footer">
-
-          <div class="price">
-            ${p.price}€ <span>/ unité</span>
-          </div>
-
-          <button
-            class="add-btn"
-            onclick="addToCart(${p.id})"
-            ${p.stock <= 0 ? 'disabled' : ''}
-          >
-            +
-          </button>
-
-        </div>
-
-      </div>
-
-    `;
-
-    box.appendChild(div);
-
-  });
-
+function loadCart() {
+  try { return JSON.parse(localStorage.getItem("mk_cart2")) || []; }
+  catch(e) { return []; }
 }
 
-function addToCart(id){
+const App = {
+  cart: loadCart(),
 
-  const p = PRODUCTS.find(x=>x.id === id);
+  save() { localStorage.setItem("mk_cart2", JSON.stringify(this.cart)); },
 
-  if(!p || p.stock <= 0){
-    return;
-  }
+  add(id) {
+    const p = PRODUCTS.find(x => x.id === id);
+    if (!p) return;
+    const item = this.cart.find(i => i.id === id);
+    if (item) item.qty++;
+    else this.cart.push({ id, name:p.name, price:p.price, icon:p.icon, qty:1 });
+    this.save();
+    this.renderCart();
+    showToast(p.icon + " " + p.name + " ajouté !");
+    const btn = document.getElementById('addbtn-' + id);
+    if (btn) { btn.classList.add('added'); setTimeout(() => btn.classList.remove('added'), 350); }
+  },
 
-  p.stock--;
+  change(id, delta) {
+    const item = this.cart.find(i => i.id === id);
+    if (!item) return;
+    item.qty += delta;
+    if (item.qty <= 0) this.cart = this.cart.filter(i => i.id !== id);
+    this.save();
+    this.renderCart();
+  },
 
-  const item = cart.find(i=>i.id === id);
+  clear() {
+    this.cart = [];
+    this.save();
+    this.renderCart();
+  },
 
-  if(item){
-    item.qty++;
-  }else{
-    cart.push({
-      id:p.id,
-      name:p.name,
-      price:p.price,
-      icon:p.icon,
-      qty:1
-    });
-  }
+  render() {
+    const q = (document.getElementById('search').value || '').trim().toLowerCase();
+    const box = document.getElementById('products');
+    const noRes = document.getElementById('no-results');
+    box.innerHTML = '';
 
-  saveProductsData();
-  saveCart();
-
-  renderProducts();
-  renderCart();
-
-  toast(`${p.icon} ${p.name} ajouté au panier`);
-
-}
-
-function changeQty(id,delta){
-
-  const item = cart.find(i=>i.id === id);
-
-  if(!item){
-    return;
-  }
-
-  const product = PRODUCTS.find(p=>p.id === id);
-
-  item.qty += delta;
-
-  if(delta < 0){
-    product.stock++;
-  }
-
-  if(delta > 0){
-
-    if(product.stock <= 0){
-      toast("Stock insuffisant");
-      item.qty--;
-      return;
-    }
-
-    product.stock--;
-
-  }
-
-  if(item.qty <= 0){
-    cart = cart.filter(i=>i.id !== id);
-  }
-
-  saveCart();
-  saveProductsData();
-
-  renderProducts();
-  renderCart();
-
-}
-
-function renderCart(){
-
-  const box = document.getElementById('cartItems');
-
-  box.innerHTML = '';
-
-  if(cart.length === 0){
-
-    box.innerHTML = `
-      <div class="cart-empty">
-        <div class="big">🛒</div>
-        Votre panier est vide
-      </div>
-    `;
-
-  }else{
-
-    cart.forEach(item=>{
-
-      const div = document.createElement('div');
-
-      div.className = 'cart-item';
-
-      div.innerHTML = `
-
-        <div class="cart-ico">
-          ${item.icon}
-        </div>
-
-        <div class="cart-info">
-
-          <div class="cart-name">
-            ${item.name}
-          </div>
-
-          <div class="cart-price">
-            ${item.price}€ × ${item.qty} = ${item.price * item.qty}€
-          </div>
-
-        </div>
-
-        <div class="qty">
-
-          <button onclick="changeQty(${item.id},-1)">
-            −
-          </button>
-
-          <strong>${item.qty}</strong>
-
-          <button onclick="changeQty(${item.id},1)">
-            +
-          </button>
-
-        </div>
-
-      `;
-
-      box.appendChild(div);
-
+    const filtered = PRODUCTS.filter(p => {
+      const matchCat = currentCat === 'all' || p.cat === currentCat;
+      const matchQ = !q || p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q);
+      return matchCat && matchQ;
     });
 
-  }
+    if (filtered.length === 0) { noRes.style.display = 'block'; return; }
+    noRes.style.display = 'none';
 
-  const total = cart.reduce((t,i)=>t + (i.price * i.qty),0);
+    const catLabel = { fruits:'Fruits', legumes:'Légumes', viandes:'Viandes', oeufs:'Œufs & Miel' };
 
-  document.getElementById('total').textContent = total + '€';
+    filtered.forEach((p, idx) => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.style.animationDelay = (idx * 0.05) + 's';
+      card.innerHTML =
+        '<div class="card-image">' +
+          '<span class="card-emoji">' + p.icon + '</span>' +
+          (p.badge ? '<span class="card-badge">' + p.badge + '</span>' : '') +
+        '</div>' +
+        '<div class="card-body">' +
+          '<div class="card-cat">' + catLabel[p.cat] + '</div>' +
+          '<div class="card-name">' + p.name + '</div>' +
+          '<div class="card-desc">' + p.desc + '</div>' +
+          '<div class="card-footer">' +
+            '<div class="price">' + p.price + '€<span> / unité</span></div>' +
+            '<button class="add-btn" id="addbtn-' + p.id + '" title="Ajouter">+</button>' +
+          '</div>' +
+        '</div>';
+      card.querySelector('.add-btn').addEventListener('click', () => App.add(p.id));
+      box.appendChild(card);
+    });
+  },
 
-  document.getElementById('count').textContent =
-    cart.reduce((a,b)=>a+b.qty,0);
+  renderCart() {
+    const box = document.getElementById('cartItems');
+    box.innerHTML = '';
 
-  const boxDelivery = document.getElementById('deliveryBox');
-
-  if(cart.length === 0){
-
-    boxDelivery.style.display = 'none';
-
-  }else{
-
-    boxDelivery.style.display = 'block';
-
-    const remain = DELIVERY_MIN - total;
-
-    const percent = Math.min(100,(total / DELIVERY_MIN) * 100);
-
-    if(remain > 0){
-
-      boxDelivery.innerHTML = `
-        🛍️ Plus que <strong>${remain}€</strong>
-        pour débloquer la livraison à domicile.
-
-        <div class="progress">
-          <div style="width:${percent}%"></div>
-        </div>
-      `;
-
-    }else{
-
-      boxDelivery.innerHTML = `
-        ✅ Livraison à domicile incluse !
-      `;
-
+    if (this.cart.length === 0) {
+      box.innerHTML =
+        '<div class="cart-empty">' +
+          '<span class="big-ico">🛒</span>' +
+          'Votre panier est vide.<br>Ajoutez des produits !' +
+        '</div>';
+    } else {
+      this.cart.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'cart-item';
+        div.innerHTML =
+          '<div class="cart-item-ico">' + item.icon + '</div>' +
+          '<div class="cart-item-info">' +
+            '<div class="cart-item-name">' + item.name + '</div>' +
+            '<div class="cart-item-price">' + item.price + '€ × ' + item.qty + ' = ' + (item.price * item.qty) + '€</div>' +
+          '</div>' +
+          '<div class="qty-controls">' +
+            '<button class="qty-btn" data-id="' + item.id + '" data-d="-1">−</button>' +
+            '<span class="qty-num">' + item.qty + '</span>' +
+            '<button class="qty-btn" data-id="' + item.id + '" data-d="1">+</button>' +
+          '</div>';
+        div.querySelectorAll('.qty-btn').forEach(btn => {
+          btn.addEventListener('click', () => App.change(Number(btn.dataset.id), Number(btn.dataset.d)));
+        });
+        box.appendChild(div);
+      });
     }
 
-  }
+    const total = this.cart.reduce((t, i) => t + i.price * i.qty, 0);
+    document.getElementById('total').textContent = total + '€';
+    document.getElementById('count').textContent = this.cart.reduce((a, b) => a + b.qty, 0);
 
-}
-
-function clearCart(){
-
-  cart.forEach(item=>{
-
-    const p = PRODUCTS.find(x=>x.id === item.id);
-
-    if(p){
-      p.stock += item.qty;
+    // Delivery notice
+    const notice = document.getElementById('cartDeliveryNotice');
+    if (this.cart.length === 0) {
+      notice.style.display = 'none';
+    } else {
+      notice.style.display = 'block';
+      const remaining = DELIVERY_MIN - total;
+      const pct = Math.min(100, Math.round((total / DELIVERY_MIN) * 100));
+      if (remaining > 0) {
+        notice.innerHTML =
+          '🛍️ Plus que <strong>' + remaining + '€</strong> pour bénéficier de la <strong>livraison à domicile</strong>.' +
+          '<div class="progress-bar-wrap"><div class="progress-bar" style="width:' + pct + '%"></div></div>';
+      } else {
+        notice.innerHTML = '✅ <strong>Livraison à domicile offerte !</strong> Votre commande sera livrée sous 48h.';
+        notice.style.background = '#f0fff4';
+        notice.style.borderColor = 'var(--green)';
+      }
     }
-
-  });
-
-  cart = [];
-
-  saveCart();
-  saveProductsData();
-
-  renderProducts();
-  renderCart();
-
-}
-
-function checkout(){
-
-  if(cart.length === 0){
-    toast("Votre panier est vide");
-    return;
   }
+};
 
-  const total = cart.reduce((t,i)=>t + (i.price * i.qty),0);
-
-  const mode = total >= DELIVERY_MIN
-    ? 'Livraison à domicile'
-    : 'Retrait à Chiconi';
-
-  const lines = cart.map(i=>
-    `• ${i.icon} ${i.name} x${i.qty} = ${i.price * i.qty}€`
-  ).join('%0A');
-
-  const message =
-    `Bonjour Maison Kimouzz 🌴%0A%0A` +
-    `Je souhaite commander :%0A` +
-    lines +
-    `%0A%0ATotal : ${total}€` +
-    `%0A${mode}` +
-    `%0A%0AMerci !`;
-
-  window.open(
-    `https://wa.me/33789583650?text=${message}`,
-    '_blank'
-  );
-
-}
-
-function openCart(){
-
-  document.getElementById('cart').classList.add('open');
-
+function openCart() {
+  document.getElementById('cartPanel').classList.add('open');
   document.getElementById('overlay').style.display = 'block';
-
 }
-
-function closeCart(){
-
-  document.getElementById('cart').classList.remove('open');
-
+function closeCart() {
+  document.getElementById('cartPanel').classList.remove('open');
   document.getElementById('overlay').style.display = 'none';
-
+}
+function toggleCart() {
+  document.getElementById('cartPanel').classList.contains('open') ? closeCart() : openCart();
 }
 
-function toggleCart(){
-
-  document.getElementById('cart').classList.contains('open')
-    ? closeCart()
-    : openCart();
-
-}
-
-function toast(msg){
-
+function showToast(msg) {
   const t = document.getElementById('toast');
-
   t.textContent = msg;
-
   t.classList.add('show');
-
-  setTimeout(()=>{
-    t.classList.remove('show');
-  },2200);
-
+  setTimeout(() => t.classList.remove('show'), 2400);
 }
 
-/* ================= ADMIN ================= */
-
-function openAdmin(){
-
-  document.getElementById('adminPanel').style.display = 'flex';
-
-  renderAdmin();
-
+function checkout() {
+  if (App.cart.length === 0) { showToast("Votre panier est vide !"); return; }
+  const total = App.cart.reduce((t, i) => t + i.price * i.qty, 0);
+  const mode = total >= DELIVERY_MIN
+    ? "Livraison à domicile (commande ≥ 60€)"
+    : "Retrait à Chiconi · 281 route Ampadza · 97670";
+  const lines = App.cart.map(i => "• " + i.icon + " " + i.name + " x" + i.qty + " = " + (i.price * i.qty) + "€").join("%0A");
+  const msg = "Bonjour Maison Kimouzz ! 🌴%0A%0AJe souhaite commander :%0A" + lines + "%0A%0ATotal : " + total + "€%0AMode : " + mode + "%0A%0AMerci !";
+  window.open('https://wa.me/33789583650?text=' + msg, '_blank');
 }
 
-function closeAdmin(){
-
-  document.getElementById('adminPanel').style.display = 'none';
-
-}
-
-function renderAdmin(){
-
-  const grid = document.getElementById('adminGrid');
-
-  grid.innerHTML = '';
-
-  PRODUCTS.forEach((p,index)=>{
-
-    const div = document.createElement('div');
-
-    div.className = 'admin-card';
-
-    div.innerHTML = `
-
-      <label>Nom</label>
-      <input value="${p.name}" data-field="name" data-index="${index}">
-
-      <label>Prix (€)</label>
-      <input type="number" value="${p.price}" data-field="price" data-index="${index}">
-
-      <label>Stock</label>
-      <input type="number" value="${p.stock}" data-field="stock" data-index="${index}">
-
-      <label>Emoji</label>
-      <input value="${p.icon}" data-field="icon" data-index="${index}">
-
-      <label>Catégorie</label>
-
-      <select data-field="cat" data-index="${index}">
-
-        <option value="fruits" ${p.cat === 'fruits' ? 'selected':''}>
-          Fruits
-        </option>
-
-        <option value="legumes" ${p.cat === 'legumes' ? 'selected':''}>
-          Légumes
-        </option>
-
-        <option value="viandes" ${p.cat === 'viandes' ? 'selected':''}>
-          Viandes
-        </option>
-
-        <option value="oeufs" ${p.cat === 'oeufs' ? 'selected':''}>
-          Œufs
-        </option>
-
-      </select>
-
-      <label>Description</label>
-      <textarea data-field="desc" data-index="${index}">${p.desc}</textarea>
-
-    `;
-
-    grid.appendChild(div);
-
-  });
-
-}
-
-function saveProducts(){
-
-  document.querySelectorAll('[data-field]').forEach(input=>{
-
-    const index = input.dataset.index;
-
-    const field = input.dataset.field;
-
-    let value = input.value;
-
-    if(field === 'price' || field === 'stock'){
-      value = Number(value);
-    }
-
-    PRODUCTS[index][field] = value;
-
-  });
-
-  saveProductsData();
-
-  renderProducts();
-
-  closeAdmin();
-
-  toast('Produits mis à jour');
-
-}
-
-/* INIT */
-
-renderProducts();
-renderCart();
-
+// INIT
+App.render();
+App.renderCart();
 </script>
-
 </body>
-              </html>
+</html>
