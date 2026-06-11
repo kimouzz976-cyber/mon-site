@@ -188,6 +188,18 @@ nav a:hover { color:var(--dark); }
 .stock-0  { color:#ef4444; border-color:#fca5a5; }
 .stock-low { color:#d97706; border-color:#fcd34d; }
 
+/* UNIT BADGE on card */
+.unit-tag {
+  font-family:'DM Sans',sans-serif; font-size:.72rem;
+  color:var(--gray); font-weight:400;
+}
+/* Unit select in admin */
+.unit-select {
+  padding:6px 8px; border-radius:8px; border:1.5px solid rgba(0,0,0,.12);
+  font-family:'DM Sans',sans-serif; font-size:.82rem; outline:none;
+  background:white; min-width:90px;
+}
+
 /* DELIVERY SECTION */
 .delivery-section { background:var(--dark); color:white; padding:70px 24px; }
 .delivery-inner { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
@@ -805,6 +817,7 @@ footer a { color:var(--accent); text-decoration:none; }
               <th style="width:130px">Catégorie</th>
               <th style="width:100px">Prix (€)</th>
               <th style="width:90px">Stock</th>
+              <th style="width:110px">Unité</th>
               <th>Description</th>
               <th style="width:120px">Badge</th>
               <th style="width:90px">Action</th>
@@ -844,6 +857,24 @@ footer a { color:var(--accent); text-decoration:none; }
             <input type="number" id="newStock" placeholder="10" min="0" step="1">
           </div>
           <div class="form-group">
+            <label>Unité de vente</label>
+            <select id="newUnit">
+              <option value="unité">Unité</option>
+              <option value="kg">kg</option>
+              <option value="g">g</option>
+              <option value="litre">Litre</option>
+              <option value="ml">ml</option>
+              <option value="lot">Lot</option>
+              <option value="caisse">Caisse</option>
+              <option value="panier">Panier</option>
+              <option value="sac">Sac</option>
+              <option value="barquette">Barquette</option>
+              <option value="régime">Régime</option>
+              <option value="pot">Pot</option>
+              <option value="bouquet">Bouquet</option>
+            </select>
+          </div>
+          <div class="form-group">
             <label>Badge (optionnel)</label>
             <select id="newBadge">
               <option value="">— Aucun —</option>
@@ -874,21 +905,21 @@ const DELIVERY_MIN = 60;
 const PICKUP_ADDRESS = "281 route Ampadza, Chiconi 97670";
 
 const PRODUCTS = [
-  { id:1,  name:"Banane locale",   price:20, icon:"🍌", cat:"fruits",  desc:"Régime entier de bananes fraîches de Mayotte.", badge:"Populaire", stock:10 },
-  { id:2,  name:"Noix de coco",    price:12, icon:"🥥", cat:"fruits",  desc:"Cocos fraîches récoltées localement.", badge:null, stock:8 },
-  { id:3,  name:"Mangue",          price:15, icon:"🥭", cat:"fruits",  desc:"Mangues sucrées de saison.", badge:"Saison", stock:3 },
-  { id:4,  name:"Papaye",          price:8,  icon:"🍐", cat:"fruits",  desc:"Papayes mûres à point, cultivées à Mayotte.", badge:null, stock:0 },
-  { id:5,  name:"Ananas",          price:10, icon:"🍍", cat:"fruits",  desc:"Ananas frais et juteux.", badge:null, stock:6 },
-  { id:6,  name:"Tomate",          price:5,  icon:"🍅", cat:"legumes", desc:"Tomates rouges cultivées localement.", badge:null, stock:15 },
-  { id:7,  name:"Salade verte",    price:3,  icon:"🥬", cat:"legumes", desc:"Laitue fraîche du jour.", badge:null, stock:2 },
-  { id:8,  name:"Concombre",       price:4,  icon:"🥒", cat:"legumes", desc:"Concombres frais et croquants.", badge:null, stock:9 },
-  { id:9,  name:"Aubergine",       price:4,  icon:"🫙", cat:"legumes", desc:"Aubergines locales fermes.", badge:null, stock:0 },
-  { id:10, name:"Piment",          price:3,  icon:"🌶️", cat:"legumes", desc:"Piments frais, variétés locales.", badge:"Épicé", stock:20 },
-  { id:11, name:"Poule locale",    price:10, icon:"🐓", cat:"viandes", desc:"Poulet élevé en plein air à Mayotte.", badge:"Local", stock:4 },
-  { id:12, name:"Canard",          price:35, icon:"🦆", cat:"viandes", desc:"Canard entier, élevage local.", badge:null, stock:1 },
-  { id:13, name:"Cabri",           price:45, icon:"🐐", cat:"viandes", desc:"Cabri de Mayotte, idéal pour le rougail.", badge:"Festif", stock:0 },
-  { id:14, name:"Œufs (x12)",      price:8,  icon:"🥚", cat:"oeufs",  desc:"Œufs frais de poules locales.", badge:null, stock:12 },
-  { id:15, name:"Miel local",      price:18, icon:"🍯", cat:"oeufs",  desc:"Miel artisanal de Mayotte.", badge:"Artisanal", stock:5 },
+  { id:1,  name:"Banane locale",   price:20, icon:"🍌", cat:"fruits",  desc:"Régime entier de bananes fraîches de Mayotte.", badge:"Populaire", stock:10, unit:"régime" },
+  { id:2,  name:"Noix de coco",    price:12, icon:"🥥", cat:"fruits",  desc:"Cocos fraîches récoltées localement.", badge:null, stock:8, unit:"unité" },
+  { id:3,  name:"Mangue",          price:15, icon:"🥭", cat:"fruits",  desc:"Mangues sucrées de saison.", badge:"Saison", stock:3, unit:"kg" },
+  { id:4,  name:"Papaye",          price:8,  icon:"🍐", cat:"fruits",  desc:"Papayes mûres à point, cultivées à Mayotte.", badge:null, stock:0, unit:"unité" },
+  { id:5,  name:"Ananas",          price:10, icon:"🍍", cat:"fruits",  desc:"Ananas frais et juteux.", badge:null, stock:6, unit:"unité" },
+  { id:6,  name:"Tomate",          price:5,  icon:"🍅", cat:"legumes", desc:"Tomates rouges cultivées localement.", badge:null, stock:15, unit:"kg" },
+  { id:7,  name:"Salade verte",    price:3,  icon:"🥬", cat:"legumes", desc:"Laitue fraîche du jour.", badge:null, stock:2, unit:"unité" },
+  { id:8,  name:"Concombre",       price:4,  icon:"🥒", cat:"legumes", desc:"Concombres frais et croquants.", badge:null, stock:9, unit:"unité" },
+  { id:9,  name:"Aubergine",       price:4,  icon:"🫙", cat:"legumes", desc:"Aubergines locales fermes.", badge:null, stock:0, unit:"unité" },
+  { id:10, name:"Piment",          price:3,  icon:"🌶️", cat:"legumes", desc:"Piments frais, variétés locales.", badge:"Épicé", stock:20, unit:"g" },
+  { id:11, name:"Poule locale",    price:10, icon:"🐓", cat:"viandes", desc:"Poulet élevé en plein air à Mayotte.", badge:"Local", stock:4, unit:"unité" },
+  { id:12, name:"Canard",          price:35, icon:"🦆", cat:"viandes", desc:"Canard entier, élevage local.", badge:null, stock:1, unit:"unité" },
+  { id:13, name:"Cabri",           price:45, icon:"🐐", cat:"viandes", desc:"Cabri de Mayotte, idéal pour le rougail.", badge:"Festif", stock:0, unit:"kg" },
+  { id:14, name:"Œufs (x12)",      price:8,  icon:"🥚", cat:"oeufs",  desc:"Œufs frais de poules locales.", badge:null, stock:12, unit:"lot" },
+  { id:15, name:"Miel local",      price:18, icon:"🍯", cat:"oeufs",  desc:"Miel artisanal de Mayotte.", badge:"Artisanal", stock:5, unit:"pot" },
 ];
 
 let currentCat = "all";
@@ -916,7 +947,7 @@ const App = {
     if (p.stock === 0) { showToast('❌ ' + p.name + ' est en rupture de stock !'); return; }
     const item = this.cart.find(i => i.id === id);
     if (item) item.qty++;
-    else this.cart.push({ id, name:p.name, price:p.price, icon:p.icon, qty:1 });
+    else this.cart.push({ id, name:p.name, price:p.price, icon:p.icon, unit:(p.unit||'unité'), qty:1 });
     this.save();
     this.renderCart();
     showToast(p.icon + " " + p.name + " ajouté !");
@@ -977,7 +1008,7 @@ const App = {
           '<div class="card-desc">' + p.desc + '</div>' +
           '<span class="stock-pill ' + stockPillClass + '">' + stockPillText + '</span>' +
           '<div class="card-footer">' +
-            '<div class="price">' + p.price + '€<span> / unité</span></div>' +
+            '<div class="price">' + p.price + '€<span class="unit-tag"> / ' + (p.unit||'unité') + '</span></div>' +
             '<button class="add-btn" id="addbtn-' + p.id + '" title="Ajouter"' + (outOfStock ? ' disabled' : '') + '>+</button>' +
           '</div>' +
         '</div>';
@@ -1004,7 +1035,7 @@ const App = {
           '<div class="cart-item-ico">' + item.icon + '</div>' +
           '<div class="cart-item-info">' +
             '<div class="cart-item-name">' + item.name + '</div>' +
-            '<div class="cart-item-price">' + item.price + '€ × ' + item.qty + ' = ' + (item.price * item.qty) + '€</div>' +
+            '<div class="cart-item-price">' + item.price + '€/' + (item.unit||'unité') + ' × ' + item.qty + ' = ' + (item.price * item.qty) + '€</div>' +
           '</div>' +
           '<div class="qty-controls">' +
             '<button class="qty-btn" data-id="' + item.id + '" data-d="-1">−</button>' +
@@ -1067,7 +1098,7 @@ function checkout() {
   const mode = total >= DELIVERY_MIN
     ? "Livraison à domicile (commande ≥ 60€)"
     : "Retrait à Chiconi · 281 route Ampadza · 97670";
-  const lines = App.cart.map(i => "• " + i.icon + " " + i.name + " x" + i.qty + " = " + (i.price * i.qty) + "€").join("%0A");
+  const lines = App.cart.map(i => "• " + i.icon + " " + i.name + " x" + i.qty + " " + (i.unit||'unité') + " = " + (i.price * i.qty) + "€").join("%0A");
   const msg = "Bonjour Maison Kimouzz ! 🌴%0A%0AJe souhaite commander :%0A" + lines + "%0A%0ATotal : " + total + "€%0AMode : " + mode + "%0A%0AMerci !";
   window.open('https://wa.me/33789583650?text=' + msg, '_blank');
 }
@@ -1231,6 +1262,7 @@ function closeAdmin() {
   App.renderCart();
 }
 
+const UNIT_OPTIONS = ['unité','kg','g','litre','ml','lot','caisse','panier','sac','barquette','régime','pot','bouquet'];
 const CAT_LABELS = { fruits:'🍌 Fruits', legumes:'🥬 Légumes', viandes:'🍗 Viandes', oeufs:'🥚 Œufs & Miel' };
 const BADGE_OPTIONS = ['','Nouveau','Populaire','Saison','Local','Festif','Artisanal','Épicé','Promo'];
 
@@ -1251,6 +1283,11 @@ const Admin = {
         '</td>' +
         '<td><input class="price-input" type="number" min="0" step="0.5" data-id="' + p.id + '" data-field="price" value="' + p.price + '"></td>' +
         '<td><input class="stock-input ' + ((p.stock??99)===0?'stock-0':(p.stock??99)<=3?'stock-low':'') + '" type="number" min="0" step="1" data-id="' + p.id + '" data-field="stock" value="' + (p.stock??0) + '"></td>' +
+        '<td>' +
+          '<select class="unit-select" data-id="' + p.id + '" data-field="unit">' +
+            UNIT_OPTIONS.map(u => '<option value="' + u + '"' + ((p.unit||'unité')===u?' selected':'') + '>' + u + '</option>').join('') +
+          '</select>' +
+        '</td>' +
         '<td><input class="name-input" data-id="' + p.id + '" data-field="desc" value="' + p.desc + '"></td>' +
         '<td>' +
           '<select class="badge-select" data-id="' + p.id + '" data-field="badge">' +
@@ -1295,6 +1332,7 @@ const Admin = {
     const cat  = document.getElementById('newCat').value;
     const price = parseFloat(document.getElementById('newPrice').value);
     const stock = parseInt(document.getElementById('newStock').value) || 0;
+    const unit  = document.getElementById('newUnit').value || 'unité';
     const desc  = document.getElementById('newDesc').value.trim();
     const badge = document.getElementById('newBadge').value || null;
 
@@ -1303,10 +1341,11 @@ const Admin = {
       return;
     }
     const newId = Math.max(0, ...PRODUCTS.map(p => p.id)) + 1;
-    PRODUCTS.push({ id: newId, name, price, icon, cat, desc, badge, stock });
+    PRODUCTS.push({ id: newId, name, price, icon, cat, desc, badge, stock, unit });
     this.renderTable();
     ['newIcon','newName','newPrice','newStock','newDesc'].forEach(id => document.getElementById(id).value = '');
     document.getElementById('newBadge').value = '';
+    document.getElementById('newUnit').value = 'unité';
     showToast('✅ ' + icon + ' ' + name + ' ajouté !');
   },
 
@@ -1319,6 +1358,7 @@ const Admin = {
       if (field === 'price') p.price = parseFloat(el.value) || 0;
       else if (field === 'stock') p.stock = parseInt(el.value) || 0;
       else if (field === 'badge') p.badge = el.value || null;
+      else if (field === 'unit') p.unit = el.value || 'unité';
       else p[field] = el.value;
     });
     localStorage.setItem("mk_products", JSON.stringify(PRODUCTS));
@@ -1331,4 +1371,4 @@ App.render();
 App.renderCart();
 </script>
 </body>
-  </html>
+      </html>
